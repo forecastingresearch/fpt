@@ -1,0 +1,11 @@
+.content_size {
+	width: 80vw;
+}
+
+#jspsych-survey-multi-choice-form > div {
+    text-align: center;
+}
+
+span.required {
+    visibility: hidden;
+}

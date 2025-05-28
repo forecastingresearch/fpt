@@ -1,0 +1,196 @@
+body {
+	margin: 0;
+}
+
+#jspsych-target {
+	width: 100%;
+	height: 100%;
+}
+
+.jspsych-content-wrapper {
+  background-color: darkgrey;
+}
+
+.instructions-title {
+	font-size: 2em;
+	font-weight:  bold;
+}
+
+.instructions-subtitle {
+	font-size:  1.5em;
+	font-style:  italic;
+}
+
+.instructions_width {
+	max-width: 60%;
+}
+
+.instructions_left_align {
+	text-align: left;
+}
+
+.instructions_left_align .jspsych-instructions-nav {
+	text-align: center;
+}
+
+.fixation-cross {
+	font-size: 60px;
+	color: white;
+}
+
+/*https://stackoverflow.com/a/21003770/13078832*/
+.noSelect {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#progress-container {
+    position: absolute;
+    top: 20vh;
+    left: 3%;
+	height: 60vh;
+	visibility: visible;
+}
+
+#progress-bar-wrapper {
+    width: 50px;
+    height: 100%;
+    background-color: #f0f0f0;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 0%;
+    background-color: #4caf50;
+	position: absolute;
+	bottom: 0px;
+}
+
+#progress-text {
+	position: absolute;
+	left: 50%;
+	bottom: 5px;
+	transform: translate(-50%);
+    font-size: 14px
+}
+
+#progress-label {
+	position: absolute;
+	transform: rotate(-90deg);
+	bottom: 50%;
+	left: -60px;
+	font-weight: bold;
+}
+
+#global-instructions-timer-container {
+	position: absolute;
+	top: 1%;
+	left: 90%;
+	text-align: center;
+	visibility: hidden;
+}
+
+#global-instructions-timer-container {
+	font-size: 2em;
+	line-height: 0
+}
+
+#points_counter_container {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 2%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+}
+
+#points_counter_container img {
+	height: auto;
+	width: 6%;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#points_counter_value {
+	font-size: 2em;
+	line-height: 1.5em;
+	margin-left: 10px;
+}
+/*------------------------------------------------------------------*/
+/*-------------------------------CSS loading bar; credits: https://github.com/loadingio/css-spinner*/
+.lds-facebook {
+	display: inline-block;
+	position: fixed;
+	width: 120px;
+	height: 120px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.lds-facebook div {
+	display: inline-block;
+	position: absolute;
+	left: 12px;
+	width: 24px;
+	background: green;
+	animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+	left: 12px;
+	animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+	left: 48px;
+	animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+	left: 84px;
+	animation-delay: 0;
+}
+@keyframes lds-facebook {
+	0% {
+		top: 12px;
+		height: 96px;
+	}
+	50%, 100% {
+		top: 36px;
+		height: 48px;
+	}
+}
+/*------------------------------------end of CSS loading bar*/
+
+/*------------------------------------------media queries-----------------------*/
+@media (max-width: 1100px) {
+	#global-instructions-timer-container {
+		font-size: 1.8em;
+	}
+}
+
+@media (max-width: 980px) {
+	#global-instructions-timer-container {
+		font-size: 1.5em;
+	}
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1440px) {
+	
+}
+
+@media (min-width: 2560px) {
+	
+}
+/*------------------------------------------end media queries-----------------------*/
