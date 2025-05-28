@@ -17,6 +17,16 @@ params:
 knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE, fig.width=12, fig.height=9)
 ```
 
+```{r}
+dirs <- c("processed_data", "cache")
+
+for (d in dirs) {
+  if (!dir.exists(d)) {
+    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  }
+}
+```
+
 Packages loading
 
 ```{r}

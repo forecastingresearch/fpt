@@ -16,6 +16,16 @@ knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning
 ```
 
 ```{r}
+dirs <- c("processed_data")
+
+for (d in dirs) {
+  if (!dir.exists(d)) {
+    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  }
+}
+```
+
+```{r}
 packages <- c(
               "chemometrics",
               "tidyverse"
