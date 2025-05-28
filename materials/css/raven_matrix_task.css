@@ -1,0 +1,42 @@
+.content_size {
+    width: 80vw;
+    height: 90vh;
+}
+
+#jspsych-survey-multi-choice-0 {
+    text-align: center;
+    width: 100%;
+}
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 90%;
+}
+
+#container div {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 47.5%;
+}
+
+#stimulus {
+    left: 1.25%;
+}
+
+#answers, #labels {
+    right: 1.25%;
+}
+
+#answers img, #labels img {
+    width: 100%;
+}
+
+#stimulus img {
+    height: 100%;
+}
+
+.required {
+    display: none;
+}

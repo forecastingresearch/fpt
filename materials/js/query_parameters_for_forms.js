@@ -1,0 +1,51 @@
+const query_parameters_forms = {
+    form_223301: { // form 2
+        time_series: "show,true,uav,true",
+        leapfrog: "show,true,uav,false",
+        impossible_question: "show,true,uav,true",
+        denominator_neglect_version_A: "show,true,uav,true",
+        denominator_neglect_version_B: "show,true,uav,false",
+        bayesian_update_easy: "show,true,uav,true",
+        bayesian_update_hard: "show,true,uav,false",
+        shipley_vocab: "show,true",
+        shipley_abstraction: "show,true",
+        admc_rc1: "show,true",
+        admc_a2: "show,true",
+        admc_rp: "show,true",
+        coherence_forecasting: "show,true",
+        graph_literacy: "show,true",
+
+        admc_a1: "show,false",
+        admc_rc2: "show,false",
+        admc_dr: "show,false",
+        cognitive_reflection: "show,false",
+        number_series: "show,false",
+        raven_matrix: "show,false",
+        conditional_forecasting: "show,false"
+    },
+    form_33ff78: { // form 1
+        time_series: "show,true,uav,false",
+        leapfrog: "show,true,uav,true",
+        impossible_question: "show,true,uav,false",
+        denominator_neglect_version_A: "show,true,uav,false",
+        denominator_neglect_version_B: "show,true,uav,true",
+        bayesian_update_easy: "show,true,uav,false",
+        bayesian_update_hard: "show,true,uav,true",
+        cognitive_reflection: "show,true",
+        number_series: "show,true",
+        raven_matrix: "show,true",
+        admc_rc2: "show,true",
+        admc_a1: "show,true",
+        admc_dr: "show,true",
+        
+        conditional_forecasting: "show,false",
+        coherence_forecasting: "show,false",
+        graph_literacy: "show,false",
+        admc_rc1: "show,false",
+        admc_a2: "show,false",
+        admc_rp: "show,false",
+        shipley_vocab: "show,false",
+        shipley_abstraction: "show,false",
+    }
+}
+export default query_parameters_forms

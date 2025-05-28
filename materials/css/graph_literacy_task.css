@@ -1,0 +1,17 @@
+.content_size {
+	width: 80vw;
+}
+
+.question_container {
+	margin: 2% 0;
+}
+
+.radio_opts_container {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.hr {
+	width: 60%;
+	opacity: 0.3;
+}

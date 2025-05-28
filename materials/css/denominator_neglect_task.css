@@ -1,0 +1,65 @@
+.content_size {
+	width: 80vw;
+	height: 90vh;
+}
+
+#lottery_labels_container {
+	display: flex;
+	justify-content: space-evenly;
+	margin-bottom: 1%;
+	margin-top: 10%;
+}
+
+#lottery_labels_container div {
+	font-size: 1.3em;
+}
+
+#lotteries_container {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	margin: auto;
+	position: relative;
+	height: 50%;
+}
+
+.lottery_parent {
+	/* width: calc(50% - 10px);; */
+	height: 0;
+	/* padding-bottom: calc(50% - 10px); */
+	position: relative;
+	box-sizing: border-box;
+}
+
+.lottery {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 2px solid;
+	background-color: white;
+}
+
+#lottery_text_desc_container {
+	display: flex;
+	justify-content: space-evenly;
+	margin-bottom: 1%;
+}
+
+.coin {
+	border-radius: 50%;
+	position: absolute;
+}
+
+#lottery_choices {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 3%;
+}
+
+.lottery_choice span {
+	padding: 0px 12px;
+	border-radius: 20px;
+	background-color: plum;
+}
