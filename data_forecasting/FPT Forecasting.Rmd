@@ -18,7 +18,7 @@ knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning
 ```
 
 ```{r}
-dirs <- c("processed_data", "cache")
+dirs <- c("processed_data", "cache", file.path("..", "data_cognitive_tasks", "task_datasets"))
 for (d in dirs) {
   if (!dir.exists(d)) {
     dir.create(d, showWarnings = FALSE, recursive = TRUE)
