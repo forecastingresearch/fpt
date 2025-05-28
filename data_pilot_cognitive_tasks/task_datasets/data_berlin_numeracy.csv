@@ -1,0 +1,677 @@
+"subject_id","item_id","response","correct_response","correct"
+"dDvRkUhQwoslFqFURJF9","bn_1","None of the above","30 out of 50 throws",0
+"dDvRkUhQwoslFqFURJF9","bn_2","40%","25%",0
+"dDvRkUhQwoslFqFURJF9","bn_3","None of the above","20 out of 70 throws",0
+"dDvRkUhQwoslFqFURJF9","bn_4","4%","50%",0
+"hRGa6FaIRK7j9S0HeI7X","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"hRGa6FaIRK7j9S0HeI7X","bn_2","25%","25%",1
+"hRGa6FaIRK7j9S0HeI7X","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"hRGa6FaIRK7j9S0HeI7X","bn_4","50%","50%",1
+"umthPijt9cdE4VLD81bJ","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"umthPijt9cdE4VLD81bJ","bn_2","25%","25%",1
+"umthPijt9cdE4VLD81bJ","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"umthPijt9cdE4VLD81bJ","bn_4","50%","50%",1
+"kWQWRj6ohfhOFyzKBIXh","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"kWQWRj6ohfhOFyzKBIXh","bn_2","40%","25%",0
+"kWQWRj6ohfhOFyzKBIXh","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"kWQWRj6ohfhOFyzKBIXh","bn_4","50%","50%",1
+"rrYkTrwh2TMMv1IvrzIl","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"rrYkTrwh2TMMv1IvrzIl","bn_2","None of the above","25%",0
+"rrYkTrwh2TMMv1IvrzIl","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"rrYkTrwh2TMMv1IvrzIl","bn_4","50%","50%",1
+"ZazO4pBxhyRgvmniXpL0","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"ZazO4pBxhyRgvmniXpL0","bn_2","40%","25%",0
+"ZazO4pBxhyRgvmniXpL0","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ZazO4pBxhyRgvmniXpL0","bn_4","20%","50%",0
+"NTF49rYDA4NRQvxvBBy2","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"NTF49rYDA4NRQvxvBBy2","bn_2","40%","25%",0
+"NTF49rYDA4NRQvxvBBy2","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"NTF49rYDA4NRQvxvBBy2","bn_4","50%","50%",1
+"NuwYsAsVQIklJBBWq8Wb","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"NuwYsAsVQIklJBBWq8Wb","bn_2","25%","25%",1
+"NuwYsAsVQIklJBBWq8Wb","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"NuwYsAsVQIklJBBWq8Wb","bn_4","20%","50%",0
+"lqho7BLGoZS5OORpai7P","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"lqho7BLGoZS5OORpai7P","bn_2","40%","25%",0
+"lqho7BLGoZS5OORpai7P","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"lqho7BLGoZS5OORpai7P","bn_4","20%","50%",0
+"BVQXcbkvoojsH8ohSYhQ","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"BVQXcbkvoojsH8ohSYhQ","bn_2","40%","25%",0
+"BVQXcbkvoojsH8ohSYhQ","bn_3","None of the above","20 out of 70 throws",0
+"BVQXcbkvoojsH8ohSYhQ","bn_4","20%","50%",0
+"OdlRGXwUub5lMuQb97e9","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"OdlRGXwUub5lMuQb97e9","bn_2","None of the above","25%",0
+"OdlRGXwUub5lMuQb97e9","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"OdlRGXwUub5lMuQb97e9","bn_4","4%","50%",0
+"sdP0xt7UwYVx6QCBUGb9","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"sdP0xt7UwYVx6QCBUGb9","bn_2","25%","25%",1
+"sdP0xt7UwYVx6QCBUGb9","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"sdP0xt7UwYVx6QCBUGb9","bn_4","20%","50%",0
+"eO8ueo6SY6mgq8BrsPDn","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"eO8ueo6SY6mgq8BrsPDn","bn_2","40%","25%",0
+"eO8ueo6SY6mgq8BrsPDn","bn_3","None of the above","20 out of 70 throws",0
+"eO8ueo6SY6mgq8BrsPDn","bn_4","4%","50%",0
+"ZR5Fx4ekOxWItTtVL2D7","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"ZR5Fx4ekOxWItTtVL2D7","bn_2","25%","25%",1
+"ZR5Fx4ekOxWItTtVL2D7","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"ZR5Fx4ekOxWItTtVL2D7","bn_4","None of the above","50%",0
+"spew82wdkX0wW8aCfVN6","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"spew82wdkX0wW8aCfVN6","bn_2","None of the above","25%",0
+"spew82wdkX0wW8aCfVN6","bn_3",NA,"20 out of 70 throws",NA
+"spew82wdkX0wW8aCfVN6","bn_4",NA,"50%",NA
+"eupIsJaT0DGhPRxYpQ8L","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"eupIsJaT0DGhPRxYpQ8L","bn_2","40%","25%",0
+"eupIsJaT0DGhPRxYpQ8L","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"eupIsJaT0DGhPRxYpQ8L","bn_4","20%","50%",0
+"lqmhT3DMOKizWcQjR7UB","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"lqmhT3DMOKizWcQjR7UB","bn_2","40%","25%",0
+"lqmhT3DMOKizWcQjR7UB","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"lqmhT3DMOKizWcQjR7UB","bn_4","4%","50%",0
+"8TGLPTRU6zzng7ig6wje","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"8TGLPTRU6zzng7ig6wje","bn_2","25%","25%",1
+"8TGLPTRU6zzng7ig6wje","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"8TGLPTRU6zzng7ig6wje","bn_4","20%","50%",0
+"9RURS9QDBxOxAXzKslIr","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"9RURS9QDBxOxAXzKslIr","bn_2","40%","25%",0
+"9RURS9QDBxOxAXzKslIr","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"9RURS9QDBxOxAXzKslIr","bn_4","20%","50%",0
+"XTTtLZjW3GfR4y1pfMb5","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"XTTtLZjW3GfR4y1pfMb5","bn_2","10%","25%",0
+"XTTtLZjW3GfR4y1pfMb5","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"XTTtLZjW3GfR4y1pfMb5","bn_4","20%","50%",0
+"gdcaQlSlTYPXtURldtrQ","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"gdcaQlSlTYPXtURldtrQ","bn_2","25%","25%",1
+"gdcaQlSlTYPXtURldtrQ","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"gdcaQlSlTYPXtURldtrQ","bn_4","20%","50%",0
+"EQcUnvd175FsA5QJLyOC","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"EQcUnvd175FsA5QJLyOC","bn_2","40%","25%",0
+"EQcUnvd175FsA5QJLyOC","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"EQcUnvd175FsA5QJLyOC","bn_4","4%","50%",0
+"Qzfwvjt84nTzY5Y6FjmD","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"Qzfwvjt84nTzY5Y6FjmD","bn_2","25%","25%",1
+"Qzfwvjt84nTzY5Y6FjmD","bn_3","None of the above","20 out of 70 throws",0
+"Qzfwvjt84nTzY5Y6FjmD","bn_4","4%","50%",0
+"CMtMThAxd6T3GsT3xQtf","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"CMtMThAxd6T3GsT3xQtf","bn_2","25%","25%",1
+"CMtMThAxd6T3GsT3xQtf","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"CMtMThAxd6T3GsT3xQtf","bn_4",NA,"50%",NA
+"MCgC36f8VkjRXQh65Pcc","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"MCgC36f8VkjRXQh65Pcc","bn_2","25%","25%",1
+"MCgC36f8VkjRXQh65Pcc","bn_3","None of the above","20 out of 70 throws",0
+"MCgC36f8VkjRXQh65Pcc","bn_4","20%","50%",0
+"G70NDfvVTsAVQheihRzE","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"G70NDfvVTsAVQheihRzE","bn_2","25%","25%",1
+"G70NDfvVTsAVQheihRzE","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"G70NDfvVTsAVQheihRzE","bn_4","50%","50%",1
+"Ej5z29sm0UDZlC9VSn90","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"Ej5z29sm0UDZlC9VSn90","bn_2","25%","25%",1
+"Ej5z29sm0UDZlC9VSn90","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"Ej5z29sm0UDZlC9VSn90","bn_4","50%","50%",1
+"f9SLvrBHkn9TRQ3evbJS","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"f9SLvrBHkn9TRQ3evbJS","bn_2","25%","25%",1
+"f9SLvrBHkn9TRQ3evbJS","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"f9SLvrBHkn9TRQ3evbJS","bn_4","4%","50%",0
+"0m8Mvtx03NTVAaAm2cLu","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"0m8Mvtx03NTVAaAm2cLu","bn_2","10%","25%",0
+"0m8Mvtx03NTVAaAm2cLu","bn_3",NA,"20 out of 70 throws",NA
+"0m8Mvtx03NTVAaAm2cLu","bn_4",NA,"50%",NA
+"e5ThhbjuowMl8yVZonYB","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"e5ThhbjuowMl8yVZonYB","bn_2","40%","25%",0
+"e5ThhbjuowMl8yVZonYB","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"e5ThhbjuowMl8yVZonYB","bn_4","4%","50%",0
+"2kXHVLEOjzWidnSYk5Pf","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"2kXHVLEOjzWidnSYk5Pf","bn_2","10%","25%",0
+"2kXHVLEOjzWidnSYk5Pf","bn_3","None of the above","20 out of 70 throws",0
+"2kXHVLEOjzWidnSYk5Pf","bn_4",NA,"50%",NA
+"i3xWg1XVprFKeJkIGyDu","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"i3xWg1XVprFKeJkIGyDu","bn_2","25%","25%",1
+"i3xWg1XVprFKeJkIGyDu","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"i3xWg1XVprFKeJkIGyDu","bn_4","4%","50%",0
+"Geb5rWaHWEd3uwguNWcs","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"Geb5rWaHWEd3uwguNWcs","bn_2","25%","25%",1
+"Geb5rWaHWEd3uwguNWcs","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"Geb5rWaHWEd3uwguNWcs","bn_4","50%","50%",1
+"2Xgbp4RxjncszaJ0yNdz","bn_1","None of the above","30 out of 50 throws",0
+"2Xgbp4RxjncszaJ0yNdz","bn_2","10%","25%",0
+"2Xgbp4RxjncszaJ0yNdz","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"2Xgbp4RxjncszaJ0yNdz","bn_4","20%","50%",0
+"hqp2nsvojwr8iuELG6MC","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"hqp2nsvojwr8iuELG6MC","bn_2","40%","25%",0
+"hqp2nsvojwr8iuELG6MC","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"hqp2nsvojwr8iuELG6MC","bn_4","50%","50%",1
+"hgHAiY89xQA0EOPof2AH","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"hgHAiY89xQA0EOPof2AH","bn_2","25%","25%",1
+"hgHAiY89xQA0EOPof2AH","bn_3",NA,"20 out of 70 throws",NA
+"hgHAiY89xQA0EOPof2AH","bn_4",NA,"50%",NA
+"opB973UodDii9lMCxIOx","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"opB973UodDii9lMCxIOx","bn_2","25%","25%",1
+"opB973UodDii9lMCxIOx","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"opB973UodDii9lMCxIOx","bn_4",NA,"50%",NA
+"KfKgT4e1rIjUHqtQszhH","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"KfKgT4e1rIjUHqtQszhH","bn_2","10%","25%",0
+"KfKgT4e1rIjUHqtQszhH","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"KfKgT4e1rIjUHqtQszhH","bn_4","50%","50%",1
+"aZs8wpnT6CHJ3p34tnMW","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"aZs8wpnT6CHJ3p34tnMW","bn_2","40%","25%",0
+"aZs8wpnT6CHJ3p34tnMW","bn_3","None of the above","20 out of 70 throws",0
+"aZs8wpnT6CHJ3p34tnMW","bn_4","20%","50%",0
+"HIXirBH1VmDYG2LJM00q","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"HIXirBH1VmDYG2LJM00q","bn_2","25%","25%",1
+"HIXirBH1VmDYG2LJM00q","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"HIXirBH1VmDYG2LJM00q","bn_4","4%","50%",0
+"V5Tx1jP6c8trEn2lrAlC","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"V5Tx1jP6c8trEn2lrAlC","bn_2","25%","25%",1
+"V5Tx1jP6c8trEn2lrAlC","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"V5Tx1jP6c8trEn2lrAlC","bn_4","20%","50%",0
+"ZaiPI6KxZbJXurbQHgZw","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"ZaiPI6KxZbJXurbQHgZw","bn_2","40%","25%",0
+"ZaiPI6KxZbJXurbQHgZw","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ZaiPI6KxZbJXurbQHgZw","bn_4","4%","50%",0
+"14v5ozkNiEFvMQrGcFef","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"14v5ozkNiEFvMQrGcFef","bn_2","25%","25%",1
+"14v5ozkNiEFvMQrGcFef","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"14v5ozkNiEFvMQrGcFef","bn_4","4%","50%",0
+"5rxKrOdtw9zi6iZjDiZU","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"5rxKrOdtw9zi6iZjDiZU","bn_2","25%","25%",1
+"5rxKrOdtw9zi6iZjDiZU","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"5rxKrOdtw9zi6iZjDiZU","bn_4","4%","50%",0
+"y78BOQcjNLdT5hBj7nwc","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"y78BOQcjNLdT5hBj7nwc","bn_2","25%","25%",1
+"y78BOQcjNLdT5hBj7nwc","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"y78BOQcjNLdT5hBj7nwc","bn_4","20%","50%",0
+"imxdJ2Yit5uDFRdxbTzA","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"imxdJ2Yit5uDFRdxbTzA","bn_2","25%","25%",1
+"imxdJ2Yit5uDFRdxbTzA","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"imxdJ2Yit5uDFRdxbTzA","bn_4","20%","50%",0
+"LW30bhp6JsPJf35dZTxf","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"LW30bhp6JsPJf35dZTxf","bn_2","40%","25%",0
+"LW30bhp6JsPJf35dZTxf","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"LW30bhp6JsPJf35dZTxf","bn_4","50%","50%",1
+"9XhFGFO6RL7MxxoxWLpe","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"9XhFGFO6RL7MxxoxWLpe","bn_2","10%","25%",0
+"9XhFGFO6RL7MxxoxWLpe","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"9XhFGFO6RL7MxxoxWLpe","bn_4","20%","50%",0
+"zTt0PnVmwCWZJhox1xvC","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"zTt0PnVmwCWZJhox1xvC","bn_2","25%","25%",1
+"zTt0PnVmwCWZJhox1xvC","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"zTt0PnVmwCWZJhox1xvC","bn_4","20%","50%",0
+"hOh8xx8AaUnnhlvjxQ3I","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"hOh8xx8AaUnnhlvjxQ3I","bn_2","10%","25%",0
+"hOh8xx8AaUnnhlvjxQ3I","bn_3",NA,"20 out of 70 throws",NA
+"hOh8xx8AaUnnhlvjxQ3I","bn_4",NA,"50%",NA
+"rjnyZKpQLvnf7DCvDstX","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"rjnyZKpQLvnf7DCvDstX","bn_2","25%","25%",1
+"rjnyZKpQLvnf7DCvDstX","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"rjnyZKpQLvnf7DCvDstX","bn_4",NA,"50%",NA
+"VTwjljLHMeFJ4wBBGr3t","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"VTwjljLHMeFJ4wBBGr3t","bn_2","25%","25%",1
+"VTwjljLHMeFJ4wBBGr3t","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"VTwjljLHMeFJ4wBBGr3t","bn_4","4%","50%",0
+"3JKW5zSXGkFMU7hy3Uim","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"3JKW5zSXGkFMU7hy3Uim","bn_2","10%","25%",0
+"3JKW5zSXGkFMU7hy3Uim","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"3JKW5zSXGkFMU7hy3Uim","bn_4","20%","50%",0
+"xbPQAQQy3KmYXujyV081","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"xbPQAQQy3KmYXujyV081","bn_2","None of the above","25%",0
+"xbPQAQQy3KmYXujyV081","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"xbPQAQQy3KmYXujyV081","bn_4","50%","50%",1
+"ggUZHShAMFgLfCl29kzl","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"ggUZHShAMFgLfCl29kzl","bn_2","25%","25%",1
+"ggUZHShAMFgLfCl29kzl","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ggUZHShAMFgLfCl29kzl","bn_4","20%","50%",0
+"RGpC8Kb3t4NbLFF6ZBL7","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"RGpC8Kb3t4NbLFF6ZBL7","bn_2","25%","25%",1
+"RGpC8Kb3t4NbLFF6ZBL7","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"RGpC8Kb3t4NbLFF6ZBL7","bn_4",NA,"50%",NA
+"P3If8blcD6Emr7oH81pi","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"P3If8blcD6Emr7oH81pi","bn_2","10%","25%",0
+"P3If8blcD6Emr7oH81pi","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"P3If8blcD6Emr7oH81pi","bn_4","20%","50%",0
+"2CravRf3YyoGsdVmXyLB","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"2CravRf3YyoGsdVmXyLB","bn_2","25%","25%",1
+"2CravRf3YyoGsdVmXyLB","bn_3","None of the above","20 out of 70 throws",0
+"2CravRf3YyoGsdVmXyLB","bn_4","20%","50%",0
+"WcYDIr5gBqFlqQCfLO1N","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"WcYDIr5gBqFlqQCfLO1N","bn_2","25%","25%",1
+"WcYDIr5gBqFlqQCfLO1N","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"WcYDIr5gBqFlqQCfLO1N","bn_4",NA,"50%",NA
+"iuzksaAl7aeR1oSIYQ0t","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"iuzksaAl7aeR1oSIYQ0t","bn_2","10%","25%",0
+"iuzksaAl7aeR1oSIYQ0t","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"iuzksaAl7aeR1oSIYQ0t","bn_4","4%","50%",0
+"L3zT8iY3c9deEEGpnfdn","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"L3zT8iY3c9deEEGpnfdn","bn_2","25%","25%",1
+"L3zT8iY3c9deEEGpnfdn","bn_3","None of the above","20 out of 70 throws",0
+"L3zT8iY3c9deEEGpnfdn","bn_4",NA,"50%",NA
+"fqW72q81GSezW9MEdWpP","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"fqW72q81GSezW9MEdWpP","bn_2","40%","25%",0
+"fqW72q81GSezW9MEdWpP","bn_3","None of the above","20 out of 70 throws",0
+"fqW72q81GSezW9MEdWpP","bn_4",NA,"50%",NA
+"eOhVemAeENOMaOitnTp1","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"eOhVemAeENOMaOitnTp1","bn_2","None of the above","25%",0
+"eOhVemAeENOMaOitnTp1","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"eOhVemAeENOMaOitnTp1","bn_4","4%","50%",0
+"ouFOczNlAHcaxVL6djzH","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"ouFOczNlAHcaxVL6djzH","bn_2","10%","25%",0
+"ouFOczNlAHcaxVL6djzH","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ouFOczNlAHcaxVL6djzH","bn_4","4%","50%",0
+"nM6m8SlLUk4HLoIteGDY","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"nM6m8SlLUk4HLoIteGDY","bn_2","None of the above","25%",0
+"nM6m8SlLUk4HLoIteGDY","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"nM6m8SlLUk4HLoIteGDY","bn_4","20%","50%",0
+"XxMjjODoFfCfih2dGFdw","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"XxMjjODoFfCfih2dGFdw","bn_2","25%","25%",1
+"XxMjjODoFfCfih2dGFdw","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"XxMjjODoFfCfih2dGFdw","bn_4","50%","50%",1
+"RFalvbYJxC4UaWeVP9Bl","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"RFalvbYJxC4UaWeVP9Bl","bn_2","25%","25%",1
+"RFalvbYJxC4UaWeVP9Bl","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"RFalvbYJxC4UaWeVP9Bl","bn_4","4%","50%",0
+"LCnSsbremU5Q7zt49bLJ","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"LCnSsbremU5Q7zt49bLJ","bn_2","40%","25%",0
+"LCnSsbremU5Q7zt49bLJ","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"LCnSsbremU5Q7zt49bLJ","bn_4","20%","50%",0
+"4biKYGYA4rYxXVn5Gu4Y","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"4biKYGYA4rYxXVn5Gu4Y","bn_2","25%","25%",1
+"4biKYGYA4rYxXVn5Gu4Y","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"4biKYGYA4rYxXVn5Gu4Y","bn_4","None of the above","50%",0
+"WAPJCdBSeV9FUorwJeGA","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"WAPJCdBSeV9FUorwJeGA","bn_2","25%","25%",1
+"WAPJCdBSeV9FUorwJeGA","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"WAPJCdBSeV9FUorwJeGA","bn_4","20%","50%",0
+"g6b1rBBesjyyeCMsmJgr","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"g6b1rBBesjyyeCMsmJgr","bn_2","25%","25%",1
+"g6b1rBBesjyyeCMsmJgr","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"g6b1rBBesjyyeCMsmJgr","bn_4",NA,"50%",NA
+"jrnhmVKt7CnPWS0OWMII","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"jrnhmVKt7CnPWS0OWMII","bn_2","25%","25%",1
+"jrnhmVKt7CnPWS0OWMII","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"jrnhmVKt7CnPWS0OWMII","bn_4","50%","50%",1
+"ZqCXnO7iF8XSvdvJkduw","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"ZqCXnO7iF8XSvdvJkduw","bn_2","10%","25%",0
+"ZqCXnO7iF8XSvdvJkduw","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ZqCXnO7iF8XSvdvJkduw","bn_4","4%","50%",0
+"xeucm00Q0USUOiZfCPWm","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"xeucm00Q0USUOiZfCPWm","bn_2","None of the above","25%",0
+"xeucm00Q0USUOiZfCPWm","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"xeucm00Q0USUOiZfCPWm","bn_4",NA,"50%",NA
+"jwJ6gpnIAf5w1x4iQZJR","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"jwJ6gpnIAf5w1x4iQZJR","bn_2","40%","25%",0
+"jwJ6gpnIAf5w1x4iQZJR","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"jwJ6gpnIAf5w1x4iQZJR","bn_4","50%","50%",1
+"81DbN7euP5SvEjIslLf2","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"81DbN7euP5SvEjIslLf2","bn_2","25%","25%",1
+"81DbN7euP5SvEjIslLf2","bn_3","None of the above","20 out of 70 throws",0
+"81DbN7euP5SvEjIslLf2","bn_4",NA,"50%",NA
+"RCrV2gWfwSk9uuU4HuPj","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"RCrV2gWfwSk9uuU4HuPj","bn_2","25%","25%",1
+"RCrV2gWfwSk9uuU4HuPj","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"RCrV2gWfwSk9uuU4HuPj","bn_4","50%","50%",1
+"NxSM8j8zHJPoJjfz8Noq","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"NxSM8j8zHJPoJjfz8Noq","bn_2","25%","25%",1
+"NxSM8j8zHJPoJjfz8Noq","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"NxSM8j8zHJPoJjfz8Noq","bn_4","50%","50%",1
+"A0ZERTjB3QmbFrsO9HkF","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"A0ZERTjB3QmbFrsO9HkF","bn_2","None of the above","25%",0
+"A0ZERTjB3QmbFrsO9HkF","bn_3",NA,"20 out of 70 throws",NA
+"A0ZERTjB3QmbFrsO9HkF","bn_4",NA,"50%",NA
+"4FSviDE1FIxFULHiw72J","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"4FSviDE1FIxFULHiw72J","bn_2","40%","25%",0
+"4FSviDE1FIxFULHiw72J","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"4FSviDE1FIxFULHiw72J","bn_4","4%","50%",0
+"DlgqDFDTBhm3azaOtREy","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"DlgqDFDTBhm3azaOtREy","bn_2","25%","25%",1
+"DlgqDFDTBhm3azaOtREy","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"DlgqDFDTBhm3azaOtREy","bn_4",NA,"50%",NA
+"i7tXFpSRGtKMAse1e8Ho","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"i7tXFpSRGtKMAse1e8Ho","bn_2","10%","25%",0
+"i7tXFpSRGtKMAse1e8Ho","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"i7tXFpSRGtKMAse1e8Ho","bn_4","4%","50%",0
+"3ldXGpLM5xSgTntmyhjK","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"3ldXGpLM5xSgTntmyhjK","bn_2","25%","25%",1
+"3ldXGpLM5xSgTntmyhjK","bn_3","None of the above","20 out of 70 throws",0
+"3ldXGpLM5xSgTntmyhjK","bn_4","20%","50%",0
+"pb405xfSmXTuwatIw1yn","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"pb405xfSmXTuwatIw1yn","bn_2","10%","25%",0
+"pb405xfSmXTuwatIw1yn","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"pb405xfSmXTuwatIw1yn","bn_4","4%","50%",0
+"cHUwdJYSYjF7TgAvmOz7","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"cHUwdJYSYjF7TgAvmOz7","bn_2","25%","25%",1
+"cHUwdJYSYjF7TgAvmOz7","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"cHUwdJYSYjF7TgAvmOz7","bn_4","50%","50%",1
+"frdsAiZHlEcYXnF4j3Zo","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"frdsAiZHlEcYXnF4j3Zo","bn_2","None of the above","25%",0
+"frdsAiZHlEcYXnF4j3Zo","bn_3","None of the above","20 out of 70 throws",0
+"frdsAiZHlEcYXnF4j3Zo","bn_4",NA,"50%",NA
+"1TBQb6uvd7oFOYh3DIn1","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"1TBQb6uvd7oFOYh3DIn1","bn_2","25%","25%",1
+"1TBQb6uvd7oFOYh3DIn1","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"1TBQb6uvd7oFOYh3DIn1","bn_4","50%","50%",1
+"ar7v9p9CcVBVaL8ef6Na","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"ar7v9p9CcVBVaL8ef6Na","bn_2","25%","25%",1
+"ar7v9p9CcVBVaL8ef6Na","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ar7v9p9CcVBVaL8ef6Na","bn_4","4%","50%",0
+"bmGsIJF6hfx1U1Vwcw5l","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"bmGsIJF6hfx1U1Vwcw5l","bn_2","25%","25%",1
+"bmGsIJF6hfx1U1Vwcw5l","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"bmGsIJF6hfx1U1Vwcw5l","bn_4","20%","50%",0
+"hgsF3OhmmJ2iKUUyx8fB","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"hgsF3OhmmJ2iKUUyx8fB","bn_2","None of the above","25%",0
+"hgsF3OhmmJ2iKUUyx8fB","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"hgsF3OhmmJ2iKUUyx8fB","bn_4",NA,"50%",NA
+"vLIkcysKNk8g198E3adq","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"vLIkcysKNk8g198E3adq","bn_2","40%","25%",0
+"vLIkcysKNk8g198E3adq","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"vLIkcysKNk8g198E3adq","bn_4","4%","50%",0
+"8mwyokdr12PKDZFUp0oI","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"8mwyokdr12PKDZFUp0oI","bn_2","40%","25%",0
+"8mwyokdr12PKDZFUp0oI","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"8mwyokdr12PKDZFUp0oI","bn_4",NA,"50%",NA
+"i8Omv5ng1pgjhYSuJxQk","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"i8Omv5ng1pgjhYSuJxQk","bn_2","25%","25%",1
+"i8Omv5ng1pgjhYSuJxQk","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"i8Omv5ng1pgjhYSuJxQk","bn_4","20%","50%",0
+"ugmetYJPKn2PqPEAlqOj","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"ugmetYJPKn2PqPEAlqOj","bn_2",NA,"25%",NA
+"ugmetYJPKn2PqPEAlqOj","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"ugmetYJPKn2PqPEAlqOj","bn_4","20%","50%",0
+"IpVEycSzzPWwL6RWWju0","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"IpVEycSzzPWwL6RWWju0","bn_2","25%","25%",1
+"IpVEycSzzPWwL6RWWju0","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"IpVEycSzzPWwL6RWWju0","bn_4",NA,"50%",NA
+"BVLzRiH7EOPxi5TjRmpa","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"BVLzRiH7EOPxi5TjRmpa","bn_2","10%","25%",0
+"BVLzRiH7EOPxi5TjRmpa","bn_3","None of the above","20 out of 70 throws",0
+"BVLzRiH7EOPxi5TjRmpa","bn_4","4%","50%",0
+"2o6tSgw09wEiH2UVjsUa","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"2o6tSgw09wEiH2UVjsUa","bn_2","10%","25%",0
+"2o6tSgw09wEiH2UVjsUa","bn_3","None of the above","20 out of 70 throws",0
+"2o6tSgw09wEiH2UVjsUa","bn_4","20%","50%",0
+"anjHfZoe4UgUXeUG4cRG","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"anjHfZoe4UgUXeUG4cRG","bn_2","25%","25%",1
+"anjHfZoe4UgUXeUG4cRG","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"anjHfZoe4UgUXeUG4cRG","bn_4","50%","50%",1
+"RfbBaOcYhNZIheZ2Acqy","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"RfbBaOcYhNZIheZ2Acqy","bn_2","40%","25%",0
+"RfbBaOcYhNZIheZ2Acqy","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"RfbBaOcYhNZIheZ2Acqy","bn_4","50%","50%",1
+"B4xA73Nldb5hoCj3RnM2","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"B4xA73Nldb5hoCj3RnM2","bn_2","25%","25%",1
+"B4xA73Nldb5hoCj3RnM2","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"B4xA73Nldb5hoCj3RnM2","bn_4",NA,"50%",NA
+"WzI6ioTBteMGm9qgRUpV","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"WzI6ioTBteMGm9qgRUpV","bn_2","None of the above","25%",0
+"WzI6ioTBteMGm9qgRUpV","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"WzI6ioTBteMGm9qgRUpV","bn_4","50%","50%",1
+"CxGy3HNBft3NoDYlyyk6","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"CxGy3HNBft3NoDYlyyk6","bn_2","25%","25%",1
+"CxGy3HNBft3NoDYlyyk6","bn_3","None of the above","20 out of 70 throws",0
+"CxGy3HNBft3NoDYlyyk6","bn_4","4%","50%",0
+"E9O61OUvhJVPVNILNVKi","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"E9O61OUvhJVPVNILNVKi","bn_2","10%","25%",0
+"E9O61OUvhJVPVNILNVKi","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"E9O61OUvhJVPVNILNVKi","bn_4","20%","50%",0
+"HNOz9hc9LYQrYm4Qboy1","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"HNOz9hc9LYQrYm4Qboy1","bn_2","40%","25%",0
+"HNOz9hc9LYQrYm4Qboy1","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"HNOz9hc9LYQrYm4Qboy1","bn_4","4%","50%",0
+"TMPyNQqUYmFpDT4dIx6o","bn_1","None of the above","30 out of 50 throws",0
+"TMPyNQqUYmFpDT4dIx6o","bn_2","25%","25%",1
+"TMPyNQqUYmFpDT4dIx6o","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"TMPyNQqUYmFpDT4dIx6o","bn_4","4%","50%",0
+"AgUaUGHnrmh9OdHfzKW4","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"AgUaUGHnrmh9OdHfzKW4","bn_2","25%","25%",1
+"AgUaUGHnrmh9OdHfzKW4","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"AgUaUGHnrmh9OdHfzKW4","bn_4","20%","50%",0
+"4G3bH2IHyVIK4atUuWIK","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"4G3bH2IHyVIK4atUuWIK","bn_2","25%","25%",1
+"4G3bH2IHyVIK4atUuWIK","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"4G3bH2IHyVIK4atUuWIK","bn_4","20%","50%",0
+"eKfdPzOOh91TaRYeDnXJ","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"eKfdPzOOh91TaRYeDnXJ","bn_2","25%","25%",1
+"eKfdPzOOh91TaRYeDnXJ","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"eKfdPzOOh91TaRYeDnXJ","bn_4","4%","50%",0
+"lbBFYEj57s7jFuLGoYhb","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"lbBFYEj57s7jFuLGoYhb","bn_2","25%","25%",1
+"lbBFYEj57s7jFuLGoYhb","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"lbBFYEj57s7jFuLGoYhb","bn_4","20%","50%",0
+"mW12mcCvJvTrSTWLYGfP","bn_1","None of the above","30 out of 50 throws",0
+"mW12mcCvJvTrSTWLYGfP","bn_2","25%","25%",1
+"mW12mcCvJvTrSTWLYGfP","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"mW12mcCvJvTrSTWLYGfP","bn_4","20%","50%",0
+"Zi8AdIWAZjgoDBqchpSx","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"Zi8AdIWAZjgoDBqchpSx","bn_2","10%","25%",0
+"Zi8AdIWAZjgoDBqchpSx","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"Zi8AdIWAZjgoDBqchpSx","bn_4","4%","50%",0
+"zmmkaj9OkK5HIBg8YnTR","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"zmmkaj9OkK5HIBg8YnTR","bn_2","25%","25%",1
+"zmmkaj9OkK5HIBg8YnTR","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"zmmkaj9OkK5HIBg8YnTR","bn_4","20%","50%",0
+"IYKbdVH3zHeJj7IgBVaL","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"IYKbdVH3zHeJj7IgBVaL","bn_2","40%","25%",0
+"IYKbdVH3zHeJj7IgBVaL","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"IYKbdVH3zHeJj7IgBVaL","bn_4","None of the above","50%",0
+"UFRJdGUwd0moGbSE7cst","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"UFRJdGUwd0moGbSE7cst","bn_2","25%","25%",1
+"UFRJdGUwd0moGbSE7cst","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"UFRJdGUwd0moGbSE7cst","bn_4",NA,"50%",NA
+"douXEJ4EBOwORUvjznDR","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"douXEJ4EBOwORUvjznDR","bn_2","10%","25%",0
+"douXEJ4EBOwORUvjznDR","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"douXEJ4EBOwORUvjznDR","bn_4","20%","50%",0
+"UHo9hzYOvPmnvRFiAHRN","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"UHo9hzYOvPmnvRFiAHRN","bn_2","25%","25%",1
+"UHo9hzYOvPmnvRFiAHRN","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"UHo9hzYOvPmnvRFiAHRN","bn_4","20%","50%",0
+"FA8OvPwYfBWCM6C6ROGv","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"FA8OvPwYfBWCM6C6ROGv","bn_2","25%","25%",1
+"FA8OvPwYfBWCM6C6ROGv","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"FA8OvPwYfBWCM6C6ROGv","bn_4","4%","50%",0
+"qd4Tq2EQ5O1jdvZSgDhd","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"qd4Tq2EQ5O1jdvZSgDhd","bn_2","None of the above","25%",0
+"qd4Tq2EQ5O1jdvZSgDhd","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"qd4Tq2EQ5O1jdvZSgDhd","bn_4","20%","50%",0
+"shked6eL049hKEaBmQHp","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"shked6eL049hKEaBmQHp","bn_2","10%","25%",0
+"shked6eL049hKEaBmQHp","bn_3",NA,"20 out of 70 throws",NA
+"shked6eL049hKEaBmQHp","bn_4",NA,"50%",NA
+"9a6rmA3HTTfVyRjdMjHp","bn_1","None of the above","30 out of 50 throws",0
+"9a6rmA3HTTfVyRjdMjHp","bn_2","25%","25%",1
+"9a6rmA3HTTfVyRjdMjHp","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"9a6rmA3HTTfVyRjdMjHp","bn_4","None of the above","50%",0
+"ljDaHvoGAgx76hIYhCor","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"ljDaHvoGAgx76hIYhCor","bn_2","25%","25%",1
+"ljDaHvoGAgx76hIYhCor","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ljDaHvoGAgx76hIYhCor","bn_4","50%","50%",1
+"J3YL503hXEmtAPWGnxnm","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"J3YL503hXEmtAPWGnxnm","bn_2","25%","25%",1
+"J3YL503hXEmtAPWGnxnm","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"J3YL503hXEmtAPWGnxnm","bn_4","20%","50%",0
+"ArJe1KvmkJTNycVXUr9z","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"ArJe1KvmkJTNycVXUr9z","bn_2","25%","25%",1
+"ArJe1KvmkJTNycVXUr9z","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"ArJe1KvmkJTNycVXUr9z","bn_4","50%","50%",1
+"h17Cxfp7nZAh7AH24kxM","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"h17Cxfp7nZAh7AH24kxM","bn_2","25%","25%",1
+"h17Cxfp7nZAh7AH24kxM","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"h17Cxfp7nZAh7AH24kxM","bn_4","4%","50%",0
+"hch6AFhLf1xzOJuMRC3N","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"hch6AFhLf1xzOJuMRC3N","bn_2",NA,"25%",NA
+"hch6AFhLf1xzOJuMRC3N","bn_3",NA,"20 out of 70 throws",NA
+"hch6AFhLf1xzOJuMRC3N","bn_4",NA,"50%",NA
+"I9gmFwCO9p5xFLn4C1dI","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"I9gmFwCO9p5xFLn4C1dI","bn_2","10%","25%",0
+"I9gmFwCO9p5xFLn4C1dI","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"I9gmFwCO9p5xFLn4C1dI","bn_4","4%","50%",0
+"4kOOnie1YhrqZIbs28zo","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"4kOOnie1YhrqZIbs28zo","bn_2","40%","25%",0
+"4kOOnie1YhrqZIbs28zo","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"4kOOnie1YhrqZIbs28zo","bn_4","20%","50%",0
+"3gcw66z4RGEahyQVR1wS","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"3gcw66z4RGEahyQVR1wS","bn_2","10%","25%",0
+"3gcw66z4RGEahyQVR1wS","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"3gcw66z4RGEahyQVR1wS","bn_4","4%","50%",0
+"OP1PXJ72nmf4TipeDUAb","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"OP1PXJ72nmf4TipeDUAb","bn_2","40%","25%",0
+"OP1PXJ72nmf4TipeDUAb","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"OP1PXJ72nmf4TipeDUAb","bn_4","20%","50%",0
+"5sGgiEeaWXdIqrSQzgLF","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"5sGgiEeaWXdIqrSQzgLF","bn_2","10%","25%",0
+"5sGgiEeaWXdIqrSQzgLF","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"5sGgiEeaWXdIqrSQzgLF","bn_4",NA,"50%",NA
+"iduhFd2bRDiLb4rOt1kE","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"iduhFd2bRDiLb4rOt1kE","bn_2","10%","25%",0
+"iduhFd2bRDiLb4rOt1kE","bn_3","None of the above","20 out of 70 throws",0
+"iduhFd2bRDiLb4rOt1kE","bn_4","4%","50%",0
+"ssw6lvCnvrisvRGBeBcS","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"ssw6lvCnvrisvRGBeBcS","bn_2","40%","25%",0
+"ssw6lvCnvrisvRGBeBcS","bn_3","None of the above","20 out of 70 throws",0
+"ssw6lvCnvrisvRGBeBcS","bn_4",NA,"50%",NA
+"B4SJRdeMnvSZVO8gkm52","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"B4SJRdeMnvSZVO8gkm52","bn_2","25%","25%",1
+"B4SJRdeMnvSZVO8gkm52","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"B4SJRdeMnvSZVO8gkm52","bn_4","None of the above","50%",0
+"3FnAXEVk96GR39dpvTAu","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"3FnAXEVk96GR39dpvTAu","bn_2","25%","25%",1
+"3FnAXEVk96GR39dpvTAu","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"3FnAXEVk96GR39dpvTAu","bn_4","20%","50%",0
+"W50RS0BSWDoaNnfz2Td3","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"W50RS0BSWDoaNnfz2Td3","bn_2","None of the above","25%",0
+"W50RS0BSWDoaNnfz2Td3","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"W50RS0BSWDoaNnfz2Td3","bn_4","None of the above","50%",0
+"0He9HysyPCtTN8ogIXbb","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"0He9HysyPCtTN8ogIXbb","bn_2","None of the above","25%",0
+"0He9HysyPCtTN8ogIXbb","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"0He9HysyPCtTN8ogIXbb","bn_4","50%","50%",1
+"WQ5TLsN6AEzG08dUuaai","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"WQ5TLsN6AEzG08dUuaai","bn_2","25%","25%",1
+"WQ5TLsN6AEzG08dUuaai","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"WQ5TLsN6AEzG08dUuaai","bn_4","4%","50%",0
+"7p5QU381QSJDXva6VcAw","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"7p5QU381QSJDXva6VcAw","bn_2","40%","25%",0
+"7p5QU381QSJDXva6VcAw","bn_3","None of the above","20 out of 70 throws",0
+"7p5QU381QSJDXva6VcAw","bn_4",NA,"50%",NA
+"Y34n1ewFozPlfrghTtE8","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"Y34n1ewFozPlfrghTtE8","bn_2","None of the above","25%",0
+"Y34n1ewFozPlfrghTtE8","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"Y34n1ewFozPlfrghTtE8","bn_4","50%","50%",1
+"aRuVj08pGlSs7XhXvV1v","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"aRuVj08pGlSs7XhXvV1v","bn_2","25%","25%",1
+"aRuVj08pGlSs7XhXvV1v","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"aRuVj08pGlSs7XhXvV1v","bn_4","20%","50%",0
+"RuJJKRUlyxtRXzAiEC8C","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"RuJJKRUlyxtRXzAiEC8C","bn_2","25%","25%",1
+"RuJJKRUlyxtRXzAiEC8C","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"RuJJKRUlyxtRXzAiEC8C","bn_4","20%","50%",0
+"YfEGjNjiKeyitcSdFtsk","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"YfEGjNjiKeyitcSdFtsk","bn_2","25%","25%",1
+"YfEGjNjiKeyitcSdFtsk","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"YfEGjNjiKeyitcSdFtsk","bn_4",NA,"50%",NA
+"r4qNysPnR4M81e9YnX3c","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"r4qNysPnR4M81e9YnX3c","bn_2","25%","25%",1
+"r4qNysPnR4M81e9YnX3c","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"r4qNysPnR4M81e9YnX3c","bn_4",NA,"50%",NA
+"1yw5xz3F8agvG6A44c8c","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"1yw5xz3F8agvG6A44c8c","bn_2","25%","25%",1
+"1yw5xz3F8agvG6A44c8c","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"1yw5xz3F8agvG6A44c8c","bn_4","None of the above","50%",0
+"3LZAdXLXW8LPv5UZBAbT","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"3LZAdXLXW8LPv5UZBAbT","bn_2","25%","25%",1
+"3LZAdXLXW8LPv5UZBAbT","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"3LZAdXLXW8LPv5UZBAbT","bn_4","4%","50%",0
+"v0GhUCEdOuSpaaqYc1mE","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"v0GhUCEdOuSpaaqYc1mE","bn_2","10%","25%",0
+"v0GhUCEdOuSpaaqYc1mE","bn_3","None of the above","20 out of 70 throws",0
+"v0GhUCEdOuSpaaqYc1mE","bn_4","20%","50%",0
+"k8F6zlB2P8u9iRMDuRnX","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"k8F6zlB2P8u9iRMDuRnX","bn_2","25%","25%",1
+"k8F6zlB2P8u9iRMDuRnX","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"k8F6zlB2P8u9iRMDuRnX","bn_4","20%","50%",0
+"f81zXUoD7CvdNqUSI1fT","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"f81zXUoD7CvdNqUSI1fT","bn_2","10%","25%",0
+"f81zXUoD7CvdNqUSI1fT","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"f81zXUoD7CvdNqUSI1fT","bn_4","20%","50%",0
+"mXwsYfnMYmVkBLgOeXxH","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"mXwsYfnMYmVkBLgOeXxH","bn_2","10%","25%",0
+"mXwsYfnMYmVkBLgOeXxH","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"mXwsYfnMYmVkBLgOeXxH","bn_4","50%","50%",1
+"LnzLYBKeTmWgoITknjHO","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"LnzLYBKeTmWgoITknjHO","bn_2","10%","25%",0
+"LnzLYBKeTmWgoITknjHO","bn_3",NA,"20 out of 70 throws",NA
+"LnzLYBKeTmWgoITknjHO","bn_4",NA,"50%",NA
+"ZTRXpGxS3z6vhaRnlrCJ","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"ZTRXpGxS3z6vhaRnlrCJ","bn_2","40%","25%",0
+"ZTRXpGxS3z6vhaRnlrCJ","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"ZTRXpGxS3z6vhaRnlrCJ","bn_4","20%","50%",0
+"6RaLQ2xZ082ceHJn0zSE","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"6RaLQ2xZ082ceHJn0zSE","bn_2","40%","25%",0
+"6RaLQ2xZ082ceHJn0zSE","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"6RaLQ2xZ082ceHJn0zSE","bn_4","50%","50%",1
+"PGcl1e8m5kaxuCUoFmyg","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"PGcl1e8m5kaxuCUoFmyg","bn_2","10%","25%",0
+"PGcl1e8m5kaxuCUoFmyg","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"PGcl1e8m5kaxuCUoFmyg","bn_4","20%","50%",0
+"Z461K2AhYjH0dLK3poZS","bn_1","25 out of 50 throws","30 out of 50 throws",0
+"Z461K2AhYjH0dLK3poZS","bn_2","25%","25%",1
+"Z461K2AhYjH0dLK3poZS","bn_3",NA,"20 out of 70 throws",NA
+"Z461K2AhYjH0dLK3poZS","bn_4",NA,"50%",NA
+"zUoYMIAkRhhPousQANuT","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"zUoYMIAkRhhPousQANuT","bn_2","10%","25%",0
+"zUoYMIAkRhhPousQANuT","bn_3","None of the above","20 out of 70 throws",0
+"zUoYMIAkRhhPousQANuT","bn_4","None of the above","50%",0
+"BPlxMldvQI0yorUhVfBz","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"BPlxMldvQI0yorUhVfBz","bn_2","40%","25%",0
+"BPlxMldvQI0yorUhVfBz","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"BPlxMldvQI0yorUhVfBz","bn_4","20%","50%",0
+"FnnnEkhMJyXP5RfgcMhG","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"FnnnEkhMJyXP5RfgcMhG","bn_2","25%","25%",1
+"FnnnEkhMJyXP5RfgcMhG","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"FnnnEkhMJyXP5RfgcMhG","bn_4","4%","50%",0
+"4Jcnq4L7V8NxWAITZzbt","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"4Jcnq4L7V8NxWAITZzbt","bn_2","40%","25%",0
+"4Jcnq4L7V8NxWAITZzbt","bn_3","35 out of 70 throws","20 out of 70 throws",0
+"4Jcnq4L7V8NxWAITZzbt","bn_4",NA,"50%",NA
+"RnQEyUa56RLEAXytUDqr","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"RnQEyUa56RLEAXytUDqr","bn_2","25%","25%",1
+"RnQEyUa56RLEAXytUDqr","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"RnQEyUa56RLEAXytUDqr","bn_4","None of the above","50%",0
+"IZoE24O0Bkv0neEKbx4H","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"IZoE24O0Bkv0neEKbx4H","bn_2","25%","25%",1
+"IZoE24O0Bkv0neEKbx4H","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"IZoE24O0Bkv0neEKbx4H","bn_4","None of the above","50%",0
+"FF5qpQ0e7LAywe75ms9a","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"FF5qpQ0e7LAywe75ms9a","bn_2","40%","25%",0
+"FF5qpQ0e7LAywe75ms9a","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"FF5qpQ0e7LAywe75ms9a","bn_4","4%","50%",0
+"T3DQQ2tQSAT8ru1GmMRG","bn_1","5 out of 50 throws","30 out of 50 throws",0
+"T3DQQ2tQSAT8ru1GmMRG","bn_2","40%","25%",0
+"T3DQQ2tQSAT8ru1GmMRG","bn_3","None of the above","20 out of 70 throws",0
+"T3DQQ2tQSAT8ru1GmMRG","bn_4","None of the above","50%",0
+"SMK8iaeG6GeikqKFeAv1","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"SMK8iaeG6GeikqKFeAv1","bn_2","25%","25%",1
+"SMK8iaeG6GeikqKFeAv1","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"SMK8iaeG6GeikqKFeAv1","bn_4","None of the above","50%",0
+"NQPS0aQApEiZG26aqv6a","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"NQPS0aQApEiZG26aqv6a","bn_2","25%","25%",1
+"NQPS0aQApEiZG26aqv6a","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"NQPS0aQApEiZG26aqv6a","bn_4","4%","50%",0
+"GY6SDF2bu3vayneZIZA7","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"GY6SDF2bu3vayneZIZA7","bn_2","25%","25%",1
+"GY6SDF2bu3vayneZIZA7","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"GY6SDF2bu3vayneZIZA7","bn_4","20%","50%",0
+"S212lGrFbeNNaltKejk4","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"S212lGrFbeNNaltKejk4","bn_2","25%","25%",1
+"S212lGrFbeNNaltKejk4","bn_3","20 out of 70 throws","20 out of 70 throws",1
+"S212lGrFbeNNaltKejk4","bn_4","None of the above","50%",0
+"uSJ854owFJHsuLYRzO5k","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"uSJ854owFJHsuLYRzO5k","bn_2","25%","25%",1
+"uSJ854owFJHsuLYRzO5k","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"uSJ854owFJHsuLYRzO5k","bn_4",NA,"50%",NA
+"uj0g1xn3hq3armVSVrhg","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"uj0g1xn3hq3armVSVrhg","bn_2","25%","25%",1
+"uj0g1xn3hq3armVSVrhg","bn_3","23 out of 70 throws","20 out of 70 throws",0
+"uj0g1xn3hq3armVSVrhg","bn_4",NA,"50%",NA
+"kmcSlbFap9jTQblz0H0H","bn_1","30 out of 50 throws","30 out of 50 throws",1
+"kmcSlbFap9jTQblz0H0H","bn_2","40%","25%",0
+"kmcSlbFap9jTQblz0H0H","bn_3","None of the above","20 out of 70 throws",0
+"kmcSlbFap9jTQblz0H0H","bn_4","None of the above","50%",0
