@@ -1,0 +1,6 @@
+.vscode
+.cursorignore
+.Rhistory
+.Rproj.user
+*.Rproj
+other
