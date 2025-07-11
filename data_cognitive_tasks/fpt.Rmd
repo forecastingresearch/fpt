@@ -1,0 +1,1917 @@
+---
+title: "FPT Cognitive Tasks - Data Processing Pipeline "
+author: "Nikolay Petrov"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    number_sections: true
+    code_folding: hide
+params:
+  LOAD_DATA_FROM_CACHE: TRUE
+  RENDER_STOP_AFTER_CACHE: FALSE
+  VALIDATE_CODEBOOKS: FALSE
+---
+
+# Setup
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE, fig.width=12, fig.height=9)
+```
+
+```{r}
+dirs <- c("cache", "convenience_datasets", "task_datasets", "codebooks")
+for (d in dirs) {
+  if (!dir.exists(d)) {
+    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  }
+}
+```
+
+```{r}
+show_data_markdown <- function(data, group_var=NULL, rows_by_group=Inf, row_limit=Inf) {
+  if (!is.null(group_var)) {
+    data_to_display <- data %>%
+      group_by(.data[[group_var]])
+  } else {
+    data_to_display <- data
+  }
+  data_to_display <- data_to_display %>%
+    filter(row_number()<=rows_by_group) %>%
+    ungroup() %>%
+    filter(row_number()<=row_limit)
+  
+  if (isTRUE(getOption('knitr.in.progress'))) {
+    return(knitr::kable(data_to_display))
+  } else {
+    return(data_to_display)
+  }
+}
+```
+
+```{r}
+# Custom formatting function for APA style
+format_apa <- function(x, is_p_val=F) {
+  rounding_digits <- 2
+  
+  if (is_p_val) {
+    if (x<0.001) {
+      return ("< .001")
+    }
+    rounding_digits <- 3
+  }
+  
+  sign <- ifelse(x < 0, "-", "")
+  formatted <- formatC(abs(x), format = "f", digits = rounding_digits)
+  formatted <- gsub("^0", "", formatted) # Remove leading zero
+  formatted <- paste0(sign, formatted)
+  
+  if (is_p_val) {
+    return(paste0("= ", formatted))
+  }
+  return(formatted)
+}
+
+form_labels <- c("33ff78"="Form 1", "223301"="Form 2")
+group_labels <- c("reg"="regular", "sup"="superforecaster")
+```
+
+Packages loading and setup:
+
+```{r warning=FALSE, message=FALSE}
+options(dplyr.summarise.inform = FALSE)
+
+packages <- c(
+              "tidyverse",
+              "jsonlite",
+              "scales", ## rescale function
+              "officer"
+              )
+
+if (!all(packages %in% (.packages()))) {
+  #using invisible to hide output
+  invisible(lapply(packages,
+         FUN = function(x) {
+           if (!require(x, character.only = TRUE)) {
+             install.packages(x, dependencies = TRUE)
+           }
+           library(x, character.only = TRUE)
+         }))
+}
+
+theme_set(theme_classic())
+theme_update(plot.title = element_text(size=25, hjust=0.5),
+             plot.subtitle = element_text(size=18, hjust=0.5, face="italic"),
+            axis.title = element_text(size=15),
+            axis.text = element_text(size=10),
+            legend.title = element_text(size=20),
+            legend.text = element_text(size=15),
+            legend.position = "bottom",
+            legend.justification="right")
+```
+
+Columns and their types per task:
+
+```{r}
+col_spec_parameters <- list(
+  experiment_parameters='c', task_leapfrog='c', task_admc_rc1='c', task_admc_a1='c', task_admc_rc2='c', task_admc_a2='c',
+  task_admc_dr='c', task_admc_rp='c', task_denominator_neglect_version_A='c', task_denominator_neglect_version_B='c',
+  task_graph_literacy='c', task_impossible_question='c', task_time_series='c', task_bayesian_update_easy='c',
+  task_bayesian_update_hard='c', task_cognitive_reflection='c', task_berlin_numeracy='c', task_number_series='c',
+  task_coherence_forecasting='c', task_raven_matrix='c', task_conditional_forecasting='c', task_shipley_vocab='c',
+  task_shipley_abstraction='c'
+)
+
+col_spec_session_info <- list(
+  FULLSCREEN_SCREEN_WIDTH='i', FULLSCREEN_SCREEN_HEIGHT='i', width='i', height='i', webaudio='l', browser='c',
+  browser_version='c', mobile='l', os='f', fullscreen='l', vsync_rate='d', webcam='l', microphone='l'
+)
+
+col_spec_across_tasks <- list(
+  session_id='f', session_restart_id='f',
+  # subject_id = 'f', form = 'f', wave = 'f',
+  time_elapsed = 'i', trial_index = 'i',custom_timer_ended_trial = 'l',
+  trial_name = 'f', block = 'd', trial = 'd', pt_trial = 'l',
+  response = 'c', rt = 'd', trial_type='f'
+)
+
+col_spec_admc <- list(
+  admc_id = 'c', admc_response = 'c'
+)
+
+col_spec_leapfrog <- list(
+  curr_block_ind='d', pt_trial_prediction ='d',
+  optionA_reward = 'd', optionB_reward = 'd',
+  points_won = 'd', option_selected = 'f'
+)
+
+col_spec_denominator_neglect <- list(
+  task_version='f', choice_type='f',
+  left_lottery_display_type='f', right_lottery_display_type='f',
+  left_lottery_type='f', right_lottery_type='f',
+  left_lottery_gold_prop='d', right_lottery_gold_prop='d',
+  left_lottery_total_coins='d', right_lottery_total_coins='d',
+  left_lottery_gold_coins='d', right_lottery_gold_coins='d',
+  left_lottery_silver_coins='d', right_lottery_silver_coins='d',
+  selected_lottery='f', coin_drawn='f'
+)
+
+col_spec_graph_literacy <- list(
+  Q1='d', Q2='d', Q3='d', Q4='d', Q5='d', Q6='d', Q7='d', Q8='d', Q9='d',
+  Q10='d', Q11='d', Q12='d', Q13='d'
+)
+
+col_spec_impossible_questions <- list(
+  id='f',
+  question_text='c', answer_1='c', answer_2='c',
+  correct_answer='d', aig_version='f', correct='l', 
+  response_slider='d', response_choice='d'
+)
+
+col_spec_time_series <- list(
+  func='f', direction='f', noise_percent='d', noise_condition='f',
+  y_axis_values='c', chart_height='d', datapoints='f'
+)
+
+col_spec_bayesian_update <- list(
+  unique_trial='d', unique_trial_draw_number='d',
+  left_box_majority_color='f', right_box_majority_color='f', selected_box_majority_color='f',
+  ball_split='c', version='f', current_draw='c', past_draws='c',
+  response_slider='d',
+  score='d'
+)
+
+col_spec_cognitive_reflection <- list(
+  crt_1='c', crt_2='c', crt_3='c', crt_4='c', crt_5='c', crt_6='c', crt_7='c'
+)
+
+col_spec_number_series <- list(
+  ns_id='f', ns_response='c'
+)
+
+col_spec_coherence_forecasting <- list(
+  cfs_id='c', cfs_response='c'
+)
+
+col_spec_raven <- list(
+  stimulus='c',
+  correct_answer='d', correct='l', list_id='d'
+)
+
+col_spec_conditional_forecasting <- list(
+  cond_forecast_id='c', cond_forecast_response='c'
+)
+
+col_spec_misc <- list(
+  data_checkpoint='f', data_checkpoint_ind='i', view_history='c', success='l',
+  subject_id = 'f', form = 'f', wave = 'f'
+)
+
+col_spec_data <- c(
+  col_spec_parameters,
+  col_spec_session_info,
+  col_spec_across_tasks,
+  col_spec_admc,
+  col_spec_leapfrog,
+  col_spec_denominator_neglect,
+  col_spec_graph_literacy,
+  col_spec_impossible_questions,
+  col_spec_time_series,
+  col_spec_bayesian_update,
+  col_spec_cognitive_reflection,
+  col_spec_number_series,
+  col_spec_coherence_forecasting,
+  col_spec_raven,
+  col_spec_conditional_forecasting,
+  col_spec_misc
+)
+
+col_spec_data <- do.call(cols, col_spec_data)
+```
+
+# `metadata_tables`
+
+```{r}
+col_spec_metadata_session <- cols(
+  session_id='f', completed='l', subject_id='f', form='f', wave='f', 
+  task_order_indices='c',
+  added_at = col_datetime(format = "%Y-%m-%d %H:%M:%S"), last_accessed = col_datetime(format = "%Y-%m-%d %H:%M:%S")
+)
+col_spec_metadata_session_restarts <- cols(
+  session_id='f', session_restart_id='f',
+  data_checkpoint_ind='d', ms_since_data_checkpoint_ind='d', trials_completed_since_data_checkpoint_ind='d',
+  added_at = col_datetime(format = "%Y-%m-%d %H:%M:%S"), modified_at = col_datetime(format = "%Y-%m-%d %H:%M:%S")
+)
+col_spec_data_checkpoints <- cols(
+  session_id='f', 
+  data_checkpoint='f', data_checkpoint_ind='d',
+  added_at = col_datetime(format = "%Y-%m-%d %H:%M:%S"), 
+  interaction_data = 'c'
+)
+col_spec_subject_id_to_group <- cols(subject_id='f', group='f')
+```
+
+```{r}
+metadata_session <- read_csv(paste0("metadata_tables/", "session.csv"), col_types=col_spec_metadata_session)
+metadata_session_restarts <- read_csv(paste0("metadata_tables/", "session_restarts.csv"), col_types=col_spec_metadata_session_restarts)
+metadata_data_checkpoints <- read_csv(paste0("metadata_tables/", "data_checkpoints.csv"), col_types=col_spec_data_checkpoints)
+metadata_subject_id_to_group <- read_csv(paste0("metadata_tables/", "subject_id_group.csv"), col_types=col_spec_subject_id_to_group)
+```
+
+# `data` processing
+
+This is a table that contains all data across all tasks and sessions
+
+A variable can be set here to decide whether to redo all data processing or load from cache
+
+```{r}
+if (params$LOAD_DATA_FROM_CACHE) {
+  load(file.path("cache", "task_parameters_data.RData"))
+  load(file.path("cache", "session_info.RData"))
+  load(file.path("metadata_tables", "task_aig_version.RData"))
+  load(file.path("cache", "data_processed.RData"))
+}
+```
+
+## Reading in all data
+
+Reading in all data:
+
+```{r data-read-heavy, warning=FALSE, message=FALSE}
+if (!params$LOAD_DATA_FROM_CACHE) {
+  get_data <- function(datasets_files_list, datapath) {
+    total_files <- length(datasets_files_list)
+    start_time <- Sys.time()
+    
+    # a bit of a hacky solution to init as a list
+    # and then bind_rows into a tibble
+    # but helps reduce memory overhead and having to clean-up the list
+    data <- vector("list", length(datasets_files_list))
+    for (i in seq_along(datasets_files_list)) {
+      if (i %% ceiling(total_files / 20) == 0 || i == total_files) {
+        elapsed_time <- difftime(Sys.time(), start_time, units = "secs")
+        cat(sprintf("Progress: %d%%, File: %d/%d, Elapsed: %.2f seconds\n", 
+                    round(i / total_files * 100), i, total_files, elapsed_time))
+        flush.console() # prints immediately
+      }
+      
+      data[[i]] <- read_csv(file.path(datapath, datasets_files_list[i]), col_types = col_spec_data) %>%
+        select(any_of(names(col_spec_data$cols))) %>%
+        mutate(stimulus = if_else(trial_name=="raven_trial", stimulus, NA_character_))
+    }
+    data <- bind_rows(data)
+    
+    return(data)
+  }
+  
+  datapath <- "raw_session_data"
+  datasets_files_list <- list.files(path=datapath, pattern="*.csv")
+  
+  # takes about 6-7mins
+  data <- get_data(datasets_files_list, datapath)
+  save(data, file=file.path("cache", "data_raw.RData"))
+}
+```
+
+## Session info and task parameters
+
+Task-specific parameters are removed from `data` as they are quite large and are kept in `task_parameters_data`.
+
+Ditto for session info (os, browser, screen width) - kept in `session_info`
+
+```{r create-task-params-and-session-info}
+if (!params$LOAD_DATA_FROM_CACHE) {
+  task_parameters_data <- data %>%
+    select(session_id, any_of(names(col_spec_parameters))) %>%
+    filter(!is.na(experiment_parameters))
+  save(task_parameters_data, file=file.path("cache", "task_parameters_data.RData"))
+  
+  # remove from data
+  data <- data %>%
+    select(-colnames(select(task_parameters_data, -session_id)))
+  
+  session_info <- data %>%
+    select(session_id, any_of(names(col_spec_session_info))) %>%
+    filter(!is.na(width))
+  save(session_info, file=file.path("cache", "session_info.RData"))
+  
+  # remove from data
+  data <- data %>%
+    select(-colnames(select(session_info, -session_id)))
+  
+  # remove misc cols from data
+  data <- data %>%
+    select(-any_of(names(col_spec_misc)))
+}
+```
+
+## Creating AIG/Anchor lookup table
+
+While information was kept as to which form a participant completed, there is no easily accessible table saved to look up which task version (AIG vs anchor) a participant completed within a session. We extract that information here and create such table.
+
+```{r create-metadata-task-aig-version-dataset}
+if (!params$LOAD_DATA_FROM_CACHE) {
+  tmp <- c("task_denominator_neglect_version_A", "task_denominator_neglect_version_B", "task_time_series", "task_leapfrog",
+           "task_impossible_question", "task_bayesian_update_easy", "task_bayesian_update_hard")
+
+  metadata_task_aig_version <- task_parameters_data %>%
+    select(session_id, all_of(tmp)) %>%
+    mutate(
+      across(
+        all_of(tmp),
+        ~ case_when(
+            grepl("'USE_ANCHOR_VERSION': False", .) ~ "AIG",
+            grepl("'USE_ANCHOR_VERSION': True", .) ~ "anchor",
+            TRUE ~ NA_character_  # Default to NA if neither pattern is found
+          )
+      )
+    ) %>%
+    pivot_longer(cols=-session_id, names_to="task", names_transform = list(task = ~ sub("^task_", "", .)), values_to="AIG_version")
+  
+  save(metadata_task_aig_version, file=file.path("metadata_tables", "task_aig_version.RData"))
+  write.csv(metadata_task_aig_version, file.path("metadata_tables", "task_aig_version.csv"), row.names = FALSE)
+}
+```
+
+## Updating `time_elapsed` and `trial_index` due to restarts
+
+As people can close the current session and come back to it later, this is reflected in `time_elapsed` and `trial_index` (also in `internal_node_id` but we don't use that one). Basically, when the browser window is closed and the PP comes back to the session later, both `time_elapsed` and `trial_index` restart from 0. We will update both these variables to make it seem like it was a single session - for ease of analysis.
+
+
+```{r update-time-elapsed-trial-index}
+if (!params$LOAD_DATA_FROM_CACHE) {
+  update_data_time_elapsed_and_trial_index <- function(data) {
+    df_list_by_session <- data %>%
+      group_by(session_id) %>%
+      group_split()
+    
+    total_sessions <- length(df_list_by_session)
+    start_time <- Sys.time()
+    
+    adjusted_dfs <- lapply(seq_along(df_list_by_session), function(idx) {
+      if (idx %% ceiling(total_sessions / 20) == 0 || idx == total_sessions) {
+        elapsed_time <- difftime(Sys.time(), start_time, units = "secs")
+        cat(sprintf("Progress: %d%%, Session: %d/%d, Elapsed: %.2f seconds\n", 
+                    round(idx / total_sessions * 100), idx, total_sessions, elapsed_time))
+        flush.console()
+      }
+      
+      df_group <- df_list_by_session[[idx]]
+      
+      # another way to flag this is by session_restart_id
+      df_group <- df_group %>%
+        mutate(session_flag = cumsum(trial_index == 0))
+      
+      df_list <- split(df_group, df_group$session_flag)
+      
+      if (length(df_list) > 1) {
+        for (i in 2:length(df_list)) {
+          last_trial_index <- max(df_list[[i-1]]$trial_index)
+          last_time_elapsed <- max(df_list[[i-1]]$time_elapsed)
+          
+          df_list[[i]]$trial_index <- df_list[[i]]$trial_index + last_trial_index + 1
+          df_list[[i]]$time_elapsed <- df_list[[i]]$time_elapsed + last_time_elapsed
+        }
+      }
+      
+      bind_rows(df_list) %>%
+        select(-session_flag)
+    })
+    
+    return(bind_rows(adjusted_dfs))
+  }
+  
+  # takes about 30 sec
+  data <- update_data_time_elapsed_and_trial_index(data)
+  save(data, file=file.path("cache", "data_processed.RData"))
+}
+```
+
+```{r}
+if (params$RENDER_STOP_AFTER_CACHE) {
+  knitr::knit_exit()
+}
+```
+
+
+## Filtering out non-completers
+
+```{r keep-only-completers}
+final_completers_session_ids <- metadata_session %>%
+  select(session_id, subject_id) %>%
+  filter(subject_id %in% read_csv(file.path("metadata_tables", "final_completers.csv"))$subject_id) %>%
+  pull(session_id)
+
+data <- data %>%
+  filter(session_id %in% final_completers_session_ids)
+```
+
+## Note: Completers with only partial data
+
+Completers are defined as those that finished wave 7 (cognitive tasks were waves 3 and 5). Thus, each participant in the current sample is expected to have completed both waves 3 and 5. For 10 participants this is not the case: 5 have completed wave 5, but have only partial data on wave 3, and the other 5 have completed wave 3 but only partial data on wave 5.
+
+One likely reason is that their internet might have dropped so their data was never successfully saved to the backend.
+
+Regardless of the reason, we keep them in and just assume missing data.
+
+```{r}
+# basically, everyone must have 2 sessions (rows) associated with each subject id
+incomplete_data_subject_ids <- data %>%
+  left_join(select(metadata_session, session_id, subject_id, wave), by="session_id") %>%
+  group_by(subject_id, wave) %>%
+  count() %>%
+  group_by(subject_id) %>%
+  count() %>%
+  filter(n!=2) %>%
+  pull(subject_id)
+```
+
+Metadata info for those incomplete subject ids:
+
+```{r}
+metadata_session %>%
+  filter(subject_id %in% incomplete_data_subject_ids) %>%
+  arrange(subject_id)
+```
+
+Number of completed checkpoints for each incomplete session:
+
+```{r}
+tmp <- metadata_session %>%
+  filter(subject_id %in% incomplete_data_subject_ids) %>%
+  filter(!completed) %>%
+  pull(session_id)
+
+metadata_data_checkpoints %>%
+  filter(session_id %in% tmp) %>%
+  left_join(select(metadata_session, session_id, subject_id), by="session_id") %>%
+  group_by(session_id) %>%
+  summarise(n_checkpoints_completed = n()) %>%
+  show_data_markdown()
+
+# use this to obtain information about the specific checkpoints completed for a given session_id
+# metadata_data_checkpoints %>%
+#   filter(session_id %in% tmp) %>%
+#   left_join(select(metadata_session, session_id, subject_id), by="session_id") %>%
+#   arrange(session_id) %>%
+#   filter(session_id="KLaMVcwK7KK9Ml66OM9k4hZQwf")
+```
+
+# Task-specific datasets
+
+## Leapfrog
+
+### Data
+
+Interblock question data during practice trials:
+
+```{r}
+data_leapfrog_pt_trials_interblock <- data %>%
+  filter(trial_name=="leapfrog_pt_trial_interblock_question") %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_leapfrog)))) %>%
+  select(session_id, curr_block_ind, pt_trial_prediction)
+```
+
+```{r}
+data_leapfrog <- data %>%
+  filter(trial_name=="leapfrog_trial", pt_trial==F) %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_leapfrog)))) %>%
+  select(-c(curr_block_ind, pt_trial_prediction, trial_name, pt_trial, custom_timer_ended_trial))
+```
+
+### Scoring
+
+```{r}
+data_leapfrog <- data_leapfrog %>%
+  mutate(optimal_choice = as.integer(points_won == pmax(optionA_reward, optionB_reward)))
+```
+
+```{r}
+# scores_leapfrog <- data_leapfrog %>%
+#   pivot_wider(id_cols=session_id, names_from=trial, names_prefix="leapfrog_", values_from=optimal_choice) %>%
+#   mutate(leapfrog_score = rowMeans(across(starts_with("leapfrog_")), na.rm = TRUE))
+```
+
+## Denominator neglect
+
+### Data
+
+Trials must have an "id". Given that randomization was done `choice_type` x `small_lottery_gold_prop` x `large_lottery_gold_prop_diff` but order of these 48 trials was randomized between sessions, we add a `trial_id` here, which uniquely identifies the same trial across sessions. Recall that `trial` is just the ordering within session and trial_index is the experiment-wide `jsPsych`-generated trial counter.
+
+Also, when working with the `prop`-related variables, rounding is added as this sometimes leads to weirdness!
+
+```{r}
+data_denominator_neglect <- data %>%
+  # RT timings in raw data were sometimes incorrect due to a technical error
+  # (some timers were not being cleared properly at end of some trials so the 
+  # timings merged between trials or registered on incorrect trials)
+  # after a careful examination, we determined that we can replace those with
+  # RTs based on time_elapsed
+  # the differences were in the sub-10ms range
+  group_by(session_id) %>%
+  mutate(rt = time_elapsed-lag(time_elapsed)) %>%
+  ungroup() %>%
+  filter(startsWith(as.character(trial_name), "dn_main_trial"), pt_trial==F) %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_denominator_neglect)))) %>%
+  # choice_type was incorrectly defined for some trials in anchor versions
+  # so we fix it here
+  mutate(choice_type = case_when(
+    left_lottery_type=="small" & left_lottery_gold_prop < right_lottery_gold_prop ~ "harmony",
+    left_lottery_type=="small" & left_lottery_gold_prop > right_lottery_gold_prop ~ "conflict",
+    right_lottery_type=="small" & left_lottery_gold_prop > right_lottery_gold_prop ~ "harmony",
+    right_lottery_type=="small" & left_lottery_gold_prop < right_lottery_gold_prop ~ "conflict",
+    TRUE ~ NA_character_
+    ),
+    choice_type = as.factor(choice_type)) %>%
+  # technically trial_name should have varied based on version but it doesn't
+  # task_version contains info about the task version
+  select(-c(trial_name, pt_trial, block)) %>%
+  # add some more info that should have been saved
+  mutate(small_lottery_gold_prop = round(if_else(left_lottery_type=="small", left_lottery_gold_prop, right_lottery_gold_prop), 2),
+         large_lottery_gold_prop_diff = round(abs(left_lottery_gold_prop-right_lottery_gold_prop), 2)) %>%
+  # add trial_id
+  left_join(tibble(
+    trial_id = 1:48,
+    choice_type = rep(c("conflict", "harmony"), each=24),
+    small_lottery_gold_prop = round(rep(rep(c(0.1, 0.2, 0.3), each=8), 2), 2),
+    large_lottery_gold_prop_diff = round(rep(seq(0.01, 0.08, 0.01), 6), 2)
+  ), by=c("choice_type", "small_lottery_gold_prop", "large_lottery_gold_prop_diff")) %>%
+  # solves a weird case where this participant did both versions twice
+  # we only keep the first attempt
+  filter((session_id == "s4lfGSEuzwFcs9VPAahaEoktnZ" & trial_index < 1200) |
+         session_id != "s4lfGSEuzwFcs9VPAahaEoktnZ")
+```
+
+### Scoring
+
+Take the first one
+
+```{r}
+data_denominator_neglect <- data_denominator_neglect %>% 
+  mutate(correct = as.integer(
+      (left_lottery_gold_prop > right_lottery_gold_prop & selected_lottery == "left") |
+      (left_lottery_gold_prop < right_lottery_gold_prop & selected_lottery == "right")
+    )
+  )
+```
+
+```{r}
+# data_denominator_neglect %>%
+#   pivot_wider(id_cols=session_id, 
+#               names_from=c("task_version", "trial_id"), names_glue = "dn_{task_version}_{trial_id}", 
+#               values_from = "correct")
+```
+
+## Graph literacy
+
+### Data
+
+```{r}
+data_graph_literacy_raw <- data %>%
+  filter(trial_name=="gl_main_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_graph_literacy)))) %>%
+  select(session_id, session_restart_id, time_elapsed, trial_index, custom_timer_ended_trial, rt, Q1:Q13) 
+```
+
+### Scoring
+
+```{r}
+data_graph_literacy_scores <- data_graph_literacy_raw %>%
+  select(session_id, Q1:Q13) %>%
+  pivot_longer(cols=-c(session_id),
+               names_to="question",
+               values_to="response",
+               names_transform = list(question = ~str_remove(., "Q"))) %>%
+  mutate(question=as.integer(question)) %>%
+  # correct answers
+  left_join(tibble(
+    question = seq(1, 13),
+    correct_answer = c(35, 15, 25, 25, 20, 3, 25, 40, 20, 3, 2, 2, 5)
+  ), by="question") %>%
+  mutate(correct = as.integer(response==correct_answer))
+```
+
+## Impossible question
+
+### Data
+
+```{r}
+data_impossible_question <- data %>%
+  filter(trial_name=="iqc_test_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_impossible_questions)))) %>%
+  select(-c(pt_trial, trial_name, block, trial_type)) %>%
+  mutate(question_type = if_else(str_detect(id, "^IQ_"), "IQ", "GK"),
+         confidence_scaled = (response_slider-50) / (100-50))
+```
+
+### Scoring
+
+The task comes pre-scored -- `correct` column contains info on whether the response was correct or not.
+
+```{r}
+data_impossible_question <- data_impossible_question %>%
+  mutate(correct=as.integer(correct))
+```
+
+## Time series
+
+### Data
+
+```{r}
+# custom as.numeric equivalent function; keeps warnings if warranted
+# https://stackoverflow.com/a/36239701/13078832
+as.num = function(x, na.strings = "NA") {
+  stopifnot(is.character(x))
+  na = x %in% na.strings
+  x[na] = "0"
+  x = as.numeric(x)
+  x[na] = NA_real_
+  x
+}
+
+data_time_series <- data %>%
+  filter(trial_name=="time_series_trial", pt_trial==F) %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_time_series)))) %>%
+  select(-c(trial_name, pt_trial, block, trial_type, response)) %>%
+  # parsing the y_axis_values
+  mutate(y_axis_values = str_replace_all(y_axis_values, "\\[|\\]|'", "") %>%
+           str_split(",") %>%
+           map(~as.num(.x, " None")),
+         y_axis_values = map(y_axis_values, ~.x[seq_len(36)])) %>%
+  mutate(displayed_values = if_else(datapoints == "datapoints_10",
+                                    map(y_axis_values, ~.x[1:10]),
+                                    map(y_axis_values, ~.x[1:30])),
+         prediction = if_else(datapoints == "datapoints_10",
+                                map(y_axis_values, ~.x[11:16]),
+                                map(y_axis_values, ~.x[31:36]))) %>%
+  unnest_wider(prediction, names_sep="_") %>%
+  # scale predictions relative to screen size
+  mutate(across(starts_with("prediction_"), ~ . / chart_height))
+```
+
+### Scoring
+
+Y axis values are scaled to [0-1]. MSE is reported per-trial.
+
+```{r}
+time_series_ground_truth <- tibble(
+  func = c("exponential", "linear", "linear", "exponential", "exponential", "linear", "exponential", "linear"),
+  direction = c("positive", "negative", "positive", "negative", "positive", "positive", "negative", "negative"),
+  datapoints = c("datapoints_30", "datapoints_30", "datapoints_10", "datapoints_10", "datapoints_10", "datapoints_30", "datapoints_30", "datapoints_10"),
+  ground_truth_prediction = list(
+    c(0.45545032182429973, 0.5080480511704113, 0.5702256895001414, 0.6437280774610872, 0.7306178529670532, 0.8333333333333326),
+    c(0.3796296296296296, 0.37037037037037035, 0.3611111111111111, 0.3518518518518518, 0.34259259259259256, 0.33333333333333326),
+    c(0.5624999999999999, 0.5833333333333334, 0.6041666666666667, 0.625, 0.6458333333333333, 0.6666666666666666),
+    c(0.7318481959297978, 0.685455287303686, 0.617854327667774, 0.5193502700643652, 0.37581607444651055, 0.166666666666667),
+    c(0.26815180407020217, 0.314544712696314, 0.382145672332226, 0.4806497299356348, 0.6241839255534894, 0.833333333333333),
+    c(0.6203703703703703, 0.6296296296296295, 0.6388888888888888, 0.6481481481481481, 0.6574074074074073, 0.6666666666666667),
+    c(0.5445496781757002, 0.49195194882958865, 0.42977431049985865, 0.3562719225389128, 0.26938214703294683, 0.16666666666666746),
+    c(0.43749999999999994, 0.4166666666666666, 0.3958333333333333, 0.375, 0.35416666666666663, 0.3333333333333333))
+) %>%
+  unnest_wider(ground_truth_prediction, names_sep="_")
+
+data_time_series <- data_time_series %>%
+  left_join(time_series_ground_truth, by=c("func", "direction", "datapoints")) %>%
+  mutate(squared_error_1 = (prediction_1-ground_truth_prediction_1)**2,
+         squared_error_2 = (prediction_2-ground_truth_prediction_2)**2,
+         squared_error_3 = (prediction_3-ground_truth_prediction_3)**2,
+         squared_error_4 = (prediction_4-ground_truth_prediction_4)**2,
+         squared_error_5 = (prediction_5-ground_truth_prediction_5)**2,
+         squared_error_6 = (prediction_6-ground_truth_prediction_6)**2,
+         mse = rowMeans(across(starts_with("squared_error_")), na.rm = T)
+         )
+```
+
+## Bayesian update
+
+### Data
+
+```{r}
+data_bayesian_update <- data %>%
+  filter(trial_name=="bayesian_update_test_trial", pt_trial==F) %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_bayesian_update)))) %>%
+  mutate(ball_split = gsub("[\\[]", "", ball_split),
+         ball_split = gsub("\\]", "", ball_split),
+         ball_split = gsub(", ", ",", ball_split),
+         ball_split = gsub("\'", "", ball_split),
+         ball_split = factor(ball_split),
+         current_draw = gsub("[\\[]", "", current_draw),
+         current_draw = gsub("\\]", "", current_draw),
+         current_draw = gsub("\'", "", current_draw),
+         current_draw = factor(current_draw),
+         past_draws = gsub("[\\[]", "", past_draws),
+         past_draws = gsub("\\]", "", past_draws),
+         past_draws = gsub("\'", "", past_draws),
+         past_draws = gsub(", ", ",", past_draws),
+         past_draws = na_if(past_draws, "")) %>%
+  # score is incorrect, it's recalculated below
+  select(-c(trial_name, block, pt_trial, trial_type, response, score))
+```
+
+### Scoring
+
+```{r}
+data_bayesian_update <- data_bayesian_update %>%
+  mutate(
+    combined_draws = ifelse(is.na(past_draws), as.character(current_draw), paste(past_draws, as.character(current_draw), sep = ",")),
+    blue_balls = str_count(combined_draws, "blue"),
+    red_balls = str_count(combined_draws, "red"),
+    
+    # Calculate probabilities
+    ball_split_numeric = str_split(ball_split, ",") %>% map(~ as.numeric(.x) / 100),
+    probability_blue_ball = map_dbl(ball_split_numeric, 2),
+    probability_red_ball = map_dbl(ball_split_numeric, 1),
+    true_odds_blue_urn = (probability_blue_ball / probability_red_ball) ** (blue_balls - red_balls),
+    
+    response_slider_modified = case_when(
+      response_slider==0 ~ 1,
+      response_slider==100 ~ 99,
+      TRUE ~ response_slider
+    ),
+    # Calculate reported probability and true odds based on version
+    reported_probability = if_else(
+      version == "easy",
+      if_else(right_box_majority_color == "blue", response_slider_modified / 100, (100 - response_slider_modified) / 100),
+      response_slider_modified / 100
+    ),
+    true_odds = if_else(
+      version == "easy",
+      true_odds_blue_urn,
+      {
+        true_probability_blue_urn = true_odds_blue_urn / (1 + true_odds_blue_urn)
+        true_probability_blue_ball = (true_probability_blue_urn * probability_blue_ball) + ((1 - true_probability_blue_urn) * (1 - probability_blue_ball))
+        true_probability_blue_ball / (1 - true_probability_blue_ball)
+      }
+    ),
+    # Calculate reported odds
+    reported_odds = reported_probability / (1 - reported_probability),
+    # Calculate the score
+    score = abs(log(reported_odds) - log(true_odds))
+  ) %>%
+  select(-c(combined_draws, blue_balls, red_balls, ball_split_numeric, probability_blue_ball, probability_red_ball, true_odds_blue_urn, response_slider_modified, reported_probability, true_odds, reported_odds))
+```
+
+## Cognitive reflection task
+
+### Data
+
+```{r}
+data_cognitive_reflection <- data %>%
+  filter(trial_name=="cognitive_reflection_test_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_cognitive_reflection)))) %>%
+  select(-c(trial_name, block, trial, pt_trial, trial_type, response))
+```
+
+### Scoring
+
+```{r}
+data_cognitive_reflection <- data_cognitive_reflection %>%
+  mutate(crt_correct_1 = crt_1=="5 cents",
+         crt_correct_2 = crt_2=="5 minutes",
+         crt_correct_3 = crt_3=="47 days",
+         crt_correct_4 = crt_4=="4 days",
+         crt_correct_5 = crt_5=="29 students",
+         crt_correct_6 = crt_6=="20 dollars",
+         crt_correct_7 = crt_7=="has lost money.",
+         across(starts_with("crt_correct_"), as.integer),
+         crt_correct_mean = rowSums(across(starts_with("crt_correct_")), na.rm=T)/7
+         )
+```
+
+## Number Series task
+
+### Data
+
+```{r}
+data_number_series <- data %>%
+  filter(trial_name=="number_series_test_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_number_series)))) %>%
+  
+  # Regex explanation:
+  # (?<=: ') is a positive lookbehind that asserts the match is preceded by ": '"
+  # [^']+ matches one or more characters that are not a single quote
+  # (?=') is a positive lookahead that asserts the match is followed by a single quote
+  mutate(ns_response = str_extract(response, "(?<=: ')[^']+(?=')")) %>%
+  
+  select(-c(block, trial, pt_trial, response, trial_type)) %>%
+  # filtering out duplicate response from this weird session where the user took the task twice
+  filter(session_id!="ic7zEIqMmLChTXVCa0DCS7N1vg" | 
+           (session_id=="ic7zEIqMmLChTXVCa0DCS7N1vg" & !is.na(ns_response) & !(ns_id=="NS_1" & trial_index==21) & !(ns_id=="NS_2" & trial_index==22)
+            & !(ns_id=="NS_3" & trial_index==23) & !(ns_id=="NS_4" & trial_index==24)))
+```
+
+### Scoring
+
+```{r}
+data_number_series <- data_number_series %>%
+  left_join(tibble(
+    ns_id = paste0("NS_", seq(1, 9)),
+    correct_answer = c("-2", "28", "64", "29", "8/16", "165", "43", "8900", "12/16")
+  ), by="ns_id") %>%
+  mutate(correct = as.integer(ns_response==correct_answer))
+```
+
+## Coherence Forecasting scale
+
+### Data
+
+```{r}
+data_coherence_forecasting_raw <- data %>%
+  filter(trial_name=="cfs_test_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_coherence_forecasting)))) %>%
+  select(-c(trial_name, block, trial, pt_trial, response, trial_type))
+```
+
+### Scoring
+
+```{r}
+trin <-  function(est1, est2, est3 = 1) {
+  trin_unscaled <- 1 - abs(sum(est1, est2) - est3)
+  trin_scaled <- scales::rescale(trin_unscaled, c(0,1), c(-1, 1))
+  return(trin_scaled)
+}
+
+bin <- function(est1, est2, true = 1) {
+  est = est1 + est2
+  return(1 - abs(est - true))
+}
+
+taurank <- function(x, y, z){
+  if (sd(as.numeric(c(x, y, z))) == 0) {
+    return(0.5)
+  }
+  
+  cor(1:3, rank(as.numeric(c(x, y, z))), method = "kendall") %>%
+    scales::rescale(., c(0,1), c(-1, 1))
+}
+
+data_coherence_forecasting_scores <- data_coherence_forecasting_raw %>%
+  mutate(cfs_id = map(cfs_id, ~ str_extract_all(.x, "\\w+") %>% unlist()),
+         cfs_response = map(cfs_response, ~ str_extract_all(.x, "\\d+") %>% unlist())) %>%
+  unnest(cols = c(cfs_id, cfs_response)) %>%
+  mutate(cfs_response = as.numeric(cfs_response)/100) %>%
+  pivot_wider(names_from = cfs_id, values_from = cfs_response,
+              values_fn = list(cfs_response = mean), id_cols = c(session_id)) %>%
+  rowwise() %>%
+  mutate(tri1_abc = trin(trinary_A, trinary_B, (1-trinary_C)),
+         # consistent within own responses
+         tri1_ab = bin(trinary_A, trinary_B, trinary_AB),
+         tri1_bc = bin(trinary_B, trinary_C, trinary_BC),
+         # binary items (3)
+         bin1 = bin(binary_statepop1, binary_statepop2),
+         bin2 = bin(binary_statearea1, binary_statearea2),
+         bin3 = bin(binary_gdp1, binary_gdp2),
+         # time
+         t1 = taurank(time1, time2, time3),
+         t2 = taurank(time4, time5, time6),
+         # space
+         s1 = taurank(space1, space2, space3),
+         s2 = taurank(space4, space5, space6),
+         ci1 = taurank(confidence_interval1, confidence_interval2, confidence_interval3),
+         score_mean = rowMeans(across(tri1_abc:ci1), na.rm=T)
+         ) %>%
+  ungroup()
+```
+
+## Raven matrices
+
+### Data
+
+```{r}
+data_raven <- data %>%
+  filter(trial_name=="raven_trial", pt_trial==F) %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_raven)))) %>%
+  select(-c(trial_name, block, pt_trial, trial_type))
+```
+
+### Scores
+
+Due to a typo in the originally shared files by [Matzen et al 2010](https://github.com/sandialabs/Matrices/blob/master/Matzen_et_al_2010_norming_stim.zip), the scoring is redone.
+
+Originally, Matzen et al share this in their codebook (stimulus-correct answer pairs):
+A4_1	2
+A4_1	1
+A4_2	3
+A4_3	1
+
+But the keys have a typo. We have changed them in the raven_correct_answer to be:
+A4_1	2
+A4_2	1
+A4_3	3
+A4_4	1
+
+Which results in 164 trials (0.3%) being incorrectly scored in previous versions of the datasets. We fix this here.
+
+```{r}
+data_raven <- data_raven %>%
+  # drop incorrectly set variables
+  select(-correct_answer, -correct) %>%
+  left_join(read_csv("raven_correct_answers.csv", show_col_types=F), by="stimulus") %>%
+  # recompute correct scores
+  mutate(response = as.numeric(response),
+         correct = as.integer(response==correct_answer))
+```
+
+## Shipley - vocabulary
+
+### Data
+
+```{r}
+data_shipley_vocabulary <- data %>%
+  filter(trial_name=="shipley_vocab_test_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks)))) %>%
+  select(-c(block, trial, pt_trial, response, trial_type, session_restart_id, trial_name)) %>%
+  left_join(select(read_csv("shipley_scores.csv", show_col_types=F), session_id, starts_with("shipley_vocab")),
+            by="session_id")
+```
+
+## Shipley - abstraction
+
+### Data
+
+```{r}
+data_shipley_abstraction <- data %>%
+  filter(trial_name=="shipley_abstraction_test_trial") %>%
+  select(any_of(names(c(col_spec_across_tasks)))) %>%
+  select(-c(block, trial, pt_trial, response, trial_type, session_restart_id, trial_name)) %>%
+  left_join(select(read_csv("shipley_scores.csv", show_col_types=F), session_id, starts_with("shipley_abstraction_")),
+            by="session_id")
+```
+
+## Berlin Numeracy
+
+This task was completed during wave 0 of the forecasting questions and is processed there. We just read it here.
+
+Executed in the forecasting pipeline to avoid having to redo the `dat0` processing from the pipeline.
+
+### Data
+
+```{r}
+data_berlin_numeracy <- read_csv(file.path("task_datasets", "data_berlin_numeracy.csv"), 
+         col_types = cols(subject_id='f', item_id='f', response='i', correct_response='i', correct='i'))
+```
+
+## ADMC
+
+### Data
+
+```{r}
+data_admc_raw <- data %>%
+  filter(!is.na(admc_id)) %>%
+  select(any_of(names(c(col_spec_across_tasks, col_spec_admc)))) %>%
+  select(-c(block, trial, pt_trial, trial_type)) 
+```
+
+### Scoring
+
+```{r}
+tmp <- data_admc_raw %>%
+  select(session_id, admc_id, admc_response) %>%
+  left_join(select(metadata_session, session_id, subject_id), by="session_id") %>%
+  mutate(admc_id = strsplit(gsub("\"", "", admc_id), ",", fixed = TRUE),
+         admc_response = strsplit(gsub("\"", "", admc_response), ",", fixed = TRUE)) %>%
+  unnest(cols = c(admc_id, admc_response)) %>%
+  mutate(admc_id = gsub("[\\[]", "", admc_id),
+         admc_response = gsub("[\\[]", "", admc_response),
+         admc_id = gsub("\\]", "", admc_id),
+         admc_response = gsub("\\]", "", admc_response),
+         admc_id = gsub("\'", "", admc_id),
+         admc_response = gsub("\'", "", admc_response),
+         admc_response = as.double(admc_response),
+         admc_id = trimws(admc_id)) %>%
+  relocate(subject_id)
+```
+
+#### Resistance to framing
+
+```{r}
+admc_resistance_to_framing_related_frames <- tibble(
+  positive_frame = c("rc1_1", "rc1_2", "rc1_3", "rc1_4", "rc1_5", "rc1_6", "rc1_7",
+                     "a1_1", "a1_2", "a1_3", "a1_4", "a1_5", "a1_6", "a1_7"),
+  negative_frame = c("rc2_5", "rc2_4", "rc2_7", "rc2_2", "rc2_6", "rc2_3", "rc2_1",
+                     "a2_6", "a2_5", "a2_3", "a2_1", "a2_7", "a2_2", "a2_4")
+)
+
+data_admc_scores <- tmp %>%
+  filter(str_starts(admc_id, "rc") | str_starts(admc_id, "a")) %>%
+  select(subject_id, admc_id, admc_response) %>%
+  
+  nest(admc_data = -subject_id) %>%
+  mutate(resistance_to_framing = map(admc_data, function(id_data) {
+    admc_resistance_to_framing_related_frames <- tibble(
+      positive_frame = c("rc1_1", "rc1_2", "rc1_3", "rc1_4", "rc1_5", "rc1_6", "rc1_7",
+                         "a1_1", "a1_2", "a1_3", "a1_4", "a1_5", "a1_6", "a1_7"),
+      negative_frame = c("rc2_5", "rc2_4", "rc2_7", "rc2_2", "rc2_6", "rc2_3", "rc2_1",
+                         "a2_6", "a2_5", "a2_3", "a2_1", "a2_7", "a2_2", "a2_4")
+    )
+        
+    results_per_scale <- list()  # Use a list to store results for each pair
+    for (row in 1:nrow(admc_resistance_to_framing_related_frames)) {
+      positive_frame_value <- filter(id_data,
+                                     admc_id == admc_resistance_to_framing_related_frames[row,]$positive_frame)$admc_response
+      negative_frame_value <- filter(id_data,
+                                     admc_id == admc_resistance_to_framing_related_frames[row,]$negative_frame)$admc_response
+      
+      tryCatch({
+        if (nrow(id_data) == 14) {
+          result <- NA
+        } else if (length(positive_frame_value) == 0 | length(negative_frame_value) == 0) {
+          result <- NA
+        } else if (is.na(positive_frame_value) | is.na(negative_frame_value)) {
+          result <- NA
+        } else {
+          result <- abs(positive_frame_value - negative_frame_value)
+        }
+        
+        # Add the result to the list using frame pair as the key
+        frame_pair <- paste(admc_resistance_to_framing_related_frames[row,]$positive_frame,
+                            admc_resistance_to_framing_related_frames[row,]$negative_frame,
+                            sep = "_vs_")
+        results_per_scale[[frame_pair]] <- result
+      }, error = function(e) {
+        frame_pair <- paste(admc_resistance_to_framing_related_frames[row,]$positive_frame,
+                            admc_resistance_to_framing_related_frames[row,]$negative_frame,
+                            sep = "_vs_")
+        results_per_scale[[frame_pair]] <- NA
+      })
+    }
+    return(as_tibble(results_per_scale))  # Convert list to tibble
+  }, .progress=T)) %>%
+  unnest(cols = resistance_to_framing) %>%
+  select(-admc_data) %>%
+  mutate(resistance_to_framing_score_mean = rowMeans(across(c(starts_with("rc1"), starts_with("a1"))), na.rm=T))
+```
+
+#### Risk perception
+
+```{r}
+calc_admc_rp_consistency_trial <- function(id_data) {
+  if (nrow(id_data) != 20) {
+    return(NULL)
+  }
+  # Consistency rules
+  rules <- c(id_data$admc_response[id_data$admc_id == "rp_a1"] <= id_data$admc_response[id_data$admc_id == "rp_b1"],
+             id_data$admc_response[id_data$admc_id == "rp_a2"] <= id_data$admc_response[id_data$admc_id == "rp_b2"],
+             id_data$admc_response[id_data$admc_id == "rp_a3"] <= id_data$admc_response[id_data$admc_id == "rp_b3"],
+             id_data$admc_response[id_data$admc_id == "rp_a4"] <= id_data$admc_response[id_data$admc_id == "rp_b4"],
+             id_data$admc_response[id_data$admc_id == "rp_a5"] <= id_data$admc_response[id_data$admc_id == "rp_b5"],
+             id_data$admc_response[id_data$admc_id == "rp_a6"] <= id_data$admc_response[id_data$admc_id == "rp_b6"],
+             id_data$admc_response[id_data$admc_id == "rp_a7"] <= id_data$admc_response[id_data$admc_id == "rp_b7"],
+             id_data$admc_response[id_data$admc_id == "rp_a8"] >= id_data$admc_response[id_data$admc_id == "rp_b8"],
+             id_data$admc_response[id_data$admc_id == "rp_a9"] <= id_data$admc_response[id_data$admc_id == "rp_b9"],
+             id_data$admc_response[id_data$admc_id == "rp_a10"] >= id_data$admc_response[id_data$admc_id == "rp_b10"],
+             id_data$admc_response[id_data$admc_id == "rp_a3"] >= id_data$admc_response[id_data$admc_id == "rp_a6"],
+             id_data$admc_response[id_data$admc_id == "rp_b3"] >= id_data$admc_response[id_data$admc_id == "rp_b6"],
+             id_data$admc_response[id_data$admc_id == "rp_a4"] >= id_data$admc_response[id_data$admc_id == "rp_a7"],
+             id_data$admc_response[id_data$admc_id == "rp_b4"] >= id_data$admc_response[id_data$admc_id == "rp_b7"],
+             id_data$admc_response[id_data$admc_id == "rp_a2"] <= id_data$admc_response[id_data$admc_id == "rp_a9"],
+             id_data$admc_response[id_data$admc_id == "rp_b2"] <= id_data$admc_response[id_data$admc_id == "rp_b9"],
+             id_data$admc_response[id_data$admc_id == "rp_a1"] + id_data$admc_response[id_data$admc_id == "rp_a10"] == 1,
+             id_data$admc_response[id_data$admc_id == "rp_b1"] + id_data$admc_response[id_data$admc_id == "rp_b10"] == 1,
+             id_data$admc_response[id_data$admc_id == "rp_a5"] + id_data$admc_response[id_data$admc_id == "rp_a8"] == 1,
+             id_data$admc_response[id_data$admc_id == "rp_b5"] + id_data$admc_response[id_data$admc_id == "rp_b8"] == 1)
+  
+  rules <- as.integer(rules)
+  
+  names(rules) <- c(
+    "rp_a1_vs_rp_b1",
+    "rp_a2_vs_rp_b2",
+    "rp_a3_vs_rp_b3",
+    "rp_a4_vs_rp_b4",
+    "rp_a5_vs_rp_b5",
+    "rp_a6_vs_rp_b6",
+    "rp_a7_vs_rp_b7",
+    "rp_a8_vs_rp_b8",
+    "rp_a9_vs_rp_b9",
+    "rp_a10_vs_rp_b10",
+    "rp_a3_vs_rp_a6",
+    "rp_b3_vs_rp_b6",
+    "rp_a4_vs_rp_a7",
+    "rp_b4_vs_rp_b7",
+    "rp_a2_vs_rp_a9",
+    "rp_b2_vs_rp_b9",
+    "rp_a1_plus_rp_a10_equals_1",
+    "rp_b1_plus_rp_b10_equals_1",
+    "rp_a5_plus_rp_a8_equals_1",
+    "rp_b5_plus_rp_b8_equals_1"
+  )
+
+  return(rules)
+}
+
+data_admc_scores <- data_admc_scores %>% 
+  left_join(tmp %>%
+      filter(str_starts(admc_id, "rp")) %>%
+      select(subject_id, admc_id, admc_response) %>%
+      group_by(subject_id) %>%
+      nest() %>%
+      mutate(risk_perception = map(data, calc_admc_rp_consistency_trial, .progress=T)) %>%
+      ungroup() %>%
+      select(-data) %>%
+      unnest_wider(risk_perception) %>%
+      mutate(risk_perception_prop_consistent = rowSums(across(starts_with("rp_")), na.rm=T)/20),
+    by="subject_id")
+```
+
+#### Decision rules
+
+```{r warning=FALSE}
+data_admc_scores <- data_admc_scores %>% 
+  left_join(data_admc_raw %>%
+    select(session_id, admc_id, response) %>%
+    left_join(select(metadata_session, session_id, subject_id), by="session_id") %>%
+    filter(str_starts(admc_id, "dr")) %>%
+    select(subject_id, admc_id, response) %>% 
+    mutate(across(where(is.factor), as.character)) %>%
+    mutate(response = str_extract(response, "\\[.*?\\]")) %>%
+    # correct responses
+    inner_join(tibble(admc_id=c("dr1", "dr2", "dr3", "dr4", "dr5", "dr6", "dr7", "dr8", "dr8", "dr9", "dr9", "dr9", "dr10", "dr10", "dr10"),
+                      admc_correct_response=c("C", "D", "C", "None", "A", "E", "E", "A", "C", "A", "D", "E", "C", "D", "E")),
+               by="admc_id") %>%
+    rowwise() %>%
+    mutate(score = as.integer(str_detect(response, admc_correct_response))) %>%
+    ungroup() %>%
+    pivot_wider(id_cols=c("subject_id"),
+                names_from=c("admc_id", "admc_correct_response"),
+                values_from=score) %>%
+    mutate(dr_score_mean = rowSums(across(starts_with("dr")), na.rm=T)/15),
+  by="subject_id")
+```
+
+# Save task datasets
+
+```{r}
+datasets_to_save <- list(data_leapfrog_pt_trials_interblock=data_leapfrog_pt_trials_interblock,
+                          data_leapfrog=data_leapfrog,
+                          data_denominator_neglect=data_denominator_neglect,
+                          data_graph_literacy_raw=data_graph_literacy_raw,
+                          data_graph_literacy_scores=data_graph_literacy_scores,
+                          data_impossible_question=data_impossible_question,
+                          data_time_series=data_time_series,
+                          data_bayesian_update=data_bayesian_update,
+                          data_cognitive_reflection=data_cognitive_reflection,
+                          data_number_series=data_number_series,
+                          data_coherence_forecasting_raw=data_coherence_forecasting_raw,
+                          data_coherence_forecasting_scores=data_coherence_forecasting_scores,
+                          data_raven=data_raven,
+                          data_shipley_vocabulary=data_shipley_vocabulary,
+                          data_shipley_abstraction=data_shipley_abstraction,
+                          # BN included so it's part of the .Rdata file 
+                          # even though it's created in the forecasting pipeline
+                          data_berlin_numeracy=data_berlin_numeracy,
+                          data_admc_raw=data_admc_raw,
+                          data_admc_scores=data_admc_scores
+                         )
+
+
+folder_path <- file.path("task_datasets")
+
+lapply(names(datasets_to_save), function(name) {
+  data_to_save <- datasets_to_save[[name]]
+  if (name=="data_time_series") {
+    data_to_save <- data_to_save %>%
+      mutate(across(c("y_axis_values", "displayed_values"), ~ map_chr(., ~ paste(.x, collapse = ","))))
+  }
+  write.csv(data_to_save, file.path("task_datasets", paste0(name, ".csv")), row.names = FALSE)
+})
+
+save(datasets_to_save, file = file.path("task_datasets", "FPT_datasets.RData"))
+```
+
+# Convenience datasests
+
+## summary scores across tasks
+
+### by session
+
+```{r}
+summary_scores_all_tasks_by_session <- data %>%
+  select(session_id) %>%
+  unique() %>%
+  
+  left_join(select(metadata_session, session_id, subject_id, form, wave), by="session_id") %>%
+  
+  left_join(data_leapfrog %>%
+    group_by(session_id) %>%
+    summarise(leapfrog_optimal_choice_mean = mean(optimal_choice, na.rm=T), .groups='drop'),
+    by="session_id") %>%
+  left_join(data_denominator_neglect %>%
+    group_by(session_id, task_version) %>%
+    summarise(correct_mean = mean(correct, na.rm=T), .groups='drop') %>%
+    pivot_wider(id_cols=session_id, 
+                names_from=task_version, names_glue="dn_version_{task_version}_correct_mean", 
+                values_from=correct_mean),
+    by="session_id") %>%
+  left_join(data_graph_literacy_scores %>%
+    group_by(session_id) %>%
+    summarise(gl_correct_mean = sum(correct, na.rm=T)/13, .groups='drop'),
+    by="session_id") %>%
+  left_join(data_impossible_question %>%
+    group_by(session_id, question_type) %>%
+    summarise(sum_correct = sum(correct, na.rm=T),
+              calibration = mean(confidence_scaled, na.rm=T) - mean(correct, na.rm=T),
+              .groups="drop") %>%
+    mutate(mean_correct = if_else(question_type=="IQ", sum_correct/6, sum_correct/24)) %>%
+    select(-sum_correct) %>%
+    pivot_wider(id_cols=session_id,
+                names_from=question_type, names_glue="impossible_question_{question_type}_{.value}",
+                values_from=c(mean_correct, calibration)) %>%
+    select(-impossible_question_IQ_calibration),
+    by="session_id") %>%
+  left_join(data_time_series %>%
+    group_by(session_id) %>%
+    summarise(time_series_mse_mean = mean(mse, na.rm=T), .groups='drop'),
+    by="session_id") %>%
+  left_join(data_bayesian_update %>%
+    group_by(session_id, version) %>%
+    summarise(bayesian_update = mean(score, na.rm=T), .groups='drop') %>%
+    pivot_wider(id_cols=session_id, names_from=version, names_glue="bayesian_update_{version}_mean", values_from=bayesian_update),
+    by="session_id") %>%
+  left_join(data_cognitive_reflection %>%
+    select(session_id, crt_correct_mean),
+    by="session_id") %>%
+  left_join(data_number_series %>%
+    group_by(session_id) %>%
+    summarise(number_series_correct_mean = sum(correct, na.rm=T)/9, .groups='drop'),
+    by="session_id") %>%
+  left_join(data_coherence_forecasting_scores %>%
+    select(session_id, score_mean) %>%
+    rename(cfs_score_mean=score_mean),
+    by="session_id") %>%
+  left_join(data_raven %>%
+    group_by(session_id) %>%
+    summarise(raven_correct_mean = sum(correct, na.rm=T)/42, .groups='drop'),
+    by="session_id") %>%
+  left_join(data_shipley_vocabulary %>%
+    mutate(shipley_vocab_mean = shipley_vocab_total/40) %>%
+    select(session_id, shipley_vocab_mean),
+    by="session_id") %>%
+  left_join(data_shipley_abstraction %>%
+    select(-shipley_abstraction_total) %>%
+    pivot_longer(cols = starts_with("shipley_abstraction_"), names_to = "trial_subtrial", values_to = "correct") %>%
+    mutate(trial = as.integer(str_extract(trial_subtrial, "(?<=shipley_abstraction_)\\d+(?=_)"))) %>%
+    group_by(session_id, trial) %>%
+    summarize(trial_score = if_else(all(correct == 1), 1, 0), .groups = "drop") %>%
+    group_by(session_id) %>%
+    summarize(shipley_abstraction_score_mean = sum(trial_score,na.rm=T)/25, .groups = "drop"),
+    by="session_id") %>%
+  left_join(data_berlin_numeracy %>%
+    group_by(subject_id) %>%
+    summarize(berlin_numeracy_score_sum = sum(correct,na.rm=T)/4, .groups="drop"),
+    by="subject_id") %>%
+  left_join(data_admc_scores %>%
+    select(subject_id, resistance_to_framing_score_mean, risk_perception_prop_consistent, dr_score_mean),
+    by="subject_id")
+  
+write.csv(summary_scores_all_tasks_by_session,
+          file.path("convenience_datasets", "summary_scores_all_tasks_by_session.csv"), 
+          row.names=F)
+```
+
+### by subject
+
+```{r}
+summary_scores_all_tasks_by_subject_id <- summary_scores_all_tasks_by_session %>%
+  group_by(subject_id) %>%
+  summarise(across(where(is.numeric), ~mean(., na.rm=T)), .groups='drop')
+
+write.csv(summary_scores_all_tasks_by_subject_id,
+          file.path("convenience_datasets", "summary_scores_all_tasks_by_subject_id.csv"), 
+          row.names=F)
+```
+
+# Codebooks
+
+## `codebook` object
+
+```{r}
+codebook <- list(
+  shared = tribble(
+    ~variable, ~description,
+    "subject_id", "Unique (anonymized) identifer for each participant/subject",
+    
+    "session_id", "Unique identifier for each session; in most cases each participant had only one session per wave",
+    
+    "session_restart_id", "Unique identifier for each sub-session; the front-end allowed participants to restart their session and every time they did the same session_id was maintained but each restart was associated with a unique session_restart_id",
+    
+    "time_elapsed", "jsPsych generated variable (https://www.jspsych.org/v7/overview/plugins/#data-collected-by-all-plugins); time (ms) elapsed since start of the current `session_restart_id`; further adjusted during the processing pipeline to be since the start of the session (`session_id`) for ease of processing",
+    
+    "trial_index", "jsPsych generated variable (https://www.jspsych.org/v7/overview/plugins/#data-collected-by-all-plugins); auto-incremented trial counter since start of the current ` (`session_id`)_restart_id`; further adjusted during the processing pipeline to be since the start of the session (`session_id`) for ease of processing",
+    
+    "custom_timer_ended_trial", "some trials were associated with a custom timer and if participants did not provide a response in time, the current trial was closed and this variable recorded TRUE",
+    "trial_name", "custom trial name set in the jsPsych code",
+    
+    "block", "task-specific block counter",
+    
+    "trial", "task-specific trial counter",
+    
+    "pt_trial", "task-specific variable indicating if the trial is a practice one or not",
+    
+    "response", "jsPsych generated variable; applies to some `trial_type`s, e.g. html-keyboard-response (https://www.jspsych.org/v7/plugins/html-keyboard-response/#data-generated)",
+    
+    "rt", "jsPsych generated variable; in ms; applies to some `trial_type`s, e.g. html-keyboard-response (https://www.jspsych.org/v7/plugins/html-keyboard-response/#data-generated)",
+    
+    "trial_type", "jsPsych generated variable (https://www.jspsych.org/v7/overview/plugins/#data-collected-by-all-plugins); name of the plugin used to run the trial",
+    
+    "form", "the id of the form - either 33ff78 (form 1) or 223301 (form 2)",
+    
+    "wave", "the wave within the experiment; 3 or 5"
+  )
+)
+
+codebook$final_completers <- tribble(
+  ~variable,          ~description,
+)
+
+codebook$session <- tribble(
+  ~variable,          ~description,
+  "completed",        "indicates whether the session was completed or not",
+  "task_order_indices", "json-formatted string indicating the order of each task",
+  "added_at",         "database-generated timestamp of when the row was added",
+  "last_accessed",    "database-generated timestamp of when the row was last updated"
+)
+
+codebook$session_restarts <- tribble(
+  ~variable, ~description,
+  "data_checkpoint_ind", "auto-incremented index of each triggered data save",
+  "ms_since_data_checkpoint_ind", "time (ms) elapsed since last checkpoint index",
+  "trials_completed_since_data_checkpoint_ind", "number of trials (relative to `trial_index`) since last checkpoint index",
+  "added_at", "database-generated timestamp of when the row was added",
+  "modified_at", "database-generated timestamp of when the row was last updated"
+)
+  
+codebook$data_checkpoints <- tribble(
+  ~variable, ~description,
+  "data_checkpoint", "name of the data checkpoint index; defined on each triggered data save",
+  "data_checkpoint_ind", "auto-incremented index of each triggered data save",
+  "added_at", "database-generated timestamp of when the row was added",
+  "interaction_data", "json string of any interaction data as [recorded by jsPsych](https://www.jspsych.org/v7/overview/record-browser-interactions/)"
+)
+  
+codebook$subject_id_group <- tribble(
+  ~variable, ~description,
+  "group", "superforecaster (sup) or regular (reg) group assignment of each subject"
+)
+
+codebook$task_aig_version <- tribble(
+  ~variable, ~description,
+  "task", "name of the task",
+  "AIG_version", "AIG/anchor version of the task",
+)
+
+codebook$data_leapfrog_pt_trials_interblock <- tribble(
+  ~variable,       ~description,
+  "curr_block_ind", "block counter for the practice trials only; 99 signifies that last block",
+  "pt_trial_prediction", "the prediction given by the participant"
+)
+  
+codebook$data_leapfrog <- tribble(
+  ~variable,         ~description,
+  "optionA_reward",  "reward associated with option A",
+  "optionB_reward",  "reward associated with option B",
+  "points_won",      "points won, based on `option_selected` and options' reward",
+  "option_selected", "the option the subject selected (A/B)",
+  "optimal_choice",  "whether the optimal choice was made (1) or not (0); i.e. did the `option_selected` had the higher reward"
+)
+
+codebook$data_denominator_neglect <- tribble(
+  ~variable,                     ~description,
+  "task_version",                "version A (either text or array) or B (both text and array)",
+  "choice_type",                 "conflict (larger denominator is incorrect choice) or harmony (larger denominator is correct choice)",
+  "left_lottery_display_type",   "display type (text or array) for the lottery displayed on the left",
+  "right_lottery_display_type",  "display type (text or array) for the lottery displayed on the right",
+  "left_lottery_type",           "denominator type (small or large) for the lottery displayed on the left",
+  "right_lottery_type",          "denominator type (small or large) for the lottery displayed on the right",
+  "left_lottery_gold_prop",      "proportion of gold coins in the left lottery",
+  "right_lottery_gold_prop",     "proportion of gold coins in the right lottery",
+  "left_lottery_total_coins",    "total number of coins in the left lottery",
+  "right_lottery_total_coins",   "total number of coins in the right lottery",
+  "left_lottery_gold_coins",     "number of gold coins in the left lottery",
+  "right_lottery_gold_coins",    "number of gold coins in the right lottery",
+  "left_lottery_silver_coins",   "number of silver coins in the left lottery",
+  "right_lottery_silver_coins",  "number of silver coins in the right lottery",
+  "selected_lottery",            "the lottery (left or right) selected by the participant",
+  "coin_drawn",                  "the coin (silver or gold) that was randomly drawn from the selected lottery",
+  "small_lottery_gold_prop",     "the proportion of gold coins in the small lottery",
+  "large_lottery_gold_prop_diff","the difference in proportion between the small lottery and the large one",
+  "trial_id",                    "unique identifier of trials given a set of properties (conflict_type, small_lottery_gold_prop, large_lottery_gold_prop_diff)",
+  "correct",                     "whether the participant selected the lottery with the larger proportion of gold coins (1) or not (0)"
+)
+
+codebook$data_graph_literacy_raw <- tribble(
+  ~variable, ~description,
+  "Q1",  "the response provided by the participant on question 1",
+  "Q2",  "the response provided by the participant on question 2",
+  "Q3",  "the response provided by the participant on question 3",
+  "Q4",  "the response provided by the participant on question 4",
+  "Q5",  "the response provided by the participant on question 5",
+  "Q6",  "the response provided by the participant on question 6",
+  "Q7",  "the response provided by the participant on question 7",
+  "Q8",  "the response provided by the participant on question 8",
+  "Q9",  "the response provided by the participant on question 9",
+  "Q10", "the response provided by the participant on question 10",
+  "Q11", "the response provided by the participant on question 11",
+  "Q12", "the response provided by the participant on question 12",
+  "Q13", "the response provided by the participant on question 13"
+)
+
+codebook$data_graph_literacy_scores <- tribble(
+  ~variable,      ~description,
+  "question",     "question index; 1-13",
+  "response",     "response provided by the participant",
+  "correct_answer", "the correct answer to the question",
+  "correct",        "whether the response matched the correct answer (1) or not (0)"
+)
+
+codebook$data_impossible_question <- tribble(
+  ~variable,        ~description,
+  "id",             "unique id of the question",
+  "question_type",  "type of the question; IQ stands for impossible question; GK stands for general knowledge",
+  "question_text",  "the full question text",
+  "answer_1",       "possible answer 1",
+  "answer_2",       "possible answer 2",
+  "correct_answer", "correct answer; 1, 2 or 3 (impossible question)",
+  "aig_version",    "the AIG version of the task - AIG or anchor",
+  "response_choice","participant response (1, 2, 3)",
+  "correct",        "whether the participant's response was correct (1) or not (0)",
+  "response_slider","confidence in the response; 0-100",
+  "confidence_scaled", "sclaed confidence to 0-1"
+)
+
+codebook$data_time_series <- tribble(
+  ~variable,          ~description,
+  "func",             "generative function - exponential or linear",
+  "direction",        "direction of trend - positive or negative",
+  "noise_condition",  "noise condition - high or low",
+  "y_axis_values",    "a vector of up to 36 values with the final values on the y axis in pixels",
+  "chart_height",     "the height of the chart on that trial",
+  "datapoints",       "datapoints condition - datapoints_30 or datapoints_10",
+  "displayed_values", "a vactor of 10 or 30 values (depending on `datapoints` condition), in pixels",
+  "prediction_1",     "the prediction of point 1 out of 6 on that trial; value is relative to chart height (y axis value provided in pixels divided by `chart_height`)",
+  "prediction_2",     "the prediction of point 2 out of 6 on that trial; value is relative to chart height (y axis value provided in pixels divided by `chart_height`)",
+  "prediction_3",     "the prediction of point 3 out of 6 on that trial; value is relative to chart height (y axis value provided in pixels divided by `chart_height`)",
+  "prediction_4",     "the prediction of point 4 out of 6 on that trial; value is relative to chart height (y axis value provided in pixels divided by `chart_height`)",
+  "prediction_5",     "the prediction of point 5 out of 6 on that trial; value is relative to chart height (y axis value provided in pixels divided by `chart_height`)",
+  "prediction_6",     "the prediction of point 6 out of 6 on that trial; value is relative to chart height (y axis value provided in pixels divided by `chart_height`)",
+  "ground_truth_prediction_1", "the ground prediction of point 1 out of 6 on that trial; value is relative to chart height (ground truth y axis value in pixels divided by `chart_height`)",
+  "ground_truth_prediction_2", "the ground prediction of point 2 out of 6 on that trial; value is relative to chart height (ground truth y axis value in pixels divided by `chart_height`)",
+  "ground_truth_prediction_3", "the ground prediction of point 3 out of 6 on that trial; value is relative to chart height (ground truth y axis value in pixels divided by `chart_height`)",
+  "ground_truth_prediction_4", "the ground prediction of point 4 out of 6 on that trial; value is relative to chart height (ground truth y axis value in pixels divided by `chart_height`)",
+  "ground_truth_prediction_5", "the ground prediction of point 5 out of 6 on that trial; value is relative to chart height (ground truth y axis value in pixels divided by `chart_height`)",
+  "ground_truth_prediction_6", "the ground prediction of point 6 out of 6 on that trial; value is relative to chart height (ground truth y axis value in pixels divided by `chart_height`)",
+  "squared_error_1", "the squared error between participant-provided prediction and the ground-truth response for point 1",
+  "squared_error_2", "the squared error between participant-provided prediction and the ground-truth response for point 2",
+  "squared_error_3", "the squared error between participant-provided prediction and the ground-truth response for point 3",
+  "squared_error_4", "the squared error between participant-provided prediction and the ground-truth response for point 4",
+  "squared_error_5", "the squared error between participant-provided prediction and the ground-truth response for point 5",
+  "squared_error_6", "the squared error between participant-provided prediction and the ground-truth response for point 6",
+  "mse", "mean of squared error across the 6 predictions; NA values are dropped"
+)
+
+codebook$data_bayesian_update <- tribble(
+  ~variable, ~description,
+  "unique_trial", "unique trial (out of 8 total trials, 0-indexed)",
+  "unique_trial_draw_number", "draw index within each unique trial (out of 5, 0-indexed)",
+  "left_box_majority_color", "indicates if red or blue is the majority color in the left box",
+  "right_box_majority_color", "indicates if red or blue is the majority color in the right box",
+  "selected_box_majority_color", "indicates the majority color of the participant-selected box",
+  "ball_split", "whether the setup is 40/60 or 30/70 for blue and red balls",
+  "version", "whether the participant receives the easy or the hard version of the task",
+  "current_draw", "the ball drawn on the current trial",
+  "past_draws", "the past 0, 1, 2, 3 or 4 draw colors",
+  "response_slider", "participant response about the probability that: in easy version - the current draw is 'from the left vs the right box'; in hard version - 'the next drawn ball will be blue'",
+  "score", "score based on deviation from the optimal objective"
+)
+
+codebook$data_cognitive_reflection <- tribble(
+  ~variable, ~description,
+  "crt_1", "participant's response on question 1",
+  "crt_2", "participant's response on question 2",
+  "crt_3", "participant's response on question 3",
+  "crt_4", "participant's response on question 4",
+  "crt_5", "participant's response on question 5",
+  "crt_6", "participant's response on question 6",
+  "crt_7", "participant's response on question 7",
+  "crt_correct_1", "whether the participant's response was correct (1) or not (0) on question 1",
+  "crt_correct_2", "whether the participant's response was correct (1) or not (0) on question 2",
+  "crt_correct_3", "whether the participant's response was correct (1) or not (0) on question 3",
+  "crt_correct_4", "whether the participant's response was correct (1) or not (0) on question 4",
+  "crt_correct_5", "whether the participant's response was correct (1) or not (0) on question 5",
+  "crt_correct_6", "whether the participant's response was correct (1) or not (0) on question 6",
+  "crt_correct_7", "whether the participant's response was correct (1) or not (0) on question 7",
+  "crt_correct_mean", "the average of the 7 scores (NAs are treated as 0)"
+)
+
+codebook$data_number_series <- tribble(
+  ~variable, ~description,
+  "ns_id", "id for the question",
+  "ns_response", "response on the question",
+  "correct_answer", "correct answer for the question",
+  "correct", "whether the participant was correct (1) or not (0)"
+)
+
+codebook$data_coherence_forecasting_raw <- tribble(
+  ~variable, ~description,
+  "cfs_id", "id of the CFS item",
+  "cfs_response", "participant response on the given item"
+)
+
+codebook$data_raven <- tribble(
+  ~variable, ~description,
+  "stimulus", "Name of the stimulus based on Matzen et al (2010)",
+  "correct_answer", "correct answer to the question",
+  "correct", "whether the participant's response was correct (1) or not (0)",
+  "list_id", "the list unique id; lists and their items based on Matzen et al (2010)"
+)
+
+codebook$data_shipley_vocabulary <- tribble(
+  ~variable, ~description,
+  "shipley_vocab_1", "whether the participant's response was correct (1) or not (0) on item 1",
+  "shipley_vocab_2", "whether the participant's response was correct (1) or not (0) on item 2",
+  "shipley_vocab_3", "whether the participant's response was correct (1) or not (0) on item 3",
+  "shipley_vocab_4", "whether the participant's response was correct (1) or not (0) on item 4",
+  "shipley_vocab_5", "whether the participant's response was correct (1) or not (0) on item 5",
+  "shipley_vocab_6", "whether the participant's response was correct (1) or not (0) on item 6",
+  "shipley_vocab_7", "whether the participant's response was correct (1) or not (0) on item 7",
+  "shipley_vocab_8", "whether the participant's response was correct (1) or not (0) on item 8",
+  "shipley_vocab_9", "whether the participant's response was correct (1) or not (0) on item 9",
+  "shipley_vocab_10", "whether the participant's response was correct (1) or not (0) on item 10",
+  "shipley_vocab_11", "whether the participant's response was correct (1) or not (0) on item 11",
+  "shipley_vocab_12", "whether the participant's response was correct (1) or not (0) on item 12",
+  "shipley_vocab_13", "whether the participant's response was correct (1) or not (0) on item 13",
+  "shipley_vocab_14", "whether the participant's response was correct (1) or not (0) on item 14",
+  "shipley_vocab_15", "whether the participant's response was correct (1) or not (0) on item 15",
+  "shipley_vocab_16", "whether the participant's response was correct (1) or not (0) on item 16",
+  "shipley_vocab_17", "whether the participant's response was correct (1) or not (0) on item 17",
+  "shipley_vocab_18", "whether the participant's response was correct (1) or not (0) on item 18",
+  "shipley_vocab_19", "whether the participant's response was correct (1) or not (0) on item 19",
+  "shipley_vocab_20", "whether the participant's response was correct (1) or not (0) on item 20",
+  "shipley_vocab_21", "whether the participant's response was correct (1) or not (0) on item 21",
+  "shipley_vocab_22", "whether the participant's response was correct (1) or not (0) on item 22",
+  "shipley_vocab_23", "whether the participant's response was correct (1) or not (0) on item 23",
+  "shipley_vocab_24", "whether the participant's response was correct (1) or not (0) on item 24",
+  "shipley_vocab_25", "whether the participant's response was correct (1) or not (0) on item 25",
+  "shipley_vocab_26", "whether the participant's response was correct (1) or not (0) on item 26",
+  "shipley_vocab_27", "whether the participant's response was correct (1) or not (0) on item 27",
+  "shipley_vocab_28", "whether the participant's response was correct (1) or not (0) on item 28",
+  "shipley_vocab_29", "whether the participant's response was correct (1) or not (0) on item 29",
+  "shipley_vocab_30", "whether the participant's response was correct (1) or not (0) on item 30",
+  "shipley_vocab_31", "whether the participant's response was correct (1) or not (0) on item 31",
+  "shipley_vocab_32", "whether the participant's response was correct (1) or not (0) on item 32",
+  "shipley_vocab_33", "whether the participant's response was correct (1) or not (0) on item 33",
+  "shipley_vocab_34", "whether the participant's response was correct (1) or not (0) on item 34",
+  "shipley_vocab_35", "whether the participant's response was correct (1) or not (0) on item 35",
+  "shipley_vocab_36", "whether the participant's response was correct (1) or not (0) on item 36",
+  "shipley_vocab_37", "whether the participant's response was correct (1) or not (0) on item 37",
+  "shipley_vocab_38", "whether the participant's response was correct (1) or not (0) on item 38",
+  "shipley_vocab_39", "whether the participant's response was correct (1) or not (0) on item 39",
+  "shipley_vocab_40", "whether the participant's response was correct (1) or not (0) on item 40",
+  "shipley_vocab_total", "sum of correct responses"
+)
+
+codebook$data_shipley_abstraction <- tribble(
+  ~variable, ~description,
+  "shipley_abstraction_1_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_2_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_2_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_3_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_4_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_5_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_6_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_6_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_6_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_6_3", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_7_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_7_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_7_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_8_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_8_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_9_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_10_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_10_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_11_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_11_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_12_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_12_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_12_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_12_3", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_12_4", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_13_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_13_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_13_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_13_3", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_14_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_15_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_15_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_15_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_16_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_16_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_17_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_17_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_17_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_17_3", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_17_4", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_18_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_19_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_20_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_21_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_22_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_22_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_23_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_23_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_23_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_23_3", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_23_4", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_23_5", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_24_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_25_0", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_25_1", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_25_2", "whether the participant's response was correct (1) or not (0)",
+  "shipley_abstraction_total", "sum of correct responses"
+)
+
+codebook$data_berlin_numeracy <- tribble(
+  ~variable, ~description,
+  "item_id", "unique identifier for task items",
+  "response", "participant's response",
+  "correct_response", "the ground truth correct response",
+  "correct", "whether the participant's response was correct (1) or not (0)",
+)
+
+codebook$data_admc_raw <- tribble(
+  ~variable, ~description,
+  "admc_id", "the id of the ADMC item",
+  "admc_response", "the raw response on the given ADMC item"
+)
+
+codebook$data_admc_scores <- tribble(
+  ~variable, ~description,
+  "rc1_1_vs_rc2_5", "score the resistance to framing item of positive vs negative frame",
+  "rc1_2_vs_rc2_4", "score the resistance to framing item of positive vs negative frame",
+  "rc1_3_vs_rc2_7", "score the resistance to framing item of positive vs negative frame",
+  "rc1_4_vs_rc2_2", "score the resistance to framing item of positive vs negative frame",
+  "rc1_5_vs_rc2_6", "score the resistance to framing item of positive vs negative frame",
+  "rc1_6_vs_rc2_3", "score the resistance to framing item of positive vs negative frame",
+  "rc1_7_vs_rc2_1", "score the resistance to framing item of positive vs negative frame",
+  "a1_1_vs_a2_6", "score the resistance to framing item of positive vs negative frame",
+  "a1_2_vs_a2_5", "score the resistance to framing item of positive vs negative frame",
+  "a1_3_vs_a2_3", "score the resistance to framing item of positive vs negative frame",
+  "a1_4_vs_a2_1", "score the resistance to framing item of positive vs negative frame",
+  "a1_5_vs_a2_7", "score the resistance to framing item of positive vs negative frame",
+  "a1_6_vs_a2_2", "score the resistance to framing item of positive vs negative frame",
+  "a1_7_vs_a2_4", "score the resistance to framing item of positive vs negative frame",
+  "resistance_to_framing_score_mean", "mean score on the resistance to framing subscale of the ADMC",
+  "rp_a1_vs_rp_b1", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a2_vs_rp_b2", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a3_vs_rp_b3", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a4_vs_rp_b4", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a5_vs_rp_b5", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a6_vs_rp_b6", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a7_vs_rp_b7", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a8_vs_rp_b8", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a9_vs_rp_b9", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a10_vs_rp_b10", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a3_vs_rp_a6", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_b3_vs_rp_b6", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a4_vs_rp_a7", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_b4_vs_rp_b7", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a2_vs_rp_a9", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_b2_vs_rp_b9", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a1_plus_rp_a10_equals_1", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_b1_plus_rp_b10_equals_1", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_a5_plus_rp_a8_equals_1", "whether the participant's responses abide by the risk perception rule logic",
+  "rp_b5_plus_rp_b8_equals_1", "whether the participant's responses abide by the risk perception rule logic",
+  "risk_perception_prop_consistent", "proportion of consistent risk perception decision on the ADMC risk perception subscale",
+  "dr1_C", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr2_D", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr3_C", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr4_None", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr5_A", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr6_E", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr7_E", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr8_A", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr8_C", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr9_A", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr9_D", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr9_E", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr10_C", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr10_D", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr10_E", "whether the participant's response matched the correct answer (1) or not (0)",
+  "dr_score_mean", "mean score on the decision rules subscale of the ADMC"
+)
+
+codebook$summary_scores_all_tasks_by_session <- tribble(
+  ~variable, ~description,
+  "leapfrog_optimal_choice_mean", "mean proportion of optimal choices on leapfrog task",
+  "dn_version_A_correct_mean", "mean proportion of correct responses on denominator neglect task, version A",
+  "dn_version_B_correct_mean", "mean proportion of correct responses on denominator neglect task, version B",
+  "gl_correct_mean", "mean proportion of correct responses on the graph literacy task",
+  "impossible_question_GK_mean_correct", "mean proportion of correct responses on impossible question task, general knowledge questions",
+  "impossible_question_IQ_mean_correct", "mean proportion of correct responses on impossible question task, impossible questions",
+  "impossible_question_GK_calibration", "calibration measure for responses on impossible question task, general knowledge questions",
+  "time_series_mse_mean", "mean squared error across trials on the time series task",
+  "bayesian_update_easy_mean", "mean score on the easy version of the Bayesian update task",
+  "bayesian_update_hard_mean", "mean score on the hard version of the Bayesian update task",
+  "crt_correct_mean", "mean proportion of correct responses on the Cognitive Reflection Test",
+  "number_series_correct_mean", "mean proportion of correct responses on the number series task",
+  "cfs_score_mean", "mean score on the Coherence Forecasting Scale",
+  "raven_correct_mean", "mean proportion of correct responses on Raven's Progressive Matrices",
+  "shipley_vocab_mean", "mean proportion of correct responses on Shipley vocabulary items",
+  "shipley_abstraction_score_mean", "mean score on Shipley abstraction items",
+  "berlin_numeracy_score_sum", "sum of correct responses on the Berlin Numeracy task",
+  "resistance_to_framing_score_mean", "mean score on the resistance to framing subscale of the ADMC",
+  "risk_perception_prop_consistent", "proportion of consistent risk perception decision on the ADMC risk perception subscale",
+  "dr_score_mean", "mean score on the decision rules subscale of the ADMC"
+)
+  
+codebook$summary_scores_all_tasks_by_subject_id <- tribble(
+  ~variable, ~description,
+  "leapfrog_optimal_choice_mean", "mean proportion of optimal choices on leapfrog task",
+  "dn_version_A_correct_mean", "mean proportion of correct responses on denominator neglect task, version A",
+  "dn_version_B_correct_mean", "mean proportion of correct responses on denominator neglect task, version B",
+  "gl_correct_mean", "mean proportion of correct responses on the graph literacy task",
+  "impossible_question_GK_mean_correct", "mean proportion of correct responses on impossible question task, general knowledge questions",
+  "impossible_question_IQ_mean_correct", "mean proportion of correct responses on impossible question task, impossible questions",
+  "impossible_question_GK_calibration", "calibration measure for responses on impossible question task, general knowledge questions",
+  "time_series_mse_mean", "mean squared error across trials on the time series task",
+  "bayesian_update_easy_mean", "mean score on the easy version of the Bayesian update task",
+  "bayesian_update_hard_mean", "mean score on the hard version of the Bayesian update task",
+  "crt_correct_mean", "mean proportion of correct responses on the Cognitive Reflection Test",
+  "number_series_correct_mean", "mean proportion of correct responses on the number series task",
+  "cfs_score_mean", "mean score on the Coherence Forecasting Scale",
+  "raven_correct_mean", "mean proportion of correct responses on Raven's Progressive Matrices",
+  "shipley_vocab_mean", "mean proportion of correct responses on Shipley vocabulary items",
+  "shipley_abstraction_score_mean", "mean score on Shipley abstraction items",
+  "berlin_numeracy_score_sum", "sum of correct responses on the Berlin Numeracy task",
+  "resistance_to_framing_score_mean", "mean score on the resistance to framing subscale of the ADMC",
+  "risk_perception_prop_consistent", "proportion of consistent risk perception decision on the ADMC risk perception subscale",
+  "dr_score_mean", "mean score on the decision rules subscale of the ADMC"
+)
+```
+
+## Methods
+
+```{r}
+get_codebook <- function(dataset, dataset_name, validate=F) {
+  if (!dataset_name %in% names(codebook)) {
+    msg <- paste("Dataset", dataset_name, "is not in codebook.")
+    if (validate) {
+      stop(msg)
+    } else {
+      message(msg)
+      return()
+    }
+  }
+  
+  all_vars <- names(dataset)
+  unique_documented_vars <- intersect(all_vars, codebook[[dataset_name]]$variable)
+  shared_vars <- intersect(setdiff(all_vars, codebook[[dataset_name]]$variable), codebook$shared$variable)
+  undocumented_vars <- setdiff(all_vars, c(shared_vars, unique_documented_vars))
+  
+  if (validate) {
+    if (length(undocumented_vars) > 0) {
+      stop(paste("Undocumented variables in", dataset_name, ":", paste(undocumented_vars, collapse = ", ")))
+    }
+  } else {
+    if (length(undocumented_vars) > 0) {
+      message(paste("Undocumented variables in", dataset_name, ":", paste(undocumented_vars, collapse = ", "), "\n"))
+    }
+  }
+
+  codebook_curr_dataset <- bind_rows(codebook[[dataset_name]], 
+                                     filter(codebook$shared, variable %in% shared_vars)) %>%
+    distinct(variable, .keep_all = TRUE) %>% # if unique/shared variables match, keep unique
+    # order codebook by variable names in all_vars
+    mutate(variable = factor(variable, levels = all_vars)) %>%
+    arrange(variable) %>%
+    mutate(variable = as.character(variable))
+  
+  return(codebook_curr_dataset)
+}
+
+get_dataset_files <- function(dir = ".", exclude = NULL) {
+  # List all files recursively with full paths that end with .csv
+  files <- list.files(path = dir, 
+                      pattern = "\\.(csv)$", 
+                      recursive = TRUE, 
+                      full.names = TRUE)
+  
+  # If exclusion patterns are provided, filter out matching files/directories
+  if (!is.null(exclude)) {
+    for (pattern in exclude) {
+      files <- files[!grepl(pattern, files, fixed = TRUE)]
+    }
+  }
+  
+  return(files)
+}
+
+codebook_to_docx <- function(codebook_table, output_filepath) {
+  doc <- read_docx(file.path("codebooks", "CODEBOOK_TEMPLATE.docx")) %>%
+    body_add_table(codebook_table, style="FPTcodebook")
+  
+  print(doc, target = output_filepath)
+}
+
+save_codebooks <- function() {
+  exclusions <- c(
+    "raw_session_data", 
+    # file.path("task_datasets", "FPT_datasets.RData"),
+    "codebooks",
+    "other",
+    "shipley_scores.csv",
+    "raven_correct_answers.csv",
+    
+    # TODO: data_coherence_forecasting_scores
+    file.path("task_datasets", "data_coherence_forecasting_scores.csv")
+  )
+    
+  for (file in get_dataset_files(exclude = exclusions)) {
+    file_ext <- tools::file_ext(file)
+    # if (file_ext == "RData") {next}
+    # if (file_ext == "csv") {
+    dataset <- read_csv(file, show_col_types=F)
+    # }
+    
+    dataset_name <- tools::file_path_sans_ext(basename(file))
+    curr_dataset_codebook_table <- get_codebook(dataset, dataset_name, validate=params$VALIDATE_CODEBOOKS)
+    codebook_to_docx(curr_dataset_codebook_table, file.path("codebooks", paste0(dataset_name, ".docx")))
+  }
+}
+```
+
+```{r}
+save_codebooks()
+```
+
+# ---------------------- Exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

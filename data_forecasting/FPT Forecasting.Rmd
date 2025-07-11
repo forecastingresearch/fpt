@@ -1,0 +1,605 @@
+---
+title: "FPT Forecasting"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    number_sections: true
+    code_folding: hide
+params:
+  LOAD_DATA_FROM_CACHE: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE, fig.width=12, fig.height=9)
+```
+
+```{r}
+dirs <- c("processed_data", "cache", file.path("..", "data_cognitive_tasks", "task_datasets"))
+for (d in dirs) {
+  if (!dir.exists(d)) {
+    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  }
+}
+```
+
+Packages loading
+
+```{r}
+packages <- c(
+              "chemometrics",
+              "tidyverse"
+              )
+
+if (!all(packages %in% (.packages()))) {
+  # using invisible to hide output
+  invisible(lapply(packages,
+         FUN = function(x) {
+           if (!require(x, character.only = TRUE)) {
+             install.packages(x, dependencies = TRUE)
+           }
+           library(x, character.only = TRUE)
+         }))
+}
+```
+
+# Preparation
+
+## Read data file, get completed responses from each wave
+
+```{r}
+read_qualtrics_data <- function(file_name) {
+  read_csv(file_name) %>%
+    slice(-c(1,2)) %>%
+    type_convert() %>%
+    filter(Finished == 1)
+}
+
+dat0 <- read_qualtrics_data(file.path("raw_data", "Study 2 Wave 0 Final.csv")) %>%
+  filter(fcOrder != "cast_order")
+
+dat1 <- read_qualtrics_data(file.path("raw_data", "Study 2 Wave 17 Final.csv")) %>%
+  filter(wave==1)
+
+dat7 <- read_qualtrics_data(file.path("raw_data", "Study 2 Wave 17 Final.csv")) %>%
+  filter(wave==7)
+
+dat246 <- read_qualtrics_data(file.path("raw_data", "Study 2 Wave 246 Final.csv"))
+
+resolutions <- read_csv(file.path("raw_data", "Resolutions.csv"))
+```
+
+## Filter out second responses
+
+```{r}
+dat0 <- dat0 %>% distinct(subject_id, .keep_all = TRUE)
+dat1 <- dat1 %>% distinct(subject_id, .keep_all = TRUE)
+dat7 <- dat7 %>% distinct(subject_id, .keep_all = TRUE)
+dat246 <- dat246 %>% distinct(subject_id, wave, .keep_all = TRUE)
+```
+
+## Keep only the participants who completed Wave 7
+
+```{r}
+dat0 <- dat0 %>% filter(subject_id %in% dat7$subject_id)
+dat1 <- dat1 %>% filter(subject_id %in% dat7$subject_id)
+dat246 <- dat246 %>% filter(subject_id %in% dat7$subject_id)
+```
+
+## Select relevant columns and save different types of forecast data in long formats
+
+```{r}
+process_long_format_data <- function(data) {
+  # separate item id and item type
+  # item values currently look like this: G1948_p_1 OR G1948_p_1
+  # where the part before the underscore is the item id, 
+  # the middle part, if present, is the question type 
+  # (if not present, then it's quantile), 
+  # the last part is the bin index
+  data$bin <- str_sub(data$item, -1, -1)
+  data$forecast_type <- ifelse(str_sub(data$item, 1, 1) == "P", "p",
+                        ifelse(is.na(str_extract(data$item, "(?<=_).*?(?=_)")), "q", str_extract(data$item, "(?<=_).*?(?=_)")))
+  data$item <- sub("_(.*)", "", data$item)
+  
+  # fix wonky bins
+  # for some probability questions, the 5th bin was mislabelled 
+  # as other numbers in qualtrics variable name
+  data <- data %>% 
+    group_by(wave, item, forecast_type) %>%
+    mutate(bin = as.numeric(as.factor((bin)))) %>%
+    ungroup()
+  
+  return(data)
+}
+```
+
+### Wave 1 & 7
+
+```{r}
+# select forecast data and move to long format
+## wave 0 - initial screening survey, forecasting data considered part of wave 1, no wave 0 for superforecasters
+dat0_long <- dat0 %>%
+    select("subject_id", "fcOrder", grep("_", names(dat0))) %>%
+    select(!grep("Click", names(.)) & !grep("Page", names(.)) & !grep("ins", names(.)) & !grep("cap", names(.)) &
+               !grep("date", names(.)) & !grep("timings", names(.)) & !grep("Q_", names(.)) & !grep("bn", names(.))) %>%
+    pivot_longer(cols = 3:ncol(.), names_to = "item", values_to = "forecast") %>% filter(!is.na(forecast))
+
+## wave 1
+dat1_long <- dat1 %>%
+    select("subject_id", "wave", "fcOrder", "group", grep("_", names(dat1))) %>%
+    select(!grep("Click", names(.)) & !grep("Page", names(.)) & !grep("ins", names(.)) &
+               !grep("date", names(.)) & !grep("timings", names(.)) & !grep("Q_", names(.))) %>%
+    pivot_longer(cols = 5:ncol(.), names_to = "item", values_to = "forecast") %>% filter(!is.na(forecast))
+
+## wave 7
+dat7_long <- dat7 %>%
+    select("subject_id", "wave", "fcOrder", "group", grep("_", names(dat7))) %>%
+    select(!grep("Click", names(.)) & !grep("Page", names(.)) & !grep("ins", names(.)) &
+               !grep("date", names(.)) & !grep("timings", names(.)) & !grep("Q_", names(.))) %>%
+    pivot_longer(cols = 5:ncol(.), names_to = "item", values_to = "forecast") %>% filter(!is.na(forecast))
+```
+
+Merging wave 0 data with wave 1 data:
+
+```{r}
+dat0_long$group <- "reg"
+dat0_long$wave <- 1 # wave 0 forecasting data is considered part of wave 1
+
+dat17_long <- rbind(dat0_long, dat1_long, dat7_long)
+```
+
+```{r}
+dat17_long <- process_long_format_data(dat17_long)
+```
+
+```{r}
+# save quantile forecasts and probability forecasts separately
+dat17_quant <- dat17_long %>% filter(forecast_type == "q")
+dat17_prob <- dat17_long %>% filter(forecast_type == "p")
+dat17_binary <- dat17_long %>% filter(forecast_type == "c")
+```
+
+### Wave 2, 4, & 6
+
+```{r}
+# select forecast data and move to long format
+dat246_long <- dat246 %>%
+    select("subject_id", "wave", "fcOrder", "group", grep("_", names(dat246))) %>%
+    select(!grep("Click", names(.)) & !grep("Page", names(.)) & !grep("ins", names(.)) &
+        !grep("date", names(.)) & !grep("timings", names(.)) & !grep("Q_", names(.)) &
+        !grep("b1", names(.)) & !grep("b2", names(.)) & !grep("b3", names(.)) & !grep("b4", names(.))) %>%
+    pivot_longer(cols = 5:ncol(.), names_to = "item", values_to = "forecast") %>% filter(!is.na(forecast))
+```
+
+```{r}
+dat246_long <- process_long_format_data(dat246_long)
+```
+
+```{r}
+binary_probability_questions <- c("G1948", "G1472", "C1039", "G2063", "C47", "M7949", "G1920", "G2006", "C1084", "G2404")
+
+# Save conditional, consistency, quantile, and probability forecasts separately
+## conditional forecasts
+dat246_conditional <- dat246_long %>% 
+    filter(item %in% binary_probability_questions) %>%
+    filter(forecast_type == "c" | forecast_type == "p" | bin == "6")
+
+## quantile forecasts (excluding single estimates)
+dat246_quant <- dat246_long %>% 
+    filter(forecast_type == "q" & bin != "6")
+
+## probability forecasts (excluding binary probability questions)
+dat246_prob <- dat246_long %>% 
+    filter(!item %in% binary_probability_questions) %>%
+    filter(forecast_type == "p")
+
+## consistency questions (both quantile and probability)
+dat246_consistency <- dat246_long %>% 
+    filter(item %in% dat246_prob$item)
+```
+
+# Score accuracy
+
+```{r}
+winsorize <- function(x, lower = -5, upper = 5) {
+  # lower/upper specify the SDs
+  # (i.e. 5 SDs above/below the standardized score, i.e. x)
+  pmin(pmax(x, lower), upper)
+}
+```
+
+## Score quantile forecasts
+
+```{r}
+# function for calculating the s-score
+# the first argument is a vector with the quantiles that respondents were asked to forecast about
+# the second argument is a matrix with each column a quantile and each row a response that has a forecast for the respective quantile
+# the third argument is a vector that indicates the correct answer corresponding to each response
+sscore <- function(ps, qs, tr){
+    scrs <- matrix(NA, nrow = nrow(qs), ncol = ncol(qs))
+    for(i in 1:nrow(scrs)){
+        for(j in 1:ncol(scrs)){
+            scrs[i, j] <- ps[j] * max(tr[i] - qs[i,j], 0) + (1 - ps[j]) * max(qs[i,j] - tr[i], 0)
+        }
+    }
+    scrs <- data.frame(scrs)
+    names(scrs) <- ps
+    scrs$total_score <- rowSums(scrs[, 1:ncol(qs)])
+    return(scrs)
+}
+```
+
+```{r}
+# load resolutions
+resolutions1 <- resolutions %>% select(item, form, resolution_31May2024, unit)
+```
+
+```{r}
+dat_quant <- rbind(dat17_quant, dat246_quant)
+
+if (params$LOAD_DATA_FROM_CACHE && file.exists(file.path("cache", "dat_quant_wide.RData"))) {
+  load(file.path("cache", "dat_quant_wide.RData"))
+} else {
+# move forecasting data to wide form
+  dat_quant_wide <- dat_quant %>% 
+    select(-forecast_type) %>%
+    pivot_wider(names_from = bin, values_from = forecast) %>%
+    # add resolutions
+    left_join(resolutions1, by = "item") %>%
+    # calculate sscores -- a bit slow (~1 min) so we load from cache if possible
+    rowwise() %>%
+    mutate(
+      sscores = list(sscore(
+        c(0.05, 0.25, 0.5, 0.75, 0.95),
+        matrix(c_across(`1`:`5`), ncol=5),
+        resolution_31May2024
+      ))
+    ) %>%
+    # Unnest scores into separate columns
+    ungroup() %>%
+    mutate(sscores = map(sscores, as_tibble)) %>%
+    unnest(sscores)
+  save(dat_quant_wide, file=file.path("cache", "dat_quant_wide.RData"))
+}
+
+item_quant <- dat_quant_wide %>%
+  group_by(group, wave, item) %>%
+  # trimmed 80% mean and sd for each item
+  summarise(sscore_mean = mean(total_score, trim = 0.2), 
+            sscore_sd = sd_trim(total_score, trim = 0.2),
+            .groups="drop") %>%
+  pivot_wider(id_cols=c("wave", "item"),
+              names_from="group",
+              values_from=c("sscore_mean", "sscore_sd"))
+
+dat_quant_wide <- dat_quant_wide %>%
+  left_join(item_quant, by=c("wave", "item")) %>%
+  mutate(
+    # Standardize each group's sscores to their own mean/sd
+    sscore_standardized = case_when(
+      group=="reg" ~ (total_score-sscore_mean_reg)/sscore_sd_reg,
+      group=="sup" ~ (total_score-sscore_mean_sup)/sscore_sd_sup
+      ),
+    # Standardize super's sscores to regular's mean/sd
+    sscore_standardized_to_reg = if_else(
+      group=="sup",
+      (total_score-sscore_mean_reg)/sscore_sd_reg,
+      NA_real_
+    ),
+    # Winsorize standardized scores at 5 SDs
+    across(
+      c(sscore_standardized, sscore_standardized_to_reg),
+      ~ winsorize(., lower = -5, upper = 5),
+      .names = "{.col}"
+      )
+  ) %>%
+  # remove sscore_mean_* and sscore_sd_* cols that are in item_quant
+  select(-colnames(select(item_quant, -c("wave", "item"))))
+
+
+```
+
+## Score ordinal probability forecasts
+
+```{r}
+#function for calculating the ordinal brier score
+#the first argument is a matrix with each column for a bin and each row for a response that has a forecast for each bin
+#the second argument is a vector that indicates the correct answer corresponding to each response (which bin did the resolution fall in)
+#the third argument is a vector with the number of bins associated with each response (in our case this would always be 5)
+ord_bs <- function(dat, res, n){
+  bs <- rep(NA, nrow(dat))
+  for(i in 1:nrow(dat)){
+      bsn <- rep(NA, n[i] - 1)
+      for(j in 1:(n[i] - 1)){
+          p <- sum(dat[i,1:j])
+          if (res[i] <= j){
+              bsn[j] <- 2 * (1 - p)^2
+          }
+          else{
+              bsn[j] <- 2 * (p^2)
+          }
+      }
+      bs[i] <- mean(bsn)
+  }
+  return(bs)
+}
+```
+
+```{r}
+#load resolutions
+resolutions2 <- resolutions %>% select(item, form, resolution_31May2024, bin_number, unit)
+```
+
+### Score ordinal probability forecasts with pre-set bins
+
+```{r}
+dat17_prob_wide <- dat17_prob %>%
+  mutate(forecast = forecast/100) %>%
+  filter(item != "P1" & item != "P2") %>%
+  select(-forecast_type) %>%
+  pivot_wider(names_from = bin, values_from = forecast) %>%
+  # add resolutions
+  left_join(resolutions2, by = "item") %>%
+  # calculate ordinal brier scores
+  rowwise() %>%
+  mutate(
+    obscore = ord_bs(
+      matrix(c_across(`1`:`5`), ncol=5),
+      bin_number,
+      5
+    )
+  ) %>%
+  ungroup()
+  
+item17_prob <- dat17_prob_wide %>%
+  group_by(group, wave, item) %>%
+  # NB: Not trimming the mean/sd here
+  summarise(obscore_mean = mean(obscore), 
+            obscore_sd = sd(obscore),
+            .groups="drop") %>%
+  pivot_wider(id_cols=c("wave", "item"),
+              names_from="group",
+              values_from=c("obscore_mean", "obscore_sd"))
+
+dat17_prob_wide <- dat17_prob_wide %>%
+  left_join(item17_prob, by=c("wave", "item")) %>%
+  mutate(
+    # Standardize each group's obscores to their own mean/sd
+    obscore_standardized = case_when(
+      group=="reg" ~ (obscore-obscore_mean_reg)/obscore_sd_reg,
+      group=="sup" ~ (obscore-obscore_mean_sup)/obscore_sd_sup
+      ),
+    # Standardize super's obscores to regular's mean/sd
+    obscore_standardized_to_reg = if_else(
+      group=="sup",
+      (obscore-obscore_mean_reg)/obscore_sd_reg,
+      NA_real_
+    )
+  ) %>%
+  # remove obscore_mean_* and obscore_sd_* cols that are in item17_prob
+  select(-colnames(select(item17_prob, -c("wave", "item"))))
+```
+
+### Score ordinal probability forecasts with bins piped from responses to quantile questions
+
+```{r}
+dat2_piped_bins <- dat246_consistency %>% 
+  filter(wave == 2, forecast_type=="q") %>%
+  group_by(subject_id, item, wave) %>%
+  summarize(n1 = 0.2*max(forecast) + 0.8*min(forecast),
+            n2 = 0.4*max(forecast) + 0.6*min(forecast),
+            n3 = 0.6*max(forecast) + 0.4*min(forecast),
+            n4 = 0.8*max(forecast) + 0.2*min(forecast),
+            .groups="drop")
+
+# obtain the boundaries of piped bins in survey
+dat246_prob_wide_bounds <- dat246 %>% 
+  select(subject_id, wave, M6107_b1:M3924_b4) %>%
+  pivot_longer(cols = -c(subject_id, wave), names_to = "item", values_to = "bound") %>%
+  filter(!is.na(bound)) %>%
+  separate(item, into = c("item", "bin"), sep = "_") %>%
+  mutate(bound=as.numeric(bound)) %>%
+  pivot_wider(names_from = bin, values_from = bound) %>%
+  rename(bound_1 = b1, bound_2 = b2, bound_3 = b3, bound_4 = b4) %>%
+  # merge with the piped bins
+  left_join(dat2_piped_bins, by=c("subject_id", "item", "wave")) %>%
+  # address comma issue
+  filter(!(n1 > 10*bound_1 & n4 > 10*bound_4)) %>%
+  select(subject_id, item, wave, starts_with("bound_"))
+```
+
+```{r}
+dat246_prob_wide <- dat246_prob %>%
+  mutate(forecast = forecast/100) %>%
+  select(-forecast_type) %>%
+  pivot_wider(names_from = bin, values_from = forecast) %>%
+  # join with the bounds
+  right_join(dat246_prob_wide_bounds, by=c("subject_id", "item", "wave")) %>%
+  # remove those with empty bounds
+  filter(!is.na(any(bound_1, bound_2, bound_3, bound_4))) %>%
+  # add resolutions
+  left_join(resolutions2, by = "item") %>% 
+  select(-bin_number) %>%
+  mutate(resolution_bin_number = case_when(
+    resolution_31May2024 < bound_1 ~ 1,
+    resolution_31May2024 >= bound_1 & resolution_31May2024 < bound_2 ~ 2,
+    resolution_31May2024 >= bound_2 & resolution_31May2024 < bound_3 ~ 3,
+    resolution_31May2024 >= bound_3 & resolution_31May2024 < bound_4 ~ 4,
+    resolution_31May2024 >= bound_4 ~ 5)) %>%
+  rowwise() %>%
+  mutate(
+    obscore = ord_bs(
+      matrix(c_across(`1`:`5`), ncol=5),
+      resolution_bin_number,
+      5
+    )
+  ) %>%
+  ungroup()
+  
+item246_prob <- dat246_prob_wide %>%
+  group_by(group, wave, item) %>%
+  # NB: Not trimming the mean/sd here
+  summarise(obscore_mean = mean(obscore), 
+            obscore_sd = sd(obscore),
+            .groups="drop") %>%
+  pivot_wider(id_cols=c("wave", "item"),
+              names_from="group",
+              values_from=c("obscore_mean", "obscore_sd"))
+
+dat246_prob_wide <- dat246_prob_wide %>%
+  left_join(item246_prob, by=c("wave", "item")) %>%
+  mutate(
+    # Standardize each group's obscores to their own mean/sd
+    obscore_standardized = case_when(
+      group=="reg" ~ (obscore-obscore_mean_reg)/obscore_sd_reg,
+      group=="sup" ~ (obscore-obscore_mean_sup)/obscore_sd_sup
+      ),
+    # Standardize super's obscores to regular's mean/sd
+    obscore_standardized_to_reg = if_else(
+      group=="sup",
+      (obscore-obscore_mean_reg)/obscore_sd_reg,
+      NA_real_
+    )
+  ) %>%
+  # remove obscore_mean_* and obscore_sd_* cols that are in item246_prob
+  select(-colnames(select(item246_prob, -c("wave", "item"))))
+```
+
+## Score binary probability forecasts
+
+```{r}
+#load resolutions
+resolutions3 <- resolutions %>% select(item, form, resolution_31May2024, binary_resolution1)
+resolutions4 <- resolutions %>% select(item, form, binary_resolution2) 
+```
+
+```{r}
+dat_binary_wide <- dat246_conditional %>% 
+  filter(forecast_type == "p") %>%
+  select(-c(bin, forecast_type)) %>%
+  # add wave 1 and wave 7 data
+  rbind(dat17_binary %>%
+          select(-c(bin, forecast_type))) %>%
+  # add in the resoltuions
+  left_join(resolutions %>%
+              select(item, form, binary_resolution1, binary_resolution2),
+            by="item") %>%
+  # wave 7 uses binary_resolution2 from the resolutions file 
+  # because the time horizon changed for four questions
+  mutate(binary_resolution = if_else(wave==7, binary_resolution2, binary_resolution1),
+         bscore = ifelse(binary_resolution == TRUE, (forecast/100 - 1)^2*2, (forecast/100)^2*2)) %>%
+  # remove entries that do not have binary_resolution
+  filter(!is.na(binary_resolution)) %>%
+  select(-form, -starts_with("binary_resolution"))
+
+item_binary <- dat_binary_wide %>%
+  group_by(group, wave, item) %>%
+  # NB: Not trimming the mean/sd here
+  summarise(bscore_mean = mean(bscore), 
+            bscore_sd = sd(bscore),
+            .groups="drop") %>%
+  pivot_wider(id_cols=c("wave", "item"),
+              names_from="group",
+              values_from=c("bscore_mean", "bscore_sd"))
+
+dat_binary_wide <- dat_binary_wide %>%
+  left_join(item_binary, by=c("wave", "item")) %>%
+  mutate(
+    # Standardize each group's bscores to their own mean/sd
+    bscore_standardized = case_when(
+      group=="reg" ~ (bscore-bscore_mean_reg)/bscore_sd_reg,
+      group=="sup" ~ (bscore-bscore_mean_sup)/bscore_sd_sup
+      ),
+    # Standardize super's obscores to regular's mean/sd
+    bscore_standardized_to_reg = if_else(
+      group=="sup",
+      (bscore-bscore_mean_reg)/bscore_sd_reg,
+      NA_real_
+    )
+  ) %>%
+  # remove bscore_mean_* and bscore_sd_* cols that are in item_binary
+  select(-colnames(select(item_binary, -c("wave", "item"))))
+```
+
+## Score conditional forecasts
+
+```{r}
+#merge binary probability resolutions, remove items not resolved yet
+dat_conditional_wide <- dat246_conditional %>%
+  left_join(resolutions3, by = "item") %>%
+  filter(!is.na(resolution_31May2024)) %>%
+  filter(forecast_type == "c") %>%
+  filter((bin == 1 & binary_resolution1 == TRUE) | (bin == "2" & binary_resolution1 == FALSE)) %>%
+  select(subject_id, group, wave, fcOrder, item, forecast) %>%
+  left_join(resolutions1, by = "item") %>%
+  mutate(diff = abs(forecast - resolution_31May2024))
+
+item_conditional <- dat_conditional_wide %>%
+  group_by(group, wave, item) %>%
+  # trimmed 80% mean and sd for each item
+  summarise(diff_mean = mean(diff, trim = 0.2), 
+            diff_sd = sd_trim(diff, trim = 0.2),
+            .groups="drop") %>%
+  pivot_wider(id_cols=c("wave", "item"),
+              names_from="group",
+              values_from=c("diff_mean", "diff_sd"))
+
+dat_conditional_wide <- dat_conditional_wide %>%
+  left_join(item_conditional, by=c("wave", "item")) %>%
+  mutate(
+    # Standardize each group's diff to their own mean/sd
+    diff_standardized = case_when(
+      group=="reg" ~ (diff-diff_mean_reg)/diff_sd_reg,
+      group=="sup" ~ (diff-diff_mean_sup)/diff_sd_sup
+      ),
+    # Standardize super's diff to regular's mean/sd
+    diff_standardized_to_reg = if_else(
+      group=="sup",
+      (diff-diff_mean_reg)/diff_sd_reg,
+      NA_real_
+    ),
+    # Winsorize standardized scores at 5 SDs
+    across(
+      c(diff_standardized, diff_standardized_to_reg),
+      ~ winsorize(., lower = -5, upper = 5),
+      .names = "{.col}"
+      )
+  ) %>%
+  # remove diff_mean_* and diff_sd_* cols that are in item_conditional
+  select(-colnames(select(item_conditional, -c("wave", "item"))))
+```
+
+# Saving scores
+
+```{r}
+write.csv(dat_quant_wide, file.path("processed_data", "scores_quantile.csv"), row.names=F)
+write.csv(dat17_prob_wide, file.path("processed_data", "scores_probability with pre-set bins.csv"), row.names=F)
+write.csv(dat_binary_wide, file.path("processed_data", "scores_binary probability.csv"), row.names=F)
+write.csv(dat_conditional_wide, file.path("processed_data", "scores_conditional.csv"), row.names=F)
+
+save(
+  dat_quant_wide, 
+  dat17_prob_wide, 
+  dat_binary_wide, 
+  dat_conditional_wide, 
+  file = file.path("processed_data", "scores_all.RData")
+)
+```
+
+# Berlin Numeracy
+
+```{r}
+dat0 %>%
+  select(subject_id, c("bn_1", "bn_2", "bn_3", "bn_4")) %>%
+  pivot_longer(cols = -subject_id, names_to = "item_id", values_to = "response") %>%
+  left_join(tibble(
+    item_id = c("bn_1", "bn_2", "bn_3", "bn_4"),
+    correct_response = c(3, 2, 1, 3)
+  ), by="item_id") %>%
+  mutate(correct = as.integer(response==correct_response)) %>%
+  write.csv(file.path("..", "data_cognitive_tasks", "task_datasets", "data_berlin_numeracy.csv"), row.names = F)
+```
+

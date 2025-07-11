@@ -1,0 +1,22 @@
+.content_size {
+	width: 80vw;
+}
+
+.question_container { 
+    display: flex;
+    margin: 3em 0;
+}
+
+.index {
+    flex: 0 0 auto;
+}
+
+.question {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+input[type="text"] {
+    width: 25px;
+}

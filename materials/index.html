@@ -1,0 +1,339 @@
+<html lang="en"></html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<title>FPT</title>
+
+	<script src="js/jsPsych/jspsych.js"></script>
+	<script src="js/jsPsych/plugin-html-keyboard-response.js"></script>
+	<script src="js/jsPsych/plugin-html-button-response.js"></script>
+	<script src="js/jsPsych/plugin-html-slider-response.js"></script>
+	<script src="js/jsPsych/plugin-survey-html-form.js"></script>
+	<script src="js/jsPsych/plugin-fullscreen.js"></script>
+	<script src="js/jsPsych/plugin-survey-multi-choice.js"></script>
+	<script src="js/jsPsych/plugin-survey-multi-select.js"></script>
+	<script src="js/jsPsych/plugin-survey-text.js"></script>
+	<script src="js/jsPsych/plugin-instructions.js"></script>
+	<script src="js/jsPsych/plugin-browser-check.js"></script>
+	<script src="js/jsPsych/plugin-call-function.js"></script>
+
+
+	<!-- <script src="js/js-external-libs/spearson.js"></script> -->
+	<script src="js/js-external-libs/lodash.min.js"></script>
+	<script src="js/js-external-libs/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="css/jspsych.css" rel="stylesheet" type="text/css">
+	</link>
+	<link href="css/experiment.css" rel="stylesheet" type="text/css">
+	</link>
+	<link href="css/dev_settings.css" rel="stylesheet" type="text/css">
+	</link>
+
+</head>
+
+<body>
+
+	<div id="loading" class="lds-facebook">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+
+	<div id="options_toggle" style="visibility: hidden">
+		<span class="fa fa-cog"></span>
+		<div id="options_container" class="hidden">
+			<div id="experiment_or_task_options_buttons_container">
+				<button id="tasks_options_button" class="options_selection_button active">Tasks options</button>
+				<button id="experiment_options_button" class="options_selection_button">Experiment options</button>
+			</div>
+			<div id="experiment_options_container" class="options_container"></div>
+			<div id="tasks_options_container" class="options_container active">
+				<div id="tasks_buttons"></div>
+				<div id="tasks_options"></div>
+			</div>
+			<div id="options_action_buttons">
+				<button id="reset_to_default">Reset to default</button>
+				<button id="set_options">Set options</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="progress-container" style="visibility: hidden;">
+		<div id="progress-bar-wrapper">
+			<div id="progress-bar"></div>
+		</div>
+		<div id="progress-label">PROGRESS</div>
+		<div id="progress-text">0%</div>
+	</div>
+
+	<div id="points_counter_container"><img src="img/gold_coin.png" />
+		<div id="points_counter_value">0</div>
+	</div>
+
+	<div id="global-instructions-timer-container">
+		<p>&#8987;<span id="global-timer-value"></span></p>
+	</div>
+
+	<div style="position: absolute; bottom: 2%; left: 2%; font-weight: bold; color: red; font-size: 2em">
+		DEMO
+	</div>	
+
+	<div id="jspsych-target"></div>
+
+</body>
+
+<script type="module">
+	let SHOW_DEV_OPTIONS = true;
+
+	// in-house flat function to handle browser compatibility
+	// credits: https://stackoverflow.com/a/50993569/13078832
+	Object.defineProperty(Array.prototype, 'flat', {
+		value: function (depth = 1) {
+			return this.reduce(function (flat, toFlatten) {
+				return flat.concat((Array.isArray(toFlatten) && (depth > 1)) ? toFlatten.flat(depth - 1) : toFlatten);
+			}, []);
+		}
+	});
+
+	import { start_timer, end_timer } from './js/trial_timer_module.js';
+	import initialise_dev_settings from './js/initialise_dev_settings.js'
+	import { check_metadata, save_session_restart_info } from './js/save_data_json.js';
+	import query_parameters_forms from './js/query_parameters_for_forms.js'
+	import get_simulation_options from './js/get_simulation_options.js'
+	import { Experiment } from './js/experiment.js';
+	import Leapfrog from './js/leapfrog_task.js'
+	import ADMC_Framing_RC1 from './js/admc_framing_rc1_task.js'
+	import ADMC_Framing_A1 from './js/admc_framing_a1_task.js'
+	import ADMC_Framing_RC2 from './js/admc_framing_rc2_task.js'
+	import ADMC_Framing_A2 from './js/admc_framing_a2_task.js'
+	import ADMC_Decision_Rules from './js/admc_decision_rules_task.js'
+	import ADMC_Risk_Perception from './js/admc_risk_perception_task.js'
+	import Denominator_Neglect from './js/denominator_neglect_task.js'
+	import Graph_Literacy from './js/graph_literacy_task.js'
+	import Impossible_Question from './js/impossible_question_task.js'
+	import Time_Series from './js/time_series_task.js'
+	import Bayesian_Update from './js/bayesian_update_task.js'
+	import Cognitive_Reflection from './js/cognitive_reflection_task.js'
+	import Number_Series from './js/number_series_task.js'
+	import Coherence_Forecasting from './js/coherence_forecasting_task.js'
+	import Raven_Matrix from './js/raven_matrix_task.js'
+	import Conditional_Forecasting from './js/conditional_forecasting_task.js'
+	import Shipley_Vocab from './js/shipley_vocab_task.js'
+	import Shipley_Abstraction from './js/shipley_abstraction_task.js'
+
+	let last_trial_index_inactivity_counter_triggered = 0
+	let jsPsych = initJsPsych({
+		display_element: 'jspsych-target',
+		on_trial_start: function (trial) {
+			let last_trials_data = jsPsych.data.get().filterCustom(trial => trial.trial_index > last_trial_index_inactivity_counter_triggered).last(5).values()
+
+			let n_last_trials_timer_ended_trial = last_trials_data.filter(e => 'custom_timer_ended_trial' in e & e['custom_timer_ended_trial']).length
+			if (n_last_trials_timer_ended_trial >= 5) {
+				last_trial_index_inactivity_counter_triggered = last_trials_data[last_trials_data.length - 1].trial_index
+				jsPsych.data.write_event_to_interaction_data("inactive")
+				alert("You have been inactive for some time so the experiment was paused.\n\nPlease click OK when you're ready to continue.")
+				jsPsych.data.write_event_to_interaction_data("active")
+			}
+
+			if (trial.timer && typeof Number.isInteger(trial.timer)) {
+				if (typeof trial.data === "undefined") { trial.data = {} }
+				trial.data.custom_timer_ended_trial = false
+				trial.data.interval_id = start_timer(jsPsych)
+			}
+		},
+		on_trial_finish: function (data) {
+			end_timer(data.interval_id)
+
+			experiment.session_info.trials_completed_since_data_checkpoint_ind += 1
+			if (data.trial_name === "async_data_save") {
+				experiment.session_info.trials_completed_since_data_checkpoint_ind = 0
+				experiment.session_info.time_elapsed_at_last_data_save = data.time_elapsed
+			}
+			experiment.session_info.ms_since_data_checkpoint_ind = data.time_elapsed - experiment.session_info.time_elapsed_at_last_data_save
+			if (data.time_elapsed - experiment.session_info.time_elapsed_at_last_session_restart_info_save > 5000) {
+				experiment.session_info.time_elapsed_at_last_session_restart_info_save = data.time_elapsed
+				save_session_restart_info(experiment.session_info)
+			}
+		},
+		on_finish: function () {
+			let filename = `${experiment.session_info.subject_id}_data`
+			jsPsych.data.displayData('json');
+			jsPsych.data.get().localSave('csv', `${filename}.csv`);
+		}
+	});
+
+	let query_parameters = Object.fromEntries(new URLSearchParams(window.location.search));
+	if (query_parameters["dev"] == "1") {
+		SHOW_DEV_OPTIONS = true
+	}
+
+	let experiment = new Experiment(jsPsych, query_parameters["experiment"] || "");
+
+	function main() {
+		// in the live version, the form took precedence, here, the URL query does
+		query_parameters = _.assign({}, query_parameters_forms[`form_${experiment.session_info.form}`], query_parameters)
+		
+		let SET_TOI_FROM_QUERY_PARAMS = false
+		if (Object.keys(query_parameters).length != 0) {
+			if (Object.values(query_parameters)[1].includes("toi")) {
+				SET_TOI_FROM_QUERY_PARAMS = true
+			}
+		}
+
+		// randomly select 2 versions for the DN task
+		let dn_A_flag = query_parameters["denominator_neglect_version_A"]?.includes("tv") || false;
+		let dn_B_flag = query_parameters["denominator_neglect_version_B"]?.includes("tv") || false;
+		if (!dn_A_flag && !dn_B_flag) {
+			query_parameters["denominator_neglect_version_A"] = (query_parameters["denominator_neglect_version_A"] ? query_parameters["denominator_neglect_version_A"] + "," : "") + `tv,A`;
+			query_parameters["denominator_neglect_version_B"] = (query_parameters["denominator_neglect_version_B"] ? query_parameters["denominator_neglect_version_B"] + "," : "") + `tv,B`;
+		}
+		let bu_1_flag = query_parameters["bayesian_update_easy"]?.includes("tv") || false;
+		let bu_2_flag = query_parameters["bayesian_update_hard"]?.includes("tv") || false;
+		if (!bu_1_flag && !bu_2_flag) {
+			query_parameters["bayesian_update_easy"] = (query_parameters["bayesian_update_easy"] ? query_parameters["bayesian_update_easy"] + "," : "") + `tv,easy`;
+			query_parameters["bayesian_update_hard"] = (query_parameters["bayesian_update_hard"] ? query_parameters["bayesian_update_hard"] + "," : "") + `tv,hard`;
+		}
+
+		let tasks = {
+			leapfrog: new Leapfrog(jsPsych, experiment, query_parameters["leapfrog"] || ""),
+			admc_rc1: new ADMC_Framing_RC1(jsPsych, experiment, query_parameters["admc_rc1"] || ""),
+			admc_a1: new ADMC_Framing_A1(jsPsych, experiment, query_parameters["admc_a1"] || ""),
+			admc_rc2: new ADMC_Framing_RC2(jsPsych, experiment, query_parameters["admc_rc2"] || ""),
+			admc_a2: new ADMC_Framing_A2(jsPsych, experiment, query_parameters["admc_a2"] || ""),
+			admc_dr: new ADMC_Decision_Rules(jsPsych, experiment, query_parameters["admc_dr"] || ""),
+			admc_rp: new ADMC_Risk_Perception(jsPsych, experiment, query_parameters["admc_rp"] || ""),
+			denominator_neglect_version_A: new Denominator_Neglect(jsPsych, experiment, query_parameters["denominator_neglect_version_A"] || ""),
+			denominator_neglect_version_B: new Denominator_Neglect(jsPsych, experiment, query_parameters["denominator_neglect_version_B"] || ""),
+			graph_literacy: new Graph_Literacy(jsPsych, experiment, query_parameters["graph_literacy"] || ""),
+			impossible_question: new Impossible_Question(jsPsych, experiment, query_parameters["impossible_question"] || ""),
+			time_series: new Time_Series(jsPsych, experiment, query_parameters["time_series"] || ""),
+			bayesian_update_easy: new Bayesian_Update(jsPsych, experiment, query_parameters["bayesian_update_easy"] || ""),
+			bayesian_update_hard: new Bayesian_Update(jsPsych, experiment, query_parameters["bayesian_update_hard"] || ""),
+			cognitive_reflection: new Cognitive_Reflection(jsPsych, experiment, query_parameters["cognitive_reflection"] || ""),
+			number_series: new Number_Series(jsPsych, experiment, query_parameters["number_series"] || ""),
+			coherence_forecasting: new Coherence_Forecasting(jsPsych, experiment, query_parameters["coherence_forecasting"] || ""),
+			raven_matrix: new Raven_Matrix(jsPsych, experiment, query_parameters["raven_matrix"] || ""),
+			conditional_forecasting: new Conditional_Forecasting(jsPsych, experiment, query_parameters["conditional_forecasting"] || ""),
+			shipley_vocab: new Shipley_Vocab(jsPsych, experiment, query_parameters["shipley_vocab"] || ""),
+			shipley_abstraction: new Shipley_Abstraction(jsPsych, experiment, query_parameters["shipley_abstraction"] || ""),
+		}
+
+		// just so we don't have to change each individual file, we set the order here and set a default -999 value in each file that is then changed
+		// we set that in the files too so that in case this is modified from URL, the URL takes priority over default
+		// however, if there is saved_progress, then that will take highest priority
+
+		// Include only tasks with SHOW_TASK=true
+		tasks = Object.entries(tasks).filter(([key, task]) => task.settings.SHOW_TASK).reduce((a, [k, v]) => (a[k] = v, a), {})
+		if (SET_TOI_FROM_QUERY_PARAMS) {
+			// quickfix - basically means we have query params for all tasks so we use the task order from that
+			// this was not present for the live version as task order was set from the server (get_random_task_order), not from query params
+		}
+		else if (Object.keys(experiment.saved_progress.task_order_indices).length !== 0) {
+			for (const [task_name, task] of Object.entries(tasks)) {
+				task.settings.TASK_ORDER_INDEX = experiment.saved_progress.task_order_indices[task_name]
+			}
+		} else {
+			console.error("No task order indices found in saved progress or query params")
+		}
+		// order by TASK_ORDER_INDEX
+		tasks = Object.entries(tasks).sort((a, b) => a[1].settings.TASK_ORDER_INDEX - b[1].settings.TASK_ORDER_INDEX).reduce((a, [k, v]) => (a[k] = v, a), {})
+
+		if (SHOW_DEV_OPTIONS) {
+			document.querySelector("#options_toggle").style.visibility = "visible"
+			console.log(`URL for current setup: ${window.location}`)
+			initialise_dev_settings(experiment, tasks)
+		} else {
+			document.querySelector("#options_toggle").remove()
+		}
+
+		experiment.initialize_progressbar(tasks)
+
+		// here we will only hold the tasks for the current session based on the saved_progress
+		// so that we can only load their media and use their restrictions for browser check etc
+		let remaining_tasks_for_return_session = {}
+		Object.entries(tasks).forEach(([name, task]) => {
+			if (!experiment.saved_progress.data_checkpoints[`${task.prettyname}__completed`]) {
+				remaining_tasks_for_return_session[name] = task;
+			}
+		});
+
+		experiment.timeline.push(experiment.trial_generators.media_preloading(remaining_tasks_for_return_session))
+		if (!experiment.saved_progress.data_checkpoints.includes("experiment__save_session_params")) {
+			experiment.timeline.push(experiment.trial_generators.save_session_parameters(tasks))
+			experiment.timeline.push(experiment.trial_generators.async_data_save("experiment__save_session_params"))
+		}
+		if (!experiment.saved_progress.data_checkpoints.includes("experiment__welcome")) {
+			if (!experiment.settings.SKIP_INTRO_TRIALS) {
+				experiment.timeline.push(experiment.trial_generators.welcome())
+				experiment.timeline.push(experiment.update_progress_bar(1))
+				experiment.timeline.push(experiment.trial_generators.browser_check(tasks))
+				experiment.timeline.push(experiment.trial_generators.fullscreen())
+				experiment.timeline.push(experiment.update_progress_bar(1))
+			}
+			experiment.timeline.push(experiment.trial_generators.async_data_save("experiment__welcome"))
+		} else {
+			if (!experiment.settings.SKIP_INTRO_TRIALS) {
+				experiment.timeline.push(experiment.trial_generators.browser_check(remaining_tasks_for_return_session))
+			}
+			experiment.timeline.push(experiment.update_progress_bar(2))
+		}
+		for (let task of Object.values(tasks)) {
+			experiment.timeline.push(task.timeline)
+			experiment.timeline.push(experiment.trial_generators.break_between_tasks())
+		}
+		experiment.timeline.push(experiment.hide_progress_bar())
+		experiment.timeline.push(experiment.trial_generators.async_data_save("experiment__completed"))
+		experiment.timeline.push(experiment.trial_generators.wait_for_data_save())
+		experiment.timeline.push(experiment.trial_generators.debrief())
+	}
+
+	function start_experiment() {
+		let previously_completed = false
+		check_metadata(experiment.session_info)
+			.then((r) => {
+				if (r.status_message == "Completed record already exists!") {
+					previously_completed = true
+				} else {
+					experiment.session_info.session_id = r.session_id
+					experiment.session_info.session_restart_id = r.session_restart_id
+					jsPsych.data.addProperties(experiment.session_info)
+					experiment.session_info.data_checkpoint_ind = r.last_data_checkpoint_ind
+					experiment.session_info.time_elapsed_at_last_data_save = 0
+					experiment.session_info.time_elapsed_at_last_session_restart_info_save = 0
+					experiment.session_info.trials_completed_since_data_checkpoint_ind = 0
+
+					experiment.saved_progress.task_order_indices = r.task_order_indices
+					experiment.saved_progress.data_checkpoints = r.data_checkpoints
+					experiment.saved_progress.last_data_checkpoint_ind = r.last_data_checkpoint_ind
+				}
+			})
+			.catch((err) => {
+				console.error(err)
+			})
+			.finally(() => {
+				document.querySelector('#loading').remove()
+				if (previously_completed) {
+					jsPsych.run([experiment.trial_generators.previously_completed()])
+				} else {
+					main()
+					if (experiment.settings.SIMULATE) {
+						experiment.simulation_options = get_simulation_options(jsPsych, experiment)
+						jsPsych.simulate(experiment.timeline, "visual", experiment.simulation_options)
+					} else {
+						jsPsych.run(experiment.timeline);
+					}
+				}
+			})
+	}
+
+	let media_to_preload = ["img/gold_coin.png"]
+	jsPsych.pluginAPI.preloadImages(media_to_preload, function () { start_experiment(); });
+
+</script>
+
+</html>

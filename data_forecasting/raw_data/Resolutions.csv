@@ -1,0 +1,37 @@
+item,form,resolution_31May2024,bin_number,unit,binary_resolution1,binary_resolution2
+G2346,A,117.0,4,Index,,
+G1472,A,2.6,2,percent,FALSE,FALSE
+M9971,A,27.9,2,µg/m³,,
+G1948,A,2126085,1,count,TRUE,FALSE
+G2268,A,170715,1,count,,
+M3453,A,7.9,2,percent,,
+G1189,B,15238.3,3,Index,,
+G1631,B,7284319,2,millions of dollars,,
+C1039,B,4.23,1,percent,TRUE,TRUE
+M5680,B,2.0,2,MtCO2,,
+G2063,B,8986,1,count,TRUE,TRUE
+G410,B,10790,2,count,,
+M1571,C,595037548.678,4,TH/s,,
+G1210,C,89.57,3,Ruble,,
+M7949,C,12.116,4,million km2,FALSE,FALSE
+M811,C,135,2,count,,
+C47,C,104,4,count,FALSE,FALSE
+G2352,C,80316215,5,count,,
+G1588,D,4.0,5,percent,,
+G1799,D,1314,2,thousands of units,,
+G1920,D,550347492,1,USD,TRUE,TRUE
+M4663,D,1998.17,3,minutes,,
+G2006,D,38.6,2,percent,TRUE,TRUE
+G938,D,154,5,count,,
+G2404,E,2.1,2,percent,TRUE,FALSE
+G2341,E,3459,1,count,,
+M6107,E,93973,2,count,,
+G181,E,99,1,count,,
+M3924,E,3690,3,count,,
+C1084,E,7,1,count,,
+G1190,X,3.577,,dollars per gallon,,
+M8907,X,137388,,count,,
+G1294,X,11866,,count,,
+M5839,X,6,,count,,
+G584,X,74,,percent,,
+G794,X,47,,count,,

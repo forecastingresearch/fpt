@@ -1,0 +1,108 @@
+concurrency:
+  group: fpt-pipeline
+  cancel-in-progress: false
+
+
+name: Run Forecasting Data Processing Pipeline
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data_forecasting/FPT Forecasting.Rmd'
+      - 'data_forecasting/raw_data/*'
+  push:
+    branches: [main]  # This will trigger when PRs are merged to main
+    paths:
+      - 'data_forecasting/FPT Forecasting.Rmd'
+      - 'data_forecasting/raw_data/*'
+  workflow_dispatch:
+
+jobs:
+  run-rmd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+          # data/task_datasets needed for berlin numeracy
+          sparse-checkout: |
+            /*
+            !materials
+            !data_cognitive_tasks
+            !data_pilot_forecasting
+            !data_pilot_cognitive_tasks
+            data_cognitive_tasks/task_datasets
+          sparse-checkout-cone-mode: false
+
+      - name: Setup R environment variables
+        run: |
+          echo "R_LIBS_USER=${{ runner.temp }}/R" >> $GITHUB_ENV
+          mkdir -p ${{ runner.temp }}/R
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2.0'
+
+      - name: Setup Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+          
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+          
+      - name: Cache R packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: R-${{ runner.os }}-rlibs-${{ hashFiles('**/DESCRIPTION') }}
+          restore-keys: |
+            R-${{ runner.os }}-rlibs-
+          
+      - name: Install dependencies
+        run: |
+          Rscript -e 'if (!requireNamespace("rmarkdown", quietly = TRUE)) install.packages("rmarkdown")'
+          Rscript -e 'if (!requireNamespace("tidyverse", quietly = TRUE)) install.packages("tidyverse")'
+          Rscript -e 'if (!requireNamespace("jsonlite", quietly = TRUE)) install.packages("jsonlite")'
+          Rscript -e 'if (!requireNamespace("chemometrics", quietly = TRUE)) install.packages("chemometrics")'
+
+      - name: Render R Markdown
+        run: |
+          cd data_forecasting && Rscript -e "rmarkdown::render('FPT Forecasting.Rmd', params = list(LOAD_DATA_FROM_CACHE = FALSE))"
+          rm -rf "FPT-Forecasting.html"
+          
+      - name: CHANGED FILES
+        id: changed-files
+        run: |
+          CHANGED=$(git status --porcelain | awk '{print $2}')
+
+          echo "Changed files:"
+          echo "$CHANGED"
+          
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Check if there are any changes
+          if [ -n "$CHANGED" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit changes to repository
+        if: |
+          github.event_name == 'push' && 
+          github.ref == 'refs/heads/main' && 
+          steps.changed-files.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Auto-update files from R Markdown execution [skip ci]"
+          git pull --rebase origin main
+          git push

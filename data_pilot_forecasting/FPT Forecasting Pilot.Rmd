@@ -1,0 +1,266 @@
+---
+title: "FPT Study 2 Pilot Forecasting"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    number_sections: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE, fig.width=12, fig.height=9)
+```
+
+```{r}
+dirs <- c("processed_data")
+for (d in dirs) {
+  if (!dir.exists(d)) {
+    dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  }
+}
+```
+
+```{r}
+packages <- c(
+              "chemometrics",
+              "tidyverse"
+              )
+
+if (!all(packages %in% (.packages()))) {
+  # using invisible to hide output
+  invisible(lapply(packages,
+         FUN = function(x) {
+           if (!require(x, character.only = TRUE)) {
+             install.packages(x, dependencies = TRUE)
+           }
+           library(x, character.only = TRUE)
+         }))
+}
+```
+
+# Preparation
+
+## Read data file, get completed responses from each wave
+
+```{r}
+read_qualtrics_data <- function(file_name) {
+  read_csv(file_name) %>%
+    slice(-c(1,2)) %>%
+    type_convert() %>%
+    filter(Finished == 1)
+}
+
+
+dat0 <- read_qualtrics_data(file.path("raw_data", "Study 2 Pilot Wave 0 Final.csv")) %>%
+  filter(Finished == 1 & !is.na(qorder))
+
+dat1 <- read_qualtrics_data(file.path("raw_data", "Study 2 Pilot Wave 1 Final.csv")) %>%
+  filter(Finished == 1 & !is.na(qorder)) %>%
+  filter(StartDate >= as.POSIXct("2023-09-08 00:00:00"))
+```
+
+## Filter out second responses
+
+```{r}
+#remove test responses, incomplete responses, and repeated responses
+dat0 <- dat0 %>% 
+  arrange(StartDate) %>%
+  distinct(subject_id, .keep_all = TRUE)
+dat1 <- dat1 %>% 
+  arrange(StartDate) %>%
+  distinct(subject_id, .keep_all = TRUE)
+```
+
+## Select relevant columns and save forecast data in long formats
+
+```{r}
+# define which items are in which form
+sets <- data.frame(item = c("G1472", "G1588", "G1920", "M3028", "M3701", "M5839", "G1799", "G2268", "G2346", "G794", "G938", "M5680", "M8907", "G1190", "M811", "C1084", "G1189", "G1294", "G1948", "G410", "M1571", "G181", "G1461", "G1210"),
+                   form = c(rep(3, 6), rep(2, 9), rep(1, 9)))
+```
+
+```{r}
+# select and reshape forecasting data - wave 0
+dat0_long <- dat0 %>%
+    # select relevant columns
+    select(subject_id, Format, Set, qorder, Frame, grep("_s", names(dat0)), grep("_l", names(dat0))) %>%
+    select(!g_l & !g_l_alt & !date_start & !grep("Ins", names(.))) %>%
+    # move data to long format
+    pivot_longer(cols = 6:ncol(.), names_to = "item_q", values_to = "forecast") %>%
+    # create variables for item ID and quantile order
+    mutate(item = sub("_(.*)", "", item_q),
+         type = str_extract(item_q, "(?<=_)\\w(?=_)"),
+         quantile_ord = as.numeric(str_sub(item_q, -1, -1)),
+         # flip quantile order where appropriate
+         quantile_ord = ifelse((Frame == "Negative" & qorder == "descending") |
+                                 (Frame == "Positive" & qorder == "ascending"),
+                               6 - quantile_ord, quantile_ord)) %>%
+    left_join(sets) %>%
+    # filter out empty rows (items not assigned)
+    filter(Set != form) %>%
+    # filter out empty rows (format not assigned)
+    filter(((Format == "List") & type == "l") | ((Format == "Separate") & type == "s")) %>%
+    select(-Set, -type, -item_q) %>%
+    mutate(wave = 0)
+```
+
+```{r}
+# select and reshape forecasting data - wave 1
+dat1_long <- dat1 %>%
+    # select relevant columns
+    select(subject_id, Format, Set, qorder, Frame, grep("_s", names(dat1)), grep("_l", names(dat1))) %>%
+    select(!g_l & !g_l_alt & !date_start & !grep("Ins", names(.)) & !grep("_s_t", names(.)) & !grep("_l_t", names(.))) %>%
+    # move data to long format
+    pivot_longer(cols = 6:ncol(.), names_to = "item_q", values_to = "forecast") %>%
+    # create variables for item ID quantile order
+    mutate(item = sub("_(.*)", "", item_q),
+         type = str_extract(item_q, "(?<=_)\\w(?=_)"),
+         quantile_ord = as.numeric(str_sub(item_q, -1, -1)),
+         # flip quantile order where appropriate
+         quantile_ord = ifelse((Frame == "Negative" & qorder == "descending") |
+                                 (Frame == "Positive" & qorder == "ascending"),
+                               6 - quantile_ord, quantile_ord)) %>%
+    left_join(sets) %>%
+    # filter out empty rows (items not assigned)
+    filter(!((Set == "1" & form == "2") | (Set == "2" & form == "1"))) %>%
+    # filter out empty rows (format not assigned)
+    filter((Format == "List" & type == "l") | (Format == "Separate" & type == "s")) %>%
+    select(-Set, -type, -item_q) %>%
+    mutate(wave = 1)
+
+# combine wave 0 and wave 1 data
+dat01_long <- rbind(dat0_long, dat1_long)
+```
+
+# Score accuracy
+
+```{r}
+# function for calculating the s-score
+# the first argument is a vector with the quantiles that respondents were asked to forecast about
+# the second argument is a matrix with each column a quantile and each row a response that has a forecast for the respective quantile
+# the third argument is a vector that indicates the correct answer corresponding to each response
+sscore <- function(ps, qs, tr){
+  scrs <- matrix(NA, nrow = nrow(qs), ncol = ncol(qs))
+  for(i in 1:nrow(qs)){
+    for(j in 1:ncol(scrs)){
+      scrs[i, j] <- ps[j] * max(tr[i] - qs[i,j], 0) + (1 - ps[j]) * max(qs[i,j] - tr[i], 0)
+    }
+  }
+  scrs <- data.frame(scrs)
+  names(scrs) <- ps
+  scrs$total_score <- rowSums(scrs[, 1:ncol(qs)])
+  return(scrs)
+}
+```
+
+```{r}
+#load resolutions
+resolution <- read_csv(file.path("raw_data", "Resolutions.csv"))
+```
+
+```{r}
+# move forecasting data to wide format
+# merge resolutions with forecasting data
+# apply s-score
+dat01_sscores <- dat01_long %>%
+    pivot_wider(names_from = quantile_ord, values_from = forecast) %>%
+    filter(if_all(c('1', '2', '3', '4', '5'), ~ !is.na(.))) %>%
+    # add resolutions
+    left_join(resolution, by = "item") %>%
+    rowwise() %>%
+    mutate(
+      sscores = list(sscore(
+        c(0.05, 0.25, 0.5, 0.75, 0.95),
+        matrix(c_across(`1`:`5`), ncol = 5),
+        resolution
+      ))
+    ) %>%
+    ungroup() %>%
+    mutate(sscores = map(sscores, as_tibble)) %>%
+    unnest(sscores)
+```
+
+```{r}
+# calculate winsorized standardized s-score
+dat01_standscores <- dat01_sscores %>%
+    group_by(wave, item) %>%
+    # trimmed 80% mean and sd for each item
+    mutate(sscore_mean = mean(total_score, trim = 0.2),
+           sscore_sd = sd_trim(total_score, trim = 0.2)) %>%
+    # calculate standardized s-score
+    mutate(sscore_standardized = (total_score - sscore_mean)/sscore_sd) %>%
+    # winsorize at 5 sds
+    mutate(sscore_standardized = ifelse(sscore_standardized >= 5, 5, sscore_standardized)) %>%
+    select(-sscore_mean, -sscore_sd)
+```
+
+```{r}
+write.csv(dat01_standscores, file.path("processed_data", "pilot scores.csv"), row.names = F)
+```
+
+# Score consistency - wave 0 only
+
+```{r}
+# define quantile values (since they are only listed as 1:5) and merge them with data 
+quantiles <- data.frame(quantile_ord = c(1, 2, 3, 4, 5),
+                        quantile = c(5, 25, 50, 75, 95))
+
+dat0_long <- dat0_long %>% left_join(quantiles, by="quantile_ord")
+```
+
+```{r}
+# extract piped-in bin boundaries for probability format questions
+dat0_boundaries <- dat0 %>%
+    select(subject_id, Set, G1210_p1:M811_p4) %>%
+    # name the variable of boundary as "forecast" for combining with quantile forecasts
+    pivot_longer(cols = 3:ncol(.), names_to = "item_p", values_to = "forecast") %>% 
+    mutate(item = sub("_(.*)", "", item_p),
+    quantile_ord = as.numeric(str_sub(item_p, -1, -1)) + .5) %>%
+    left_join(sets) %>%
+    filter(form != Set) %>%
+    select(-item_p, -Set, -form)
+```
+
+```{r}
+# extract probability forecasts and merge with piped-in bin boundaries
+dat0_prob <- dat0 %>%
+    select(subject_id, Format, Set, qorder, Frame, grep("_p_", names(dat0))) %>%
+    # name the variable of probability forecasts as "quantile" for combining with quantile forecasts
+    pivot_longer(cols = 6:ncol(.), names_to = "item_p", values_to = "quantile") %>%
+    mutate(item = sub("_(.*)", "", item_p),
+    quantile_ord = as.numeric(str_sub(item_p, -1, -1)) + .5) %>%
+    left_join(sets) %>%
+    filter(form != Set) %>%
+    select(-item_p, -Set) %>%
+    left_join(dat0_boundaries)
+    
+# convert to cumulative probabilities
+dat0_cumprob <- dat0_prob %>% group_by(subject_id, item) %>%
+    mutate(quantile = cumsum(quantile)) %>%
+    filter(quantile_ord != 5.5) %>%
+    mutate(wave = 0)
+
+# combine probability and quantile forecasts
+dat0_cumprob$forecast <- as.numeric(dat0_cumprob$forecast)
+dat0_quantprob <- rbind(dat0_long, dat0_cumprob)
+```
+
+```{r}
+# calculate rank correlation between a list of quantiles and their corresponding values
+# to decide the level of consistency in forecasts across quantile and probability formats
+dat0_tau <- dat0_quantprob %>% group_by(subject_id, wave, Format, Frame, qorder, form, item) %>%
+    summarize(tau = cor(forecast, quantile, method = "kendall")) %>%
+    filter(!is.na(tau))
+```
+
+```{r}
+write.csv(dat0_tau, file.path("processed_data", "consistency scores.csv"), row.names = F)
+```
+
+
+
+

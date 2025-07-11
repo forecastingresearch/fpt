@@ -1,0 +1,777 @@
+trial_type,trial_index,time_elapsed,internal_node_id,subject_id,form,wave,session_id,session_restart_id,trial_name,experiment_parameters,task_denominator_neglect_version_A,task_denominator_neglect_version_B,data_checkpoint,data_checkpoint_ind,view_history,rt,custom_timer_ended_trial,interval_id,stimulus,response,pt_trial,block,trial,task_version,choice_type,left_lottery_display_type,right_lottery_display_type,left_lottery_type,right_lottery_type,left_lottery_gold_prop,right_lottery_gold_prop,left_lottery_total_coins,right_lottery_total_coins,left_lottery_gold_coins,right_lottery_gold_coins,left_lottery_silver_coins,right_lottery_silver_coins,selected_lottery,coin_drawn
+call-function,0,10,0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+call-function,1,11,0.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,session_parameters,"{'INSTRUCTIONS_ONLY': False, 'IGNORE_VALIDATION': False, 'SKIP_INTRO_TRIALS': True, 'TEST_EXCLUSION_CRITERIA': False, 'SIMULATE': False, 'SIMULATE_TRIAL_DURATION': 250}","{'SHOW_TASK': True, 'SHORT_VERSION': True, 'TASK_ORDER_INDEX': 13, 'USE_ANCHOR_VERSION': False, 'TASK_VERSION': 'A', 'TRIAL_CHOICE_TYPES': ['conflict', 'harmony'], 'SMALL_LOTTERY_GOLD_COIN_PROPS': [0.1, 0.2, 0.3], 'LARGE_LOTTERY_GOLD_COIN_PROP_RANGE_DIFF': [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08], 'DENOMINATOR_DISPLAY_TYPES': {'task_version_A': [{'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'text'}], 'task_version_B': [{'small': 'both', 'large': 'both'}]}, 'LOTTERY_TOTAL_COINS': {'small': 10, 'large': 400}, 'TRIAL_TIME_LIMIT': 5000, 'GOLD_COINS_COUNTER': 0, 'ANCHOR_FORM_DATA': {'task_version_A': {'left_lottery_types': ['small', 'large', 'large', 'large', 'small', 'small', 'large', 'small', 'small', 'large', 'small', 'large', 'small', 'large', 'large', 'small', 'large', 'large', 'small', 'large', 'small', 'small', 'large', 'small', 'large', 'small', 'large', 'large', 'small', 'small', 'small', 'small', 'small', 'small', 'small', 'large', 'small', 'large', 'large', 'small', 'large', 'small', 'small', 'large', 'large', 'large', 'large', 'large'], 'denominator_display_types': {'conflict': [{'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'text'}], 'harmony': [{'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}]}, 'left_lottery_gold_prop': [0.2, 0.29, 0.27, 0.28, 0.2, 0.3, 0.07, 0.3, 0.1, 0.36, 0.1, 0.28, 0.1, 0.14, 0.18, 0.2, 0.26, 0.25, 0.2, 0.13, 0.2, 0.3, 0.18, 0.2, 0.12, 0.1, 0.25, 0.23, 0.2, 0.3, 0.2, 0.3, 0.3, 0.2, 0.1, 0.16, 0.1, 0.31, 0.27, 0.1, 0.19, 0.1, 0.3, 0.26, 0.05, 0.34, 0.06, 0.24], 'right_lottery_gold_prop': [0.22, 0.3, 0.2, 0.2, 0.13, 0.37, 0.1, 0.24, 0.03, 0.3, 0.09, 0.3, 0.15, 0.1, 0.1, 0.15, 0.2, 0.3, 0.21, 0.1, 0.12, 0.38, 0.2, 0.14, 0.1, 0.17, 0.2, 0.3, 0.23, 0.32, 0.17, 0.22, 0.35, 0.16, 0.02, 0.1, 0.11, 0.3, 0.3, 0.04, 0.2, 0.08, 0.33, 0.3, 0.1, 0.3, 0.1, 0.2], 'left_lottery_total_coins': [10, 400, 400, 400, 10, 10, 400, 10, 10, 400, 10, 400, 10, 400, 400, 10, 400, 400, 10, 400, 10, 10, 400, 10, 400, 10, 400, 400, 10, 10, 10, 10, 10, 10, 10, 400, 10, 400, 400, 10, 400, 10, 10, 400, 400, 400, 400, 400], 'right_lottery_total_coins': [400, 10, 10, 10, 400, 400, 10, 400, 400, 10, 400, 10, 400, 10, 10, 400, 10, 10, 400, 10, 400, 400, 10, 400, 10, 400, 10, 10, 400, 400, 400, 400, 400, 400, 400, 10, 400, 10, 10, 400, 10, 400, 400, 10, 10, 10, 10, 10]}, 'task_version_B': {'left_lottery_types': ['small', 'small', 'large', 'large', 'small', 'small', 'large', 'small', 'small', 'large', 'large', 'small', 'large', 'small', 'large', 'large', 'large', 'small', 'large', 'small', 'small', 'large', 'large', 'small', 'small', 'large', 'large', 'small', 'small', 'large', 'large', 'small', 'small', 'large', 'small', 'large', 'small', 'large', 'small', 'large', 'small', 'small', 'small', 'large', 'large', 'large', 'small', 'large'], 'denominator_display_types': {'conflict': [{'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}], 'harmony': [{'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}]}, 'left_lottery_gold_prop': [0.2, 0.3, 0.24, 0.14, 0.1, 0.2, 0.35, 0.1, 0.3, 0.07, 0.09, 0.3, 0.18, 0.1, 0.34, 0.22, 0.32, 0.3, 0.27, 0.1, 0.3, 0.08, 0.15, 0.1, 0.1, 0.25, 0.29, 0.1, 0.2, 0.18, 0.16, 0.3, 0.2, 0.33, 0.3, 0.38, 0.2, 0.17, 0.2, 0.26, 0.2, 0.3, 0.2, 0.02, 0.04, 0.12, 0.1, 0.27], 'right_lottery_gold_prop': [0.13, 0.25, 0.3, 0.1, 0.03, 0.23, 0.3, 0.05, 0.31, 0.1, 0.1, 0.22, 0.2, 0.16, 0.3, 0.2, 0.3, 0.26, 0.3, 0.15, 0.23, 0.1, 0.2, 0.11, 0.13, 0.2, 0.3, 0.12, 0.14, 0.1, 0.2, 0.37, 0.19, 0.3, 0.36, 0.3, 0.24, 0.1, 0.21, 0.2, 0.28, 0.28, 0.17, 0.1, 0.1, 0.2, 0.06, 0.2], 'left_lottery_total_coins': [10, 10, 400, 400, 10, 10, 400, 10, 10, 400, 400, 10, 400, 10, 400, 400, 400, 10, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 10, 400, 10, 400, 10, 400, 10, 10, 10, 400, 400, 400, 10, 400], 'right_lottery_total_coins': [400, 400, 10, 10, 400, 400, 10, 400, 400, 10, 10, 400, 10, 400, 10, 10, 10, 400, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 400, 10, 400, 10, 400, 10, 400, 400, 400, 10, 10, 10, 400, 10]}}, 'PT_TRIALS_N': 8, 'PT_TRIALS_PER_BLOCK': 8, 'PT_BLOCKS': 1, 'TEST_TRIALS_N': 8, 'TEST_TRIALS_PER_BLOCK': 8, 'TEST_BLOCKS': 1}","{'SHOW_TASK': True, 'SHORT_VERSION': True, 'TASK_ORDER_INDEX': 14, 'USE_ANCHOR_VERSION': False, 'TASK_VERSION': 'B', 'TRIAL_CHOICE_TYPES': ['conflict', 'harmony'], 'SMALL_LOTTERY_GOLD_COIN_PROPS': [0.1, 0.2, 0.3], 'LARGE_LOTTERY_GOLD_COIN_PROP_RANGE_DIFF': [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08], 'DENOMINATOR_DISPLAY_TYPES': {'task_version_A': [{'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'text'}], 'task_version_B': [{'small': 'both', 'large': 'both'}]}, 'LOTTERY_TOTAL_COINS': {'small': 10, 'large': 400}, 'TRIAL_TIME_LIMIT': 5000, 'GOLD_COINS_COUNTER': 0, 'ANCHOR_FORM_DATA': {'task_version_A': {'left_lottery_types': ['small', 'large', 'large', 'large', 'small', 'small', 'large', 'small', 'small', 'large', 'small', 'large', 'small', 'large', 'large', 'small', 'large', 'large', 'small', 'large', 'small', 'small', 'large', 'small', 'large', 'small', 'large', 'large', 'small', 'small', 'small', 'small', 'small', 'small', 'small', 'large', 'small', 'large', 'large', 'small', 'large', 'small', 'small', 'large', 'large', 'large', 'large', 'large'], 'denominator_display_types': {'conflict': [{'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'text'}], 'harmony': [{'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'text'}, {'small': 'text', 'large': 'array'}, {'small': 'text', 'large': 'array'}, {'small': 'array', 'large': 'text'}, {'small': 'text', 'large': 'text'}, {'small': 'array', 'large': 'array'}, {'small': 'text', 'large': 'array'}]}, 'left_lottery_gold_prop': [0.2, 0.29, 0.27, 0.28, 0.2, 0.3, 0.07, 0.3, 0.1, 0.36, 0.1, 0.28, 0.1, 0.14, 0.18, 0.2, 0.26, 0.25, 0.2, 0.13, 0.2, 0.3, 0.18, 0.2, 0.12, 0.1, 0.25, 0.23, 0.2, 0.3, 0.2, 0.3, 0.3, 0.2, 0.1, 0.16, 0.1, 0.31, 0.27, 0.1, 0.19, 0.1, 0.3, 0.26, 0.05, 0.34, 0.06, 0.24], 'right_lottery_gold_prop': [0.22, 0.3, 0.2, 0.2, 0.13, 0.37, 0.1, 0.24, 0.03, 0.3, 0.09, 0.3, 0.15, 0.1, 0.1, 0.15, 0.2, 0.3, 0.21, 0.1, 0.12, 0.38, 0.2, 0.14, 0.1, 0.17, 0.2, 0.3, 0.23, 0.32, 0.17, 0.22, 0.35, 0.16, 0.02, 0.1, 0.11, 0.3, 0.3, 0.04, 0.2, 0.08, 0.33, 0.3, 0.1, 0.3, 0.1, 0.2], 'left_lottery_total_coins': [10, 400, 400, 400, 10, 10, 400, 10, 10, 400, 10, 400, 10, 400, 400, 10, 400, 400, 10, 400, 10, 10, 400, 10, 400, 10, 400, 400, 10, 10, 10, 10, 10, 10, 10, 400, 10, 400, 400, 10, 400, 10, 10, 400, 400, 400, 400, 400], 'right_lottery_total_coins': [400, 10, 10, 10, 400, 400, 10, 400, 400, 10, 400, 10, 400, 10, 10, 400, 10, 10, 400, 10, 400, 400, 10, 400, 10, 400, 10, 10, 400, 400, 400, 400, 400, 400, 400, 10, 400, 10, 10, 400, 10, 400, 400, 10, 10, 10, 10, 10]}, 'task_version_B': {'left_lottery_types': ['small', 'small', 'large', 'large', 'small', 'small', 'large', 'small', 'small', 'large', 'large', 'small', 'large', 'small', 'large', 'large', 'large', 'small', 'large', 'small', 'small', 'large', 'large', 'small', 'small', 'large', 'large', 'small', 'small', 'large', 'large', 'small', 'small', 'large', 'small', 'large', 'small', 'large', 'small', 'large', 'small', 'small', 'small', 'large', 'large', 'large', 'small', 'large'], 'denominator_display_types': {'conflict': [{'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}], 'harmony': [{'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}, {'small': 'both', 'large': 'both'}]}, 'left_lottery_gold_prop': [0.2, 0.3, 0.24, 0.14, 0.1, 0.2, 0.35, 0.1, 0.3, 0.07, 0.09, 0.3, 0.18, 0.1, 0.34, 0.22, 0.32, 0.3, 0.27, 0.1, 0.3, 0.08, 0.15, 0.1, 0.1, 0.25, 0.29, 0.1, 0.2, 0.18, 0.16, 0.3, 0.2, 0.33, 0.3, 0.38, 0.2, 0.17, 0.2, 0.26, 0.2, 0.3, 0.2, 0.02, 0.04, 0.12, 0.1, 0.27], 'right_lottery_gold_prop': [0.13, 0.25, 0.3, 0.1, 0.03, 0.23, 0.3, 0.05, 0.31, 0.1, 0.1, 0.22, 0.2, 0.16, 0.3, 0.2, 0.3, 0.26, 0.3, 0.15, 0.23, 0.1, 0.2, 0.11, 0.13, 0.2, 0.3, 0.12, 0.14, 0.1, 0.2, 0.37, 0.19, 0.3, 0.36, 0.3, 0.24, 0.1, 0.21, 0.2, 0.28, 0.28, 0.17, 0.1, 0.1, 0.2, 0.06, 0.2], 'left_lottery_total_coins': [10, 10, 400, 400, 10, 10, 400, 10, 10, 400, 400, 10, 400, 10, 400, 400, 400, 10, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 10, 400, 10, 400, 10, 400, 10, 10, 10, 400, 400, 400, 10, 400], 'right_lottery_total_coins': [400, 400, 10, 10, 400, 400, 10, 400, 400, 10, 10, 400, 10, 400, 10, 10, 10, 400, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 10, 400, 400, 10, 400, 10, 400, 10, 400, 10, 400, 400, 400, 10, 10, 10, 400, 10]}}, 'PT_TRIALS_N': 8, 'PT_TRIALS_PER_BLOCK': 8, 'PT_BLOCKS': 1, 'TEST_TRIALS_N': 8, 'TEST_TRIALS_PER_BLOCK': 8, 'TEST_BLOCKS': 1}",,,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,2,11,0.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,async_data_save,,,,experiment__save_session_params,0.0,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,3,13,0.0-3.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,async_data_save,,,,experiment__welcome,1.0,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,3,13,0.0-3.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,async_data_save,,,,experiment__welcome,1.0,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,4,61,0.0-4.0-0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+call-function,5,221,0.0-4.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+instructions,6,55491,0.0-4.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_general_instructions,,,,,,"[{'page_index': 0, 'viewing_time': 24303}, {'page_index': 1, 'viewing_time': 30967}]",55270.0,False,4.0,,,,,,,,,,,,,,,,,,,,,
+call-function,7,55496,0.0-4.0-3.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+instructions,8,66664,0.0-4.0-4.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_pt_trials_instructions,,,,,,"[{'page_index': 0, 'viewing_time': 11168}]",11168.0,False,5.0,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,9,66973,0.0-4.0-5.0-0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,10,77454,0.0-4.0-5.0-0.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,10479.0,False,7.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,0.0,A,conflict,text,text,small,large,0.1,0.07,10.0,400.0,1.0,28.0,9.0,372.0,left,silver
+html-keyboard-response,11,78472,0.0-4.0-5.0-0.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,12,78786,0.0-4.0-5.0-0.0-0.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,13,91102,0.0-4.0-5.0-0.0-1.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,12314.0,False,10.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,1.0,A,conflict,array,text,small,large,0.3,0.2299999999999999,10.0,400.0,3.0,92.0,7.0,308.0,left,silver
+html-keyboard-response,14,92104,0.0-4.0-5.0-0.0-2.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,15,92410,0.0-4.0-5.0-0.0-0.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,16,106916,0.0-4.0-5.0-0.0-1.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,14504.0,False,13.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,2.0,A,conflict,text,array,small,large,0.3,0.2799999999999999,10.0,400.0,3.0,112.0,7.0,288.0,right,silver
+html-keyboard-response,17,107933,0.0-4.0-5.0-0.0-2.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,18,108238,0.0-4.0-5.0-0.0-0.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,19,117241,0.0-4.0-5.0-0.0-1.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,9001.0,False,16.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,3.0,A,harmony,text,array,small,large,0.3,0.38,10.0,400.0,3.0,152.0,7.0,248.0,right,gold
+html-keyboard-response,20,118245,0.0-4.0-5.0-0.0-2.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,21,118558,0.0-4.0-5.0-0.0-0.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,22,131147,0.0-4.0-5.0-0.0-1.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,12587.0,False,20.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,4.0,A,harmony,text,array,large,small,0.35,0.3,400.0,10.0,140.0,3.0,260.0,7.0,left,silver
+html-keyboard-response,23,132162,0.0-4.0-5.0-0.0-2.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,24,132465,0.0-4.0-5.0-0.0-0.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,25,141250,0.0-4.0-5.0-0.0-1.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,8784.0,False,23.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,5.0,A,harmony,text,text,large,small,0.21,0.2,400.0,10.0,84.0,2.0,316.0,8.0,left,silver
+html-keyboard-response,26,142259,0.0-4.0-5.0-0.0-2.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,27,142563,0.0-4.0-5.0-0.0-0.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,28,147611,0.0-4.0-5.0-0.0-1.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,5046.0,False,26.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,6.0,A,conflict,array,text,large,small,0.15,0.2,400.0,10.0,60.0,2.0,340.0,8.0,right,gold
+html-keyboard-response,29,148617,0.0-4.0-5.0-0.0-2.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,30,148930,0.0-4.0-5.0-0.0-0.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,31,153424,0.0-4.0-5.0-0.0-1.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,4492.0,False,30.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,7.0,A,conflict,array,array,large,small,0.04,0.1,400.0,10.0,16.0,1.0,384.0,9.0,right,silver
+html-keyboard-response,32,154439,0.0-4.0-5.0-0.0-2.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+instructions,33,195964,0.0-4.0-6.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_test_trials_instructions,,,,,,"[{'page_index': 0, 'viewing_time': 41525}]",41525.0,False,32.0,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,34,196279,0.0-4.0-7.0-0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,35,211245,0.0-4.0-7.0-0.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,14965.0,False,34.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,0.0,A,conflict,array,array,large,small,0.12,0.2,400.0,10.0,48.0,2.0,352.0,8.0,right,silver
+html-keyboard-response,36,212249,0.0-4.0-7.0-0.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,37,212554,0.0-4.0-7.0-0.0-0.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,38,217616,0.0-4.0-7.0-0.0-1.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,5058.0,False,37.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,1.0,A,harmony,array,text,large,small,0.37,0.3,400.0,10.0,148.0,3.0,252.0,7.0,left,silver
+html-keyboard-response,39,218620,0.0-4.0-7.0-0.0-2.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,40,218925,0.0-4.0-7.0-0.0-0.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,41,233338,0.0-4.0-7.0-0.0-1.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,14412.0,False,40.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,2.0,A,conflict,text,text,large,small,0.13,0.2,400.0,10.0,52.0,2.0,348.0,8.0,right,silver
+html-keyboard-response,42,234351,0.0-4.0-7.0-0.0-2.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,43,234652,0.0-4.0-7.0-0.0-0.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,44,245436,0.0-4.0-7.0-0.0-1.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,10783.0,False,43.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,3.0,A,harmony,array,text,small,large,0.2,0.28,10.0,400.0,2.0,112.0,8.0,288.0,right,silver
+html-keyboard-response,45,246441,0.0-4.0-7.0-0.0-2.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,46,246745,0.0-4.0-7.0-0.0-0.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,47,250826,0.0-4.0-7.0-0.0-1.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,4078.0,False,46.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,4.0,A,conflict,array,array,small,large,0.1,0.04,10.0,400.0,1.0,16.0,9.0,384.0,left,silver
+html-keyboard-response,48,251836,0.0-4.0-7.0-0.0-2.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,49,252146,0.0-4.0-7.0-0.0-0.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,50,268269,0.0-4.0-7.0-0.0-1.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,,True,49.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",,False,0.0,5.0,A,harmony,text,array,small,large,0.2,0.21,10.0,400.0,2.0,84.0,8.0,316.0,,
+html-keyboard-response,51,269279,0.0-4.0-7.0-0.0-2.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: red;"">X<br><br>TOO SLOW</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,52,269590,0.0-4.0-7.0-0.0-0.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,53,276803,0.0-4.0-7.0-0.0-1.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,7212.0,False,52.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,6.0,A,conflict,text,text,large,small,0.17,0.2,400.0,10.0,68.0,2.0,332.0,8.0,right,silver
+html-keyboard-response,54,277808,0.0-4.0-7.0-0.0-2.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,55,278114,0.0-4.0-7.0-0.0-0.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,56,282585,0.0-4.0-7.0-0.0-1.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,4468.0,False,55.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" style='visibility: hidden'"">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,7.0,A,harmony,array,text,small,large,0.2,0.23,10.0,400.0,2.0,92.0,8.0,308.0,right,silver
+html-keyboard-response,57,283598,0.0-4.0-7.0-0.0-2.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+call-function,58,283598,0.0-4.0-8.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+html-button-response,59,359081,0.0-4.0-9.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,feedback_Denominator Neglect_A,,,,,,,75480.0,,,"
+                    <p class=""instructions-title"">Feedback?</p>
+                    <p>If something went wrong during the last task or you think we can improve it, please leave any and all comments you have here.</p>
+                    <div style=""margin-bottom: 3vh"">
+                        <textarea id=""task_feedback"" style=""width: 50vw; height: 15vh;""></textarea>
+                    </div>
+                ","You should clarify that the point is to maximize the likelihood of picking a gold coin. The implicit feedback when you pick a silver coin is that you made the wrong choice, even if the likelihood of picking a gold coin was higher. For the training sets the animation was too fast to understand what was happening. It should be slowed down. 
+",,,,,,,,,,,,,,,,,,,
+call-function,60,359094,0.0-4.0-10.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,61,359096,0.0-4.0-12.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,async_data_save,,,,Denominator Neglect_A__completed,2.0,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,62,359097,0.0-6.0-0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+call-function,63,359272,0.0-6.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+instructions,64,389736,0.0-6.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_general_instructions,,,,,,"[{'page_index': 0, 'viewing_time': 30463}]",30463.0,False,59.0,,,,,,,,,,,,,,,,,,,,,
+call-function,65,389750,0.0-6.0-3.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+instructions,66,392996,0.0-6.0-4.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_pt_trials_instructions,,,,,,"[{'page_index': 0, 'viewing_time': 3245}]",3245.0,False,60.0,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,67,393301,0.0-6.0-5.0-0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,68,401743,0.0-6.0-5.0-0.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,8441.0,False,62.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,0.0,B,conflict,both,both,small,large,0.2,0.12,10.0,400.0,2.0,48.0,8.0,352.0,left,gold
+html-keyboard-response,69,402774,0.0-6.0-5.0-0.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,70,403083,0.0-6.0-5.0-0.0-0.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,71,409076,0.0-6.0-5.0-0.0-1.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,5990.0,False,66.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,1.0,B,conflict,both,both,large,small,0.15,0.2,400.0,10.0,60.0,2.0,340.0,8.0,right,gold
+html-keyboard-response,72,410122,0.0-6.0-5.0-0.0-2.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,73,410429,0.0-6.0-5.0-0.0-0.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,74,417912,0.0-6.0-5.0-0.0-1.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,7479.0,False,70.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,2.0,B,harmony,both,both,large,small,0.3299999999999999,0.3,400.0,10.0,132.0,3.0,268.0,7.0,left,silver
+html-keyboard-response,75,418929,0.0-6.0-5.0-0.0-2.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,76,419242,0.0-6.0-5.0-0.0-0.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,77,424220,0.0-6.0-5.0-0.0-1.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,4976.0,False,73.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,3.0,B,conflict,both,both,large,small,0.25,0.3,400.0,10.0,100.0,3.0,300.0,7.0,right,silver
+html-keyboard-response,78,425316,0.0-6.0-5.0-0.0-2.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,79,425624,0.0-6.0-5.0-0.0-0.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,80,429575,0.0-6.0-5.0-0.0-1.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,3949.0,False,76.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,4.0,B,conflict,both,both,small,large,0.1,0.02,10.0,400.0,1.0,8.0,9.0,392.0,left,silver
+html-keyboard-response,81,430650,0.0-6.0-5.0-0.0-2.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,82,430951,0.0-6.0-5.0-0.0-0.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,83,434860,0.0-6.0-5.0-0.0-1.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,3906.0,False,79.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,5.0,B,harmony,both,both,large,small,0.13,0.1,400.0,10.0,52.0,1.0,348.0,9.0,left,silver
+html-keyboard-response,84,435983,0.0-6.0-5.0-0.0-2.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,85,436295,0.0-6.0-5.0-0.0-0.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,86,440021,0.0-6.0-5.0-0.0-1.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,3722.0,False,82.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,True,0.0,6.0,B,harmony,both,both,small,large,0.1,0.13,10.0,400.0,1.0,52.0,9.0,348.0,right,silver
+html-keyboard-response,87,441037,0.0-6.0-5.0-0.0-2.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,88,441352,0.0-6.0-5.0-0.0-0.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,89,446023,0.0-6.0-5.0-0.0-1.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,4668.0,False,85.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,True,0.0,7.0,B,harmony,both,both,small,large,0.2,0.28,10.0,400.0,2.0,112.0,8.0,288.0,left,silver
+html-keyboard-response,90,447033,0.0-6.0-5.0-0.0-2.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+instructions,91,451827,0.0-6.0-6.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_test_trials_instructions,,,,,,"[{'page_index': 0, 'viewing_time': 4792}]",4793.0,False,87.0,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,92,452137,0.0-6.0-7.0-0.0-0.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,93,455035,0.0-6.0-7.0-0.0-1.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,2896.0,False,89.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,0.0,B,conflict,both,both,small,large,0.1,0.04,10.0,400.0,1.0,16.0,9.0,384.0,left,silver
+html-keyboard-response,94,456048,0.0-6.0-7.0-0.0-2.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,95,456359,0.0-6.0-7.0-0.0-0.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,96,461578,0.0-6.0-7.0-0.0-1.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,5215.0,False,92.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,1.0,B,harmony,both,both,small,large,0.3,0.3299999999999999,10.0,400.0,3.0,132.0,7.0,268.0,right,gold
+html-keyboard-response,97,462583,0.0-6.0-7.0-0.0-2.1,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,98,462894,0.0-6.0-7.0-0.0-0.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,99,465468,0.0-6.0-7.0-0.0-1.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,2570.0,False,96.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowright,False,0.0,2.0,B,conflict,both,both,large,small,0.03,0.1,400.0,10.0,12.0,1.0,388.0,9.0,right,silver
+html-keyboard-response,100,466482,0.0-6.0-7.0-0.0-2.2,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,101,466797,0.0-6.0-7.0-0.0-0.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,102,470027,0.0-6.0-7.0-0.0-1.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,3227.0,False,99.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,3.0,B,conflict,both,both,small,large,0.2,0.15,10.0,400.0,2.0,60.0,8.0,340.0,left,silver
+html-keyboard-response,103,471044,0.0-6.0-7.0-0.0-2.3,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,104,471355,0.0-6.0-7.0-0.0-0.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,105,473804,0.0-6.0-7.0-0.0-1.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,2446.0,False,102.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,4.0,B,conflict,both,both,small,large,0.2,0.17,10.0,400.0,2.0,68.0,8.0,332.0,left,gold
+html-keyboard-response,106,474819,0.0-6.0-7.0-0.0-2.4,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,107,475130,0.0-6.0-7.0-0.0-0.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,108,478592,0.0-6.0-7.0-0.0-1.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,3461.0,False,106.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,5.0,B,harmony,both,both,large,small,0.17,0.1,400.0,10.0,68.0,1.0,332.0,9.0,left,gold
+html-keyboard-response,109,479610,0.0-6.0-7.0-0.0-2.5,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: gold; line-height: 2em;"">You drew a <b>gold coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,110,479922,0.0-6.0-7.0-0.0-0.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,111,482826,0.0-6.0-7.0-0.0-1.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,2900.0,False,110.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,6.0,B,harmony,both,both,large,small,0.12,0.1,400.0,10.0,48.0,1.0,352.0,9.0,left,silver
+html-keyboard-response,112,483944,0.0-6.0-7.0-0.0-2.6,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,113,484255,0.0-6.0-7.0-0.0-0.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,fixation_cross,,,,,,,,,,"<div class=""fixation-cross"">+</div>",,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,114,488984,0.0-6.0-7.0-0.0-1.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_main_trial_version_A,,,,,,,4727.0,False,113.0,"<div id=""lottery_labels_container"">
+                            <div>Lottery 1</div>
+                            <div>Lottery 2</div>
+                        </div>
+                        <div id=""lottery_text_desc_container"">
+                            <div id=""lottery_left_text"" class=""lottery_text""></div>
+                            <div id=""lottery_right_text"" class=""lottery_text""></div>
+                        </div>
+                        <div id=""lotteries_container"">
+                            <div id=""lottery_left_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_left"" class=""lottery""></div>
+                            </div>
+                            <div id=""lottery_right_parent"" class=""lottery_parent"" "">
+                                <div id=""lottery_right"" class=""lottery""></div>
+                            </div>
+                        </div>
+                        <div id=""lottery_choices"">
+                            <div class=""lottery_choice""><span>Draw from Lottery 1</span><br><span><i>left arrow</i></span></div>
+                            <div class=""lottery_choice""><span>Draw from Lottery 2</span><br><span><i>right arrow</i></span></div>
+                        </div>
+                ",arrowleft,False,0.0,7.0,B,harmony,both,both,large,small,0.22,0.2,400.0,10.0,88.0,2.0,312.0,8.0,left,silver
+html-keyboard-response,115,489993,0.0-6.0-7.0-0.0-2.7,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,dn_trial_feedback,,,,,,,,,,"<p style=""font-size: 3em; color: white; line-height: 2em;"">You drew a <b>silver coin</b>.</p>",,,,,,,,,,,,,,,,,,,,
+call-function,116,489993,0.0-6.0-8.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+html-button-response,117,494975,0.0-6.0-9.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,feedback_Denominator Neglect_B,,,,,,,4981.0,,,"
+                    <p class=""instructions-title"">Feedback?</p>
+                    <p>If something went wrong during the last task or you think we can improve it, please leave any and all comments you have here.</p>
+                    <div style=""margin-bottom: 3vh"">
+                        <textarea id=""task_feedback"" style=""width: 50vw; height: 15vh;""></textarea>
+                    </div>
+                ",,,,,,,,,,,,,,,,,,,,
+call-function,118,494976,0.0-6.0-10.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,119,494977,0.0-6.0-12.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,async_data_save,,,,Denominator Neglect_B__completed,3.0,,,,,,,,,,,,,,,,,,,,,,,,,
+call-function,120,494977,0.0-8.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+html-keyboard-response,121,494977,0.0-9.0,WO3NjfK50omdyEr0ZlfD,all,,aEdnvIXR0mxEaazdxwzbiAcJWL,v1cIYiPkh9BvytBvpaF6XsLIJD,async_data_save,,,,experiment__completed,4.0,,,,,,,,,,,,,,,,,,,,,,,,,
